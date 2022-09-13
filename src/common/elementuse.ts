@@ -1,6 +1,7 @@
-import { ElDrawer } from 'element-plus'
+import { ElDrawer ,ElButton} from 'element-plus'
 function elementuse(app: any) {
-    app.component('el-drawer', ElDrawer)
+    app.component(ElDrawer.name, ElDrawer)
+    app.component(ElButton.name, ElButton)
 }
 
 export default elementuse

@@ -107,6 +107,16 @@ class EditConfig {
         }
         this.event.emit("onLineChange")
     }
+    removeLine(line:line){
+        this.lines = this.lines.filter(item=>{
+            return item.id != line.id
+        })
+        // console.log(this.lines)
+        // delete this.lineMap[line.endPosition.id]
+        // delete this.lineMap[line.startPosition.id]
+        this.event.emit("onLineChange")
+
+    }
 
     onQuitEitNode(func: Function) {
         this.event.on('onQuitEitNode', func)
