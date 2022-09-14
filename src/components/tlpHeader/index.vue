@@ -6,6 +6,7 @@
             <i class="icon iconfont icon-fanchexiao menu"></i>
             <div class="model">模版</div>
             <el-button type="primary">部署 </el-button>
+            <el-button type="primary" @click="getinfo">数据导出 </el-button>
             <i class="icon iconfont icon-caidan menu"></i>
         </div>
     </div>
@@ -13,12 +14,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import editConfig from "@common/editConfig";
 export default defineComponent({
     setup() {
+        const getinfo = () => {
+            editConfig.getJson()
+        }
 
-
-        return {}
+        return {getinfo}
     }
 })
 </script>

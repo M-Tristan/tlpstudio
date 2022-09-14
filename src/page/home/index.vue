@@ -8,12 +8,11 @@
                     default-active="1" text-color="#fff" style="border:0px">
                     <el-sub-menu index="1">
                         <template #title>
-
                             <span>IOT</span>
                         </template>
                         <el-menu-item-group title="Group One">
                             <el-menu-item index="1-1" @click="create('start')">start</el-menu-item>
-                            <el-menu-item index="1-2">item two</el-menu-item>
+                            <el-menu-item index="1-2" @click="create('end')">end</el-menu-item>
                         </el-menu-item-group>
                         <el-menu-item-group title="Group Two">
                             <el-menu-item index="1-3">item three</el-menu-item>

@@ -79,7 +79,8 @@ export default defineComponent({
       showEditLine.value = false;
     });
     editConfig.onLineChange(function () {
-      lines.value = _.cloneDeep(editConfig.lines);
+      // console.log(editConfig.lines)
+      lines.value = editConfig.lines;
     });
 
     onBeforeUnmount(() => {
