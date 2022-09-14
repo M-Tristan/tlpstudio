@@ -1,20 +1,17 @@
 <template>
-  <div
-    class="edit"
-    :style="{
-      width: width,
-      height: height,
-      backgroundColor: backgroundColor,
-      backgroundSize:
-        backImageInfo.backgroundSize +
-        'px ' +
-        backImageInfo.backgroundSize +
-        'px',
-      backgroundPositionX: backImageInfo.backgroundPosition.left + 'px',
-      backgroundPositionY: backImageInfo.backgroundPosition.top + 'px',
-      backgroundImage: backImageInfo.backgroundImage,
-    }"
-  >
+  <div class="edit" :style="{
+    width: width,
+    height: height,
+    backgroundColor: backgroundColor,
+    backgroundSize:
+      backImageInfo.backgroundSize +
+      'px ' +
+      backImageInfo.backgroundSize +
+      'px',
+    backgroundPositionX: backImageInfo.backgroundPosition.left + 'px',
+    backgroundPositionY: backImageInfo.backgroundPosition.top + 'px',
+    backgroundImage: backImageInfo.backgroundImage,
+  }">
     <!-- {{ lines }} -->
     <eline v-for="line in lines" :key="line.id" :line="line"></eline>
 
@@ -25,14 +22,8 @@
       :width="node.size.width"
       :height="node.size.height"
     ></node-box> -->
-    <component
-      :is="node.name ? node.name : 'nodebox'"
-      v-for="(node, index) in nodes"
-      :key="index"
-      :node="node"
-      :width="node.size.width"
-      :height="node.size.height"
-    ></component>
+    <component :is="node.name ? node.name : 'nodebox'" v-for="(node, index) in nodes" :key="index" :node="node"
+      :width="node.size.width" :height="node.size.height"></component>
     <eline v-if="showEditLine" :line="newLine"></eline>
   </div>
 </template>

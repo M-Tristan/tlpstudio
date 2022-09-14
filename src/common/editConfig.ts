@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { node, position } from "../editType"
 import { EventBus } from "./eventBus"
 import { v4 as uuidv4 } from 'uuid';
@@ -25,13 +26,13 @@ class EditConfig {
     socketMap = {} as { [key: string]: socketPosition }
     nodeMap = {} as { [key: string]: node }
     lines = [] as Array<line>
-    lineMap = {} as { [key: string]: Array<line> }
+    lineMap ={} as { [key: string]: Array<line> }
     event: EventBus
     constructor() {
         this.event = new EventBus()
     }
     createNode(nodeinfo: { [key: string]: any }) {
-        let node = {
+        const node:node = {
             id: uuidv4(),
             position: {
                 left: 100,
@@ -54,7 +55,7 @@ class EditConfig {
 
     addNode(node: node): void {
         this.node.push(node)
-        let socket = {
+        const socket = {
             left: node.position.left,
             top: node.position.top + node.size.height / 2,
             id: node.id
@@ -68,7 +69,7 @@ class EditConfig {
     }
     getLineByLineId(id: string) {
         for (let index = 0; index < this.lines.length; index++) {
-            let line = this.lines[index]
+            const line = this.lines[index]
             if (line.id == id) {
                 return line
             }
@@ -79,9 +80,9 @@ class EditConfig {
         if (this.getLineByLineId(startId + endId)) {
             return
         }
-        let startNode = this.getNodeById(startId)
+        const startNode = this.getNodeById(startId)
         // let endNode = this.getNodeById(endId)
-        let line = {
+        const line = {
             id: startId + endId,
             startPosition: {
                 left: startNode.position.left + startNode.size.width,
@@ -143,7 +144,7 @@ class EditConfig {
         this.event.off('onLineChange', func)
     }
     changeLineByNode(node: node) {
-        let lines = this.lineMap[node.id]
+        const lines = this.lineMap[node.id]
         if (lines && lines.length != 0) {
             lines.forEach(item => {
                 this.initLine(item)
@@ -152,8 +153,8 @@ class EditConfig {
 
     }
     initLine(line: line) {
-        let startNode = this.getNodeById(line.startPosition.id)
-        let endNode = this.getNodeById(line.endPosition.id)
+        const startNode = this.getNodeById(line.startPosition.id)
+        const endNode = this.getNodeById(line.endPosition.id)
         line.startPosition = {
             left: startNode.position.left + startNode.size.width,
             top: startNode.position.top + startNode.size.height / 2,
@@ -173,7 +174,7 @@ class EditConfig {
         this.socketMap[node.id].left = node.position.left
     }
     changeNodePosition(position: position, id: string) {
-        let node = this.getNodeById(id)
+        const node = this.getNodeById(id)
         if (node) {
             node.position = position
         }
@@ -183,7 +184,7 @@ class EditConfig {
 
     getNodeBySocketPosition(position: position): node | null {
         for (let index = 0, length = this.socketPositions.length; index < length; index++) {
-            let socketPosition = this.socketPositions[index]
+            const socketPosition = this.socketPositions[index]
             if (Math.abs((position.left - socketPosition.left)) < 10 && Math.abs((position.top - socketPosition.top)) < 15) {
                 return this.getNodeById(socketPosition.id)
             }

@@ -1,15 +1,13 @@
 <template>
     <div class="header">
-<div class="logo">TLP Studio</div>
-<div class="functions">
-    <i class="icon iconfont icon-7chexiao menu"></i>
-    <i class="icon iconfont icon-fanchexiao menu"></i>
-    
-    <div class="model">模版</div>
-
-    <el-button type="primary">部署</el-button>
-    <i class="icon iconfont icon-caidan menu"></i>
-</div>
+        <div class="logo">TLP Studio</div>
+        <div class="functions">
+            <i class="icon iconfont icon-7chexiao menu"></i>
+            <i class="icon iconfont icon-fanchexiao menu"></i>
+            <div class="model">模版</div>
+            <el-button type="primary">部署 </el-button>
+            <i class="icon iconfont icon-caidan menu"></i>
+        </div>
     </div>
 </template>
 
@@ -17,8 +15,8 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    setup () {
-        
+    setup() {
+
 
         return {}
     }
@@ -26,15 +24,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.header{
-    width:100%;
+.header {
+    width: 100%;
     height: 80px;
     background-color: rgb(51, 51, 51);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.logo{
+
+.logo {
     height: 100%;
     color: white;
     font-size: 30px;
@@ -43,17 +42,20 @@ export default defineComponent({
     align-items: center;
     margin-left: 10px;
 }
-.functions{
+
+.functions {
     display: flex;
     align-items: center;
 }
-.menu{
+
+.menu {
     color: white;
     font-size: 30px;
     margin-left: 20px;
     margin-right: 20px;
 }
-.model{
+
+.model {
     color: white;
     margin-right: 20px;
 }

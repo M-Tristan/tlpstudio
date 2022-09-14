@@ -13,8 +13,8 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    setup () {
-        
+    setup() {
+
 
         return {}
     }
@@ -22,14 +22,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.modelist{
+.modelist {
     height: 50px;
     padding-top: 5px;
     background-color: rgb(65, 65, 65);
     box-sizing: border-box;
     overflow: hidden;
 }
-.modeitem{
+
+.modeitem {
     color: white;
     width: 200px;
     height: 100%;
@@ -40,13 +41,15 @@ export default defineComponent({
     justify-content: center;
     float: left;
 }
-.functions{
+
+.functions {
     height: 100%;
     float: right;
     display: flex;
     align-items: center;
 }
-.menu{
+
+.menu {
     color: white;
     font-size: 30px;
     margin-right: 20px;

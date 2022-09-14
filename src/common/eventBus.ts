@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable @typescript-eslint/ban-types */
 class EventBus {
   e: any = {}
   constructor() {
 
   }
   on(name: string, callback: Function, ctx?: any) {
-    var e = this.e || (this.e = {});
+    const e = this.e || (this.e = {});
 
     (e[name] || (e[name] = [])).push({
       fn: callback,
@@ -14,20 +18,20 @@ class EventBus {
     return this;
   }
   once(name: string, callback: Function, ctx?: any) {
-    var self = this;
+    const self = this;
     function listener() {
       self.off(name, listener);
       callback.apply(ctx, arguments);
-    };
+    }
 
     listener._ = callback
     return this.on(name, listener, ctx);
   }
   emit(name: string, ...args: any[]) {
-    var data = args;
-    var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
-    var i = 0;
-    var len = evtArr.length;
+    const data = args;
+    const evtArr = ((this.e || (this.e = {}))[name] || []).slice();
+    let i = 0;
+    const len = evtArr.length;
 
     for (i; i < len; i++) {
       evtArr[i].fn.apply(evtArr[i].ctx, data);
@@ -36,12 +40,12 @@ class EventBus {
     return this;
   }
   off(name: string, callback?: Function) {
-    var e = this.e || (this.e = {});
-    var evts = e[name];
-    var liveEvents = [];
+    const e = this.e || (this.e = {});
+    const evts = e[name];
+    const liveEvents = [];
 
     if (evts && callback) {
-      for (var i = 0, len = evts.length; i < len; i++) {
+      for (let i = 0, len = evts.length; i < len; i++) {
         if (evts[i].fn !== callback && evts[i].fn._ !== callback)
           liveEvents.push(evts[i]);
       }
@@ -54,7 +58,7 @@ class EventBus {
   }
 }
 
-let eventEmit = new EventBus()
+const eventEmit = new EventBus()
 
 export { eventEmit, EventBus }
 export default eventEmit
