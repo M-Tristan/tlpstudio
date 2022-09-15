@@ -1,6 +1,7 @@
 <template>
   <node-box :node="node">
     <div @dblclick="editNode">start</div>
+   
   </node-box>
 </template>
 
@@ -24,7 +25,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    console.log();
     const editNode = () => {
       editConfig.editNode(props.node as node);
     };

@@ -69,7 +69,17 @@ class EditConfig {
         }
         this.addNode(node)
     }
+    setNode(node:node){
+        if(node != this.nodeMap[node.id]){
+            Object.assign(this.nodeMap[node.id],node)
+        }
+        this.event.emit("onNodeChange")
+    }
     editNode(node: node) {
+        this.event.emit('onEditNode', node)
+    }
+    editNodeById(id:string){
+        const node = this.nodeMap[id]
         this.event.emit('onEditNode', node)
     }
     quitEditNode() {
@@ -147,6 +157,10 @@ class EditConfig {
         // console.log(this.lines)
         // delete this.lineMap[line.endPosition.id]
         // delete this.lineMap[line.startPosition.id]
+       const links = this.nodeMap[ line.startPosition.id].links
+       this.nodeMap[ line.startPosition.id].links = links?.filter(link=>{
+        link.id != line.endPosition.id
+       })
         this.event.emit("onLineChange")
 
     }

@@ -51,7 +51,6 @@ export default defineComponent({
         const nodeboxList = ref([] as Array<any>);
         editConfig.onNodeChange(() => {
             nodeboxList.value = [...editConfig.node];
-            console.log(nodeboxList.value);
         });
         const addNode = () => {
             let newBox = {

@@ -1,5 +1,5 @@
 <template>
-  <component :is="editName" :node="node"></component>
+  <component :is="editName" :node="node" @changeNode="changeNode"></component>
 </template>
 
 <script lang="ts">
@@ -19,7 +19,10 @@ export default defineComponent({
       node.value = null;
       editName.value = "";
     });
-    return { editName, node };
+    const changeNode = (node:node) => {
+      editConfig.setNode(node)
+    }
+    return { editName, node ,changeNode};
   },
 });
 </script>
