@@ -1,6 +1,6 @@
 <template>
 
-  <svg class="line" :style="{
+  <svg pointer-events="none" class="line" :style="{
     left: position.left + 'px',
     top: position.top + 'px',
   }" :width="size.width" :height="size.height" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +8,7 @@
 
     <path :d="path" style="stroke-width: 2; fill: none;cursor: pointer;" :stroke="lineColor"></path>
 
-    <path @mouseenter="mouseenter" @mouseleave="mouseout" :d="path"
+    <path pointer-events="visibleStroke" @mouseenter="mouseenter" @mouseleave="mouseout" :d="path"
       style="stroke-width: 20; fill: none;cursor: pointer;opacity: 0;" :stroke="lineColor"></path>
     <!-- <line
      
