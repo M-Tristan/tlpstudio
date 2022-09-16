@@ -3,6 +3,7 @@
   <svg pointer-events="none" class="line" :style="{
     left: position.left + 'px',
     top: position.top + 'px',
+   
   }" :width="size.width" :height="size.height" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
 
@@ -65,6 +66,7 @@
 </template>
 
 <script lang="ts">
+import { getLine, getPosition, getSize } from "@common/util";
 import { computed, defineComponent, ref, watch } from "vue";
 import editConfig, { line } from "../common/editConfig";
 
@@ -86,101 +88,82 @@ export default defineComponent({
       return props.line.endPosition;
     });
     const size = computed(() => {
-      let width = Math.abs(end.value.left - start.value.left);
-      let height = Math.abs(end.value.top - start.value.top);
-      return {
-        width: width > 2 ? width : 2,
-        height: height > 2 ? height : 2,
-      };
+      return getSize(start.value,end.value)
+      
     });
 
     const position = computed(() => {
-      return {
-        left:
-          end.value.left > start.value.left ? start.value.left : end.value.left,
-        top: end.value.top > start.value.top ? start.value.top : end.value.top,
-      };
+      return getPosition(start.value,end.value)
     });
 
-    const startPosition = computed(() => {
-      if (
-        end.value.left >= start.value.left &&
-        end.value.top >= start.value.top
-      ) {
-        return {
-          top: 0,
-          left: 0,
-        };
-      } else if (
-        end.value.left >= start.value.left &&
-        end.value.top < start.value.top
-      ) {
-        return {
-          top: size.value.height,
-          left: 0,
-        };
-      } else if (
-        end.value.left < start.value.left &&
-        end.value.top < start.value.top
-      ) {
-        return {
-          top: size.value.height,
-          left: size.value.width,
-        };
-      } else {
-        return {
-          top: 0,
-          left: size.value.width,
-        };
-      }
-    });
-    const endPosition = computed(() => {
-      if (
-        end.value.left >= start.value.left &&
-        end.value.top >= start.value.top
-      ) {
-        return {
-          top: size.value.height,
-          left: size.value.width,
-        };
-      } else if (
-        end.value.left >= start.value.left &&
-        end.value.top < start.value.top
-      ) {
-        return {
-          top: 0,
-          left: size.value.width,
-        };
-      } else if (
-        end.value.left < start.value.left &&
-        end.value.top < start.value.top
-      ) {
-        return {
-          top: 0,
-          left: 0,
-        };
-      } else {
-        return {
-          top: size.value.height,
-          left: 0,
-        };
-      }
-    });
+    // const startPosition = computed(() => {
+    //   if (
+    //     end.value.left >= start.value.left &&
+    //     end.value.top >= start.value.top
+    //   ) {
+    //     return {
+    //       top: 0,
+    //       left: 0,
+    //     };
+    //   } else if (
+    //     end.value.left >= start.value.left &&
+    //     end.value.top < start.value.top
+    //   ) {
+    //     return {
+    //       top: size.value.height,
+    //       left: 0,
+    //     };
+    //   } else if (
+    //     end.value.left < start.value.left &&
+    //     end.value.top < start.value.top
+    //   ) {
+    //     return {
+    //       top: size.value.height,
+    //       left: size.value.width,
+    //     };
+    //   } else {
+    //     return {
+    //       top: 0,
+    //       left: size.value.width,
+    //     };
+    //   }
+    // });
+    // const endPosition = computed(() => {
+    //   if (
+    //     end.value.left >= start.value.left &&
+    //     end.value.top >= start.value.top
+    //   ) {
+    //     return {
+    //       top: size.value.height,
+    //       left: size.value.width,
+    //     };
+    //   } else if (
+    //     end.value.left >= start.value.left &&
+    //     end.value.top < start.value.top
+    //   ) {
+    //     return {
+    //       top: 0,
+    //       left: size.value.width,
+    //     };
+    //   } else if (
+    //     end.value.left < start.value.left &&
+    //     end.value.top < start.value.top
+    //   ) {
+    //     return {
+    //       top: 0,
+    //       left: 0,
+    //     };
+    //   } else {
+    //     return {
+    //       top: size.value.height,
+    //       left: 0,
+    //     };
+    //   }
+    // });
+
+
     const path = computed(() => {
-      if ((startPosition.value.left + 40) > endPosition.value.left) {
-        return `M${startPosition.value.left} ${startPosition.value.top} 
-        L${startPosition.value.left+40} ${startPosition.value.top} 
-        L${startPosition.value.left+40} ${startPosition.value.top+80} `
-      } else {
-        const halfLeft = (startPosition.value.left + endPosition.value.left) / 2;
-        return `M${startPosition.value.left} ${startPosition.value.top}
-       C${halfLeft}
-       ${startPosition.value.top}
-       ${halfLeft}
-        ${endPosition.value.top}
-      ${endPosition.value.left}
-      ${endPosition.value.top}`;
-      }
+      return getLine(start.value,end.value)
 
     });
     const mouseenter = () => {
@@ -193,7 +176,7 @@ export default defineComponent({
       editConfig.removeLine(props.line as line)
       // console.log(props.line)
     }
-    return { size, position, startPosition, endPosition, path, start, end, mouseenter, lineColor, mouseout, removeLine };
+    return { size, position, path, start, end, mouseenter, lineColor, mouseout, removeLine };
   },
 });
 </script>
@@ -201,6 +184,8 @@ export default defineComponent({
 <style scoped>
 .line {
   position: absolute;
+  /* border: 1px solid ;
+  z-index: 99; */
 }
 
 .ancle {
