@@ -24,7 +24,7 @@
     ></node-box> -->
     <component :is="node.name ? node.name : 'nodebox'" v-for="(node, index) in nodes" :key="index" :node="node"
       :width="node.size.width" :height="node.size.height"></component>
-    <eline v-if="showEditLine" :line="newLine"></eline>
+      <add-line v-if="showEditLine" :line="newLine"></add-line>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ import NodeBox from "./nodeBox.vue";
 import { node, position } from "../editType";
 import editConfig from "../common/editConfig";
 import _ from "lodash";
+import AddLine from "./addLine.vue";
 export default defineComponent({
   props: {
     width: {
@@ -96,7 +97,7 @@ export default defineComponent({
       newLine,
     };
   },
-  components: { NodeBox, Eline },
+  components: { NodeBox, Eline, AddLine },
 });
 </script>
 

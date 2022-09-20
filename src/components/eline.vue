@@ -91,77 +91,9 @@ export default defineComponent({
       return getSize(start.value,end.value)
       
     });
-
     const position = computed(() => {
       return getPosition(start.value,end.value)
     });
-
-    // const startPosition = computed(() => {
-    //   if (
-    //     end.value.left >= start.value.left &&
-    //     end.value.top >= start.value.top
-    //   ) {
-    //     return {
-    //       top: 0,
-    //       left: 0,
-    //     };
-    //   } else if (
-    //     end.value.left >= start.value.left &&
-    //     end.value.top < start.value.top
-    //   ) {
-    //     return {
-    //       top: size.value.height,
-    //       left: 0,
-    //     };
-    //   } else if (
-    //     end.value.left < start.value.left &&
-    //     end.value.top < start.value.top
-    //   ) {
-    //     return {
-    //       top: size.value.height,
-    //       left: size.value.width,
-    //     };
-    //   } else {
-    //     return {
-    //       top: 0,
-    //       left: size.value.width,
-    //     };
-    //   }
-    // });
-    // const endPosition = computed(() => {
-    //   if (
-    //     end.value.left >= start.value.left &&
-    //     end.value.top >= start.value.top
-    //   ) {
-    //     return {
-    //       top: size.value.height,
-    //       left: size.value.width,
-    //     };
-    //   } else if (
-    //     end.value.left >= start.value.left &&
-    //     end.value.top < start.value.top
-    //   ) {
-    //     return {
-    //       top: 0,
-    //       left: size.value.width,
-    //     };
-    //   } else if (
-    //     end.value.left < start.value.left &&
-    //     end.value.top < start.value.top
-    //   ) {
-    //     return {
-    //       top: 0,
-    //       left: 0,
-    //     };
-    //   } else {
-    //     return {
-    //       top: size.value.height,
-    //       left: 0,
-    //     };
-    //   }
-    // });
-
-
     const path = computed(() => {
       return getLine(start.value,end.value)
 
@@ -174,7 +106,6 @@ export default defineComponent({
     }
     const removeLine = () => {
       editConfig.removeLine(props.line as line)
-      // console.log(props.line)
     }
     return { size, position, path, start, end, mouseenter, lineColor, mouseout, removeLine };
   },

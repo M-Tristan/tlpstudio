@@ -93,6 +93,6 @@ const getPosition = (startPosition: position, endPosition: position) => {
     }
 }
 
-export { getLine, getSize, getPosition }
+export { getLine, getSize, getPosition,getBecurve }
 
-export default { getLine, getSize, getPosition }
+export default { getLine, getSize, getPosition,getBecurve }
