@@ -14,11 +14,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import editConfig from "@common/EditStore";
+
 export default defineComponent({
     setup() {
         const getinfo = () => {
-            editConfig.getJson()
+            // editConfig.getJson()
         }
 
         return {getinfo}

@@ -3,8 +3,8 @@
 import start from './start'
 import end from './end'
 
-import nodeBox from '../nodeBox.vue'
-import EditStore from '@common/EditStore'
+import {nodeBox} from "edit";
+import EditStore from "edit/src/common/EditStore";
 
 const nodeCreateMap:{[key:string]:Function} = {
     start:start.create,

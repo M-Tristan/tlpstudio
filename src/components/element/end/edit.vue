@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import editConfig from  "@common/EditStore";
+import EditStore from "edit/src/common/EditStore";
+import { defineComponent, inject, ref } from "vue";
 
 export default defineComponent({
   name: "endEdit",
@@ -24,9 +24,10 @@ export default defineComponent({
     },
   },
   setup() {
+    const store:EditStore = inject<EditStore>("store") as EditStore
     const draw = ref(true);
     const closed = () => {
-      editConfig.quitEditNode();
+      store.quitEditNode();
     };
     return { draw, closed };
   },

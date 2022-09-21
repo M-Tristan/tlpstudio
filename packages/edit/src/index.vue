@@ -59,6 +59,9 @@ import Setter from "./components/setter/index.vue";
       const newLine = ref({} as any);
       const showEditLine = ref(false);
       provide("store",store)
+      store.onNodeChange(() => {
+            nodes.value = [...store.node];
+        });
       store.event.on("editline", function (start: position, end: position) {
         showEditLine.value = true;
         newLine.value = {
@@ -84,7 +87,7 @@ import Setter from "./components/setter/index.vue";
         backImageInfo,
         showEditLine,
         lines,
-        newLine,
+        newLine,nodes
       };
     },
     components: { NodeBox, Eline, AddLine, Setter },

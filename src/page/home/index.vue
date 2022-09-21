@@ -32,7 +32,7 @@
         <!-- <button @click="addNode">添加box</button>
       <button @click="createStart">添加start</button> -->
 
-        <setter></setter>
+
     </div>
 </template>
   
@@ -41,12 +41,11 @@ import { defineComponent, ref } from "vue";
 // import edit from "../../components/edit.vue";
 import edit from 'edit'
 import { create } from "../../components/element";
-import Setter from "../../components/setter.vue";
 import TlpHeader from "../../components/tlpHeader/index.vue";
 import ModeList from "../../components/modeList/index.vue";
 import EditStore from "edit/src/common/EditStore";
 export default defineComponent({
-    components: { edit, Setter, TlpHeader, ModeList },
+    components: { edit, TlpHeader, ModeList },
     setup() {
         let store:EditStore 
       

@@ -50,8 +50,8 @@
   <script lang="ts">
   import { getLine, getPosition, getSize } from "../../common/util";
   import { computed, defineComponent, inject, ref, toRaw } from "vue";
-  import EditStore, { line } from "../../common/EditStore";
-  // import editConfig, { line } from "@common/EditStore";
+
+import EditStore, { line } from 'edit/src/common/EditStore'
   
   export default defineComponent({
     props: {

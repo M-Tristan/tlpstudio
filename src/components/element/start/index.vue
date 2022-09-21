@@ -5,15 +5,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import editConfig from  "@common/EditStore";
-import { node } from "../../../editType";
-import NodeBox from "../../nodeBox.vue";
+import { defineComponent, inject, ref } from "vue";
+import {nodeBox} from "edit";
+import EditStore from "edit/src/common/EditStore";
+import { node } from "edit/src/type";
+
+
 
 export default defineComponent({
   name: "start",
   components: {
-    NodeBox,
+    nodeBox,
   },
   props: {
     node: {
@@ -24,8 +26,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const store:EditStore = inject<EditStore>("store") as EditStore
     const editNode = () => {
-      editConfig.editNode(props.node as node);
+      store.editNode(props.node as node);
     };
     return { editNode };
   },

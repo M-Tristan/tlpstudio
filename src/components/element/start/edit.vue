@@ -11,9 +11,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import editConfig from  "@common/EditStore";
-import { node } from "../../../editType";
+import EditStore from "edit/src/common/EditStore";
+import { node } from "edit/src/type";
+import { defineComponent, inject, ref } from "vue";
+
 
 export default defineComponent({
   name: "startEdit",
@@ -27,11 +28,12 @@ export default defineComponent({
   },
   setup(props) {
     const draw = ref(true);
+    const store:EditStore = inject<EditStore>("store") as EditStore
     const closed = () => {
-      editConfig.quitEditNode();
+      store.quitEditNode();
     };
     const changeNode = () => {
-      editConfig.setNode(props.node as node)
+      store.setNode(props.node as node)
     }
     return { draw, closed, changeNode};
   },
