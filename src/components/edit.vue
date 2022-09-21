@@ -34,7 +34,7 @@ import Eline from "./eline.vue";
 import eventEmit from "../common/eventBus";
 import NodeBox from "./nodeBox.vue";
 import { node, position } from "../editType";
-import editConfig from "../common/editConfig";
+import editConfig from  "@common/EditStore";
 import _ from "lodash";
 import AddLine from "./addLine.vue";
 export default defineComponent({

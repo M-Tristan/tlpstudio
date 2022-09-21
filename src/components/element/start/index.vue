@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import editConfig from "../../../common/editConfig";
+import editConfig from  "@common/EditStore";
 import { node } from "../../../editType";
 import NodeBox from "../../nodeBox.vue";
 

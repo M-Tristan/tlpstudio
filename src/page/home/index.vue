@@ -40,7 +40,7 @@
 import { defineComponent, ref } from "vue";
 import edit from "../../components/edit.vue";
 import { v4 as uuidv4 } from "uuid";
-import editConfig from "../../common/editConfig";
+import editConfig from  "@common/EditStore";
 import { create } from "../../components/element";
 import Setter from "../../components/setter.vue";
 import TlpHeader from "../../components/tlpHeader/index.vue";

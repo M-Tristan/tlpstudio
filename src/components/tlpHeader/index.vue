@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import editConfig from "@common/editConfig";
+import editConfig from "@common/EditStore";
 export default defineComponent({
     setup() {
         const getinfo = () => {

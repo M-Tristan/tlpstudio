@@ -22,7 +22,7 @@
 import { defineComponent, ref } from "vue";
 import eventEmit from "../common/eventBus";
 import { node } from "../editType";
-import editConfig from "../common/editConfig";
+import editConfig from  "@common/EditStore";
 import nodeSet from "./nodeSet.vue";
 export default defineComponent({
   components: { nodeSet },

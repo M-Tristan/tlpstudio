@@ -21,7 +21,7 @@ export interface line {
     }
 }
 
-class EditConfig {
+class EditStore {
     node = [] as Array<node>
     socketPositions = [] as Array<socketPosition>
     socketMap = {} as { [key: string]: socketPosition }
@@ -206,8 +206,8 @@ class EditConfig {
         console.log(JSON.stringify(this.node))
     }
 }
-const edit = new EditConfig()
+const edit = new EditStore()
 
-export { edit as EditConfig }
+export { edit as EditStore }
 export default edit
 

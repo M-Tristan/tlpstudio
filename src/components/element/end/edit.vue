@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import editConfig from "../../../common/editConfig";
+import editConfig from  "@common/EditStore";
 
 export default defineComponent({
   name: "endEdit",

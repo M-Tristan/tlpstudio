@@ -51,7 +51,7 @@
 <script lang="ts">
 import { getLine, getPosition, getSize } from "@common/util";
 import { computed, defineComponent, ref, toRaw, watch } from "vue";
-import editConfig, { line } from "../common/editConfig";
+import editConfig, { line } from "@common/EditStore";
 
 export default defineComponent({
   props: {
