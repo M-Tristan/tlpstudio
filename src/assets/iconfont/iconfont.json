@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "21585909",
+      "name": "复制",
+      "font_class": "fuzhi1",
+      "unicode": "e6db",
+      "unicode_decimal": 59099
+    },
+    {
+      "icon_id": "162013",
+      "name": "矢量图",
+      "font_class": "vector",
+      "unicode": "e7c1",
+      "unicode_decimal": 59329
+    },
+    {
+      "icon_id": "1208528",
+      "name": "连线_icon",
+      "font_class": "lianxian_icon",
+      "unicode": "e7d2",
+      "unicode_decimal": 59346
+    },
+    {
       "icon_id": "587332",
       "name": "启动",
       "font_class": "qidong2",

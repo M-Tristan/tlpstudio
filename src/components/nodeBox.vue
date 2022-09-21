@@ -1,5 +1,7 @@
 <template>
   <div
+   @mouseover="mouseover"
+   @mouseleave="mouseleave" 
     class="nodebox"
     :style="{
       width: size.width + 'px',
@@ -9,6 +11,7 @@
     }"
     @mousedown="mousedown"
   >
+    <node-set :nodeId="node?.id"  v-show="showNodeSet"></node-set>
     <div class="endpointer" @mousedown.stop="addLine"></div>
     <div class="socket"></div>
     <slot></slot>
@@ -20,7 +23,9 @@ import { defineComponent, ref } from "vue";
 import eventEmit from "../common/eventBus";
 import { node } from "../editType";
 import editConfig from "../common/editConfig";
+import nodeSet from "./nodeSet.vue";
 export default defineComponent({
+  components: { nodeSet },
   name: "nodebox",
   props: {
     width: {
@@ -47,6 +52,7 @@ export default defineComponent({
       top: props.node!.position.top,
       left: props.node!.position.left,
     });
+    const showNodeSet = ref(false)
 
     const mousedown = (event: MouseEvent) => {
       let oriClientX = event.clientX;
@@ -99,8 +105,14 @@ export default defineComponent({
         window.onmousemove = null;
       };
     };
+    const mouseover = () => {
+      showNodeSet.value = true
+    }
+    const mouseleave = () => {
+      showNodeSet.value = false
+    }
 
-    return { size, mousedown, position, addLine };
+    return { size, mousedown, position, addLine,showNodeSet,mouseover ,mouseleave};
   },
 });
 </script>

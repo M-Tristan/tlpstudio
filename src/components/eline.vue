@@ -7,27 +7,10 @@
   }" :width="size.width" :height="size.height" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
 
-    <path :d="path" style="stroke-width: 2; fill: none;cursor: pointer;" :stroke="lineColor"></path>
+    <path ref="pathLine" :d="path" style="stroke-width: 2; fill: none;cursor: pointer;" :stroke="lineColor"></path>
 
     <path pointer-events="visibleStroke" @mouseenter="mouseenter" @mouseleave="mouseout" :d="path"
       style="stroke-width: 20; fill: none;cursor: pointer;opacity: 0;" :stroke="lineColor"></path>
-    <!-- <line
-     
-      :x1="startPosition.left"
-      :y1="startPosition.top"
-      :x2="endPosition.left"
-      :y2="endPosition.top"
-      style="stroke: rgb(99, 99, 99); stroke-width: 2"
-    /> -->
-    <!-- <path
-      pointer-events="all"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      d="M218,0 L208.11712810073647,6.191029237755795 L208.00184599859043,0.19213683691005315 L207.8865638964444,-5.806755563935689 L218,0"
-      stroke="hsl(228,9.6%,79.6%)"
-      fill="hsl(228,9.6%,79.6%)"
-      transform="translate(3,5.806755563935689)"
-    ></path> -->
   </svg>
   <svg t="1662814763800" class="ancle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
     width="200" height="200" preserveAspectRatio="none" :style="{
@@ -43,8 +26,8 @@
     <path d="M871.471104 876.16" p-id="2461"></path>
   </svg>
   <div v-if="lineColor=='red'" class="deletecontent" :style="{
-   left: position.left + size.width/2+'px',
-   top: position.top + size.height/2+'px',
+   left: deleteposition.left+position.left +'px',
+   top: deleteposition.top+position.top +'px',
   }" @mouseenter.stop="mouseenter" @mouseleave="mouseout" @click="removeLine">
     <svg t="1663033305579" class="deleteicon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
       p-id="2375" width="200" height="200">
@@ -67,7 +50,7 @@
 
 <script lang="ts">
 import { getLine, getPosition, getSize } from "@common/util";
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, ref, toRaw, watch } from "vue";
 import editConfig, { line } from "../common/editConfig";
 
 export default defineComponent({
@@ -81,6 +64,8 @@ export default defineComponent({
   },
   setup(props) {
     const lineColor = ref("rgb(99, 99, 99)")
+    const pathLine = ref(null as unknown as SVGPathElement)
+    const deleteposition = ref({left:0,top:0})
     const start = computed(() => {
       return props.line.startPosition;
     });
@@ -100,14 +85,20 @@ export default defineComponent({
     });
     const mouseenter = () => {
       lineColor.value = 'red'
+      let point = pathLine.value.getPointAtLength(pathLine.value.getTotalLength()/2)
+      // console.log(pathLine.value.getPointAtLength(pathLine.value.getTotalLength()/2))
+      deleteposition.value.left = point.x
+      deleteposition.value.top = point.y
+      // console.log(pathLine.value.getTotalLength())
     }
     const mouseout = () => {
       lineColor.value = "rgb(99, 99, 99)"
     }
     const removeLine = () => {
-      editConfig.removeLine(props.line as line)
+      editConfig.removeLine( toRaw(props.line)  as line)
     }
-    return { size, position, path, start, end, mouseenter, lineColor, mouseout, removeLine };
+    
+    return { size, position, path, start, end, mouseenter, lineColor, mouseout, removeLine ,pathLine,deleteposition};
   },
 });
 </script>

@@ -2,6 +2,7 @@
 import { node, position } from "../editType"
 import { EventBus } from "./eventBus"
 import { v4 as uuidv4 } from 'uuid';
+import _ from 'lodash'
 interface socketPosition extends position {
     id: string
 
@@ -27,6 +28,7 @@ class EditConfig {
     nodeMap = {} as { [key: string]: node }
     lineMap = {} as { [key: string]: Array<line> }
     event: EventBus
+  
     constructor() {
         this.event = new EventBus()
     }
@@ -34,20 +36,26 @@ class EditConfig {
         const res: any[] = []
         this.node.forEach(item => {
             if (item.links && item.links.length > 0) {
-                item.links.forEach(link => {
+                item.links = item.links.filter(link => {
                     const endNode = this.nodeMap[link.id]
-                    const line = {
-                        id: item.id + endNode.id,
-                        startPosition: {
-                            left: item.position.left + item.size.width,
-                            top: item.position.top + item.size.height / 2,
-                            id: item.id
-                        },
-                        endPosition: {
-                            ...this.socketMap[endNode.id]
+                    if(endNode===undefined){
+                        return false
+                    }else{
+                        const line = {
+                            id: item.id + endNode.id,
+                            startPosition: {
+                                left: item.position.left + item.size.width,
+                                top: item.position.top + item.size.height / 2,
+                                id: item.id
+                            },
+                            endPosition: {
+                                ...this.socketMap[endNode.id]
+                            }
                         }
+                        res.push(line)
+                        return true
                     }
-                    res.push(line)
+                    
                 })
 
             }
@@ -100,22 +108,18 @@ class EditConfig {
         this.nodeMap[node.id] = node
         this.event.emit("onNodeChange")
     }
-    // getLineByLineId(id: string) {
-    //     for (let index = 0; index < this.lines.length; index++) {
-    //         const line = this.lines[index]
-    //         if (line.id == id) {
-    //             return line
-    //         }
-    //     }
-    //     return null
-    // }
+    copyNode(id:string):void{
+        const node = this.nodeMap[id]
+        const newNode = _.cloneDeep(node)
+        delete newNode['links']
+        newNode.id = uuidv4()
+        newNode.position.left +=20
+        newNode.position.top +=20
+        this.addNode(newNode)
+    }
     addLine(startId: string, endId: string) {
-        // if (this.getLineByLineId(startId + endId)) {
-        //     return
-        // }
         const startNode = this.getNodeById(startId)
         if (startNode.links != undefined && startNode.links.findIndex(item => item.id == endId) != -1) {
-            console.log(131232)
             return
         }
         const endNode = this.getNodeById(endId)
@@ -124,42 +128,13 @@ class EditConfig {
         } else {
             startNode.links = [{ id: endNode.id, active: false }]
         }
-        // const line = {
-        //     id: startId + endId,
-        //     startPosition: {
-        //         left: startNode.position.left + startNode.size.width,
-        //         top: startNode.position.top + startNode.size.height / 2,
-        //         id: startId
-        //     },
-        //     endPosition: {
-        //         ...this.socketMap[endId]
-        //     }
-        // }
-        // this.lines.push(
-        //     line
-        // )
-        // if (this.lineMap[startId]) {
-        //     this.lineMap[startId].push(line)
-        // } else {
-        //     this.lineMap[startId] = [line]
-        // }
-        // if (this.lineMap[endId]) {
-        //     this.lineMap[endId].push(line)
-        // } else {
-        //     this.lineMap[endId] = [line]
-        // }
         this.event.emit("onLineChange")
     }
     removeLine(line: line) {
-        // this.lines = this.lines.filter(item=>{
-        //     return item.id != line.id
-        // })
-        // console.log(this.lines)
-        // delete this.lineMap[line.endPosition.id]
-        // delete this.lineMap[line.startPosition.id]
        const links = this.nodeMap[ line.startPosition.id].links
-       this.nodeMap[ line.startPosition.id].links = links?.filter(link=>{
-        link.id != line.endPosition.id
+       const node = this.nodeMap[ line.startPosition.id]
+       node.links = links?.filter(link=>{
+        return link.id != line.endPosition.id
        })
         this.event.emit("onLineChange")
 
@@ -189,29 +164,18 @@ class EditConfig {
     removeLineChange(func?: Function) {
         this.event.off('onLineChange', func)
     }
-    // changeLineByNode(node: node) {
-    //     const lines = this.lineMap[node.id]
-    //     if (lines && lines.length != 0) {
-    //         lines.forEach(item => {
-    //             this.initLine(item)
-    //         })
-    //     }
+    deleteNode(id:string){
+        this.node = this.node.filter(node=>{
+            return node.id != id
+        })
+       delete this.nodeMap[id]
+      
+       delete this.socketMap[id]
+       this.event.emit("onNodeChange")
+       this.event.emit("onLineChange")
 
-    // }
-    // initLine(line: line) {
-    //     const startNode = this.getNodeById(line.startPosition.id)
-    //     const endNode = this.getNodeById(line.endPosition.id)
-    //     line.startPosition = {
-    //         left: startNode.position.left + startNode.size.width,
-    //         top: startNode.position.top + startNode.size.height / 2,
-    //         id: startNode.id
-    //     }
-    //     line.endPosition = {
-    //         ...this.socketMap[endNode.id]
-    //     }
-    //     this.event.emit("onLineChange")
-
-    // }
+       
+    }
     getNodeById(id: string) {
         return this.nodeMap[id]
     }
