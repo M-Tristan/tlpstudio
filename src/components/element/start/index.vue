@@ -1,7 +1,6 @@
 <template>
   <node-box :node="node">
     <div @dblclick="editNode">start</div>
-   
   </node-box>
 </template>
 

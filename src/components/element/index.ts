@@ -4,6 +4,7 @@ import start from './start'
 import end from './end'
 
 import nodeBox from '../nodeBox.vue'
+import EditStore from '@common/EditStore'
 
 const nodeCreateMap:{[key:string]:Function} = {
     start:start.create,
@@ -18,8 +19,9 @@ const useElement = (app: any) => {
     app.component(nodeBox.name, nodeBox)
 }
 
-const create = (name:string) =>{
-    nodeCreateMap[name]()
+const create = (name:string,store:EditStore) =>{
+    console.log(store)
+    nodeCreateMap[name](store)
 }
 
 export { create, useElement }

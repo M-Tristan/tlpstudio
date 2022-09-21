@@ -11,8 +11,8 @@
                             <span>IOT</span>
                         </template>
                         <el-menu-item-group title="Group One">
-                            <el-menu-item index="1-1" @click="create('start')">start</el-menu-item>
-                            <el-menu-item index="1-2" @click="create('end')">end</el-menu-item>
+                            <el-menu-item index="1-1" @click="createElement('start')">start</el-menu-item>
+                            <el-menu-item index="1-2" @click="createElement('end')">end</el-menu-item>
                         </el-menu-item-group>
                         <el-menu-item-group title="Group Two">
                             <el-menu-item index="1-3">item three</el-menu-item>
@@ -26,7 +26,7 @@
                 </el-menu>
             </div>
             <div class="editarea">
-                <edit :nodes="nodeboxList" width="100%" height="100%" backgroundColor="lightgrey"></edit>
+                <edit @getCtx = "getCtx" width="100%" height="100%" backgroundColor="lightgrey"></edit>
             </div>
         </div>
         <!-- <button @click="addNode">添加box</button>
@@ -38,36 +38,26 @@
   
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import edit from "../../components/edit.vue";
-import { v4 as uuidv4 } from "uuid";
-import editConfig from  "@common/EditStore";
+// import edit from "../../components/edit.vue";
+import edit from 'edit'
 import { create } from "../../components/element";
 import Setter from "../../components/setter.vue";
 import TlpHeader from "../../components/tlpHeader/index.vue";
 import ModeList from "../../components/modeList/index.vue";
+import EditStore from "edit/src/common/EditStore";
 export default defineComponent({
     components: { edit, Setter, TlpHeader, ModeList },
     setup() {
-        const nodeboxList = ref([] as Array<any>);
-        editConfig.onNodeChange(() => {
-            nodeboxList.value = [...editConfig.node];
-        });
-        const addNode = () => {
-            let newBox = {
-                id: uuidv4(),
-                position: {
-                    left: 100,
-                    top: 100,
-                },
-                size: {
-                    width: 100,
-                    height: 100,
-                },
-            };
-            editConfig.addNode(newBox);
-            nodeboxList.value = [...editConfig.node];
-        };
-        return { nodeboxList, addNode, create };
+        let store:EditStore 
+      
+        const getCtx = (editstore:EditStore) => {
+          
+            store = editstore
+        }
+        const createElement = (name:string) => {
+            create(name,store)
+        }
+        return {   createElement ,getCtx};
     },
 });
 </script>
