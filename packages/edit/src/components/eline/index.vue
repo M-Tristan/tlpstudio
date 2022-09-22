@@ -2,7 +2,7 @@
   <svg pointer-events="none" class="line" :style="{
     left: position.left + 'px',
     top: position.top + 'px',
-   
+    zIndex:lineColor=='red'?1:0
   }" :width="size.width" :height="size.height" version="1.1" xmlns="http://www.w3.org/2000/svg">
     
     <path ref="pathLine" :d="path" style="stroke-width: 2; fill: none;cursor: pointer;" :stroke="lineColor"></path>
@@ -17,7 +17,9 @@
       left: position.left + 'px',
       top: position.top+ 'px',
       offsetPath: `path('${path}')`,
-      offsetDistance: `40%`
+      offsetDistance: `40%`,
+      fill:lineColor,
+      zIndex:lineColor=='red'?1:0
     }">
   <!-- offsetPath: `path('${path}')`, -->
     <path d="M325.456896 862.27968" p-id="2455"></path>
@@ -33,7 +35,9 @@
       left: position.left + 'px',
       top: position.top+ 'px',
       offsetPath: `path('${path}')`,
-      offsetDistance: `${endArrowPosition}%`
+      offsetDistance: `${endArrowPosition}%`,
+      fill:lineColor,
+      zIndex:lineColor=='red'?1:0
     }">
   <!-- offsetPath: `path('${path}')`, -->
     <path d="M325.456896 862.27968" p-id="2455"></path>
