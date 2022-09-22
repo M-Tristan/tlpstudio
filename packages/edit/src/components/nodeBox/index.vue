@@ -81,23 +81,29 @@ import EditStore from "../../common/EditStore";
         let oriClientY = event.clientY;
         let oriLeft = position.value.left + props.width;
         let oriTop = position.value.top + props.height / 2;
+        let socketPositions = store.getAllNodeSocketPositons()
         let linkNode: node | null;
         window.onmousemove = (event: MouseEvent) => {
+          linkNode = null
           let endleft = event.clientX - oriClientX + oriLeft;
-          let endop = event.clientY - oriClientY + oriTop;
-          linkNode = store.getNodeBySocketPosition({
-            left: endleft,
-            top: endop,
-          });
+          let endtop = event.clientY - oriClientY + oriTop;
+          for(let index = 0;index<socketPositions.length;index++){
+            let socket = socketPositions[index]
+            if (Math.abs((endleft - socket.left)) < 10 && Math.abs((endtop - socket.top)) < 15) {
+              linkNode = store.getNodeById(socket.id)
+              break;
+             }
+          }
   
           store.event.emit(
             "editline",
             { left: oriLeft, top: oriTop },
-            { left: endleft, top: endop }
+            { left: endleft, top: endtop }
           );
         };
         window.onmouseup = () => {
           store.event.emit("finisheditline");
+          
           if (linkNode) {
             store.addLine(props.node!.id, linkNode.id);
           }

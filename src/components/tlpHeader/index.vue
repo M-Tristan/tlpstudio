@@ -13,12 +13,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, inject } from 'vue'
 
 export default defineComponent({
     setup() {
+        const storeUtil = inject<any>("storeUtil") 
         const getinfo = () => {
-            // editConfig.getJson()
+             storeUtil.getJson()
         }
 
         return {getinfo}

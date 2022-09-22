@@ -37,7 +37,7 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, provide, ref } from "vue";
 import edit from 'edit'
 import { create } from "nodeElement";
 import TlpHeader from "../../components/tlpHeader/index.vue";
@@ -46,15 +46,21 @@ import EditStore from "edit/src/common/EditStore";
 export default defineComponent({
     components: { edit, TlpHeader, ModeList },
     setup() {
-        let store:EditStore 
+
+        let store:EditStore
+        let storeUtil = {
+            getJson(){
+                store.getJson()
+            }
+        }
       
         const getCtx = (editstore:EditStore) => {
-          
             store = editstore
         }
         const createElement = (name:string) => {
             create(name,store)
         }
+        provide("storeUtil",storeUtil)
         return {   createElement ,getCtx};
     },
 });

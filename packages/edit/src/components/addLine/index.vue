@@ -16,15 +16,13 @@
       <path
         :d="path"
         style="stroke-width: 2; fill: none;cursor: pointer;"
-        :stroke="lineColor"
+        stroke="rgb(99, 99, 99)"
       ></path>
      
       <path
-        @mouseenter="mouseenter"
-        @mouseleave="mouseout"
         :d="path"
         style="stroke-width: 20; fill: none;cursor: pointer;opacity: 0;"
-        :stroke="lineColor"
+        stroke="rgb(99, 99, 99)"
       ></path>
     
     </svg>
@@ -38,9 +36,12 @@
       height="200"
       preserveAspectRatio="none"
       :style="{
-        left: end.left + 'px',
-        top: end.top + 'px',
-      }"
+      left: position.left + 'px',
+      top: position.top+ 'px',
+      offsetPath: `path('${path}')`,
+    
+      offsetDistance: `99%`
+    }"
     >
       <path d="M325.456896 862.27968" p-id="2455"></path>
       <path d="M882.05824 862.27968" p-id="2456"></path>
@@ -69,7 +70,6 @@
       },
     },
     setup(props) {
-      const lineColor = ref("rgb(99, 99, 99)")
       const start = computed(() => {
         return props.line.startPosition;
       });
@@ -159,22 +159,10 @@
       });
       const path = computed(() => {
         const halfLeft = (startPosition.value.left + endPosition.value.left) / 2;
-        return `M${startPosition.value.left} ${startPosition.value.top}
-         C${halfLeft}
-         ${startPosition.value.top}
-         ${halfLeft}
-          ${endPosition.value.top}
-        ${endPosition.value.left}
-        ${endPosition.value.top}`;
+        return `M${startPosition.value.left} ${startPosition.value.top} C${halfLeft} ${startPosition.value.top} ${halfLeft} ${endPosition.value.top} ${endPosition.value.left} ${endPosition.value.top}`;
       });
-      const mouseenter = () => {
-        lineColor.value = 'red'
-      }
-      const mouseout = () => {
-        lineColor.value = "rgb(99, 99, 99)"
-      }
-   
-      return { size, position, startPosition, endPosition, path, start, end ,mouseenter,lineColor,mouseout};
+ 
+      return { size, position, startPosition, endPosition, path, start, end };
     },
   });
   </script>
@@ -187,25 +175,8 @@
     position: absolute;
     width: 20px;
     height: 15px;
-    transform: translateY(-50%) translateX(-50%);
+    /* transform: translateY(-50%) translateX(-50%); */
   }
-  .deleteicon{
-  
-    width: 20px;
-    height: 20px;
-   fill:red
-  }
-  .deletecontent{
-    cursor: pointer;
-    z-index: 99;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    transform: translateX(-50%) translateY(-50%);
-    padding: 5px;
-    border: 1px solid red;
-    border-radius: 5px;
-   
-  }
+ 
   </style>
   

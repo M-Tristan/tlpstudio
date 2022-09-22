@@ -14,7 +14,7 @@
     }">
     
       <eline v-for="line in lines" :key="line.id" :line="line"></eline>
-      <component :is="node.name ? node.name : 'nodebox'" v-for="(node, index) in nodes" :key="index" :node="node"
+      <component :is="node.name ? node.name : 'nodebox'" v-for="(node) in nodes" :key="node.id" :node="node"
         :width="node.size.width" :height="node.size.height"></component>
         <add-line v-if="showEditLine" :line="newLine"></add-line>
       <setter></setter>
@@ -60,7 +60,7 @@ import Setter from "./components/setter/index.vue";
       const showEditLine = ref(false);
       provide("store",store)
       store.onNodeChange(() => {
-            nodes.value = [...store.node];
+            nodes.value =  [...store.node]
         });
       store.event.on("editline", function (start: position, end: position) {
         showEditLine.value = true;
@@ -73,7 +73,6 @@ import Setter from "./components/setter/index.vue";
         showEditLine.value = false;
       });
       store.onLineChange(function () {
-        // console.log(editConfig.lines)
         lines.value = store.lines;
       });
   

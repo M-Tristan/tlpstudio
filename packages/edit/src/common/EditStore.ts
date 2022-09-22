@@ -4,10 +4,6 @@ import EventBus from "eventBus"
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash'
 import { node, position } from "../type";
-interface socketPosition extends position {
-    id: string
-
-}
 export interface line {
     id: string,
     startPosition: {
@@ -23,12 +19,9 @@ export interface line {
 }
 class EditStore {
     node = [] as Array<node>
-    socketPositions = [] as Array<socketPosition>
-    socketMap = {} as { [key: string]: socketPosition }
     nodeMap = {} as { [key: string]: node }
-    lineMap = {} as { [key: string]: Array<line> }
     event: EventBus
-  
+
     constructor() {
         this.event = new EventBus()
     }
@@ -38,9 +31,11 @@ class EditStore {
             if (item.links && item.links.length > 0) {
                 item.links = item.links.filter(link => {
                     const endNode = this.nodeMap[link.id]
-                    if(endNode===undefined){
+
+                    if (endNode === undefined) {
                         return false
-                    }else{
+                    } else {
+                        const socketPosition = this.getSocketPositionByNodeID(endNode.id)
                         const line = {
                             id: item.id + endNode.id,
                             startPosition: {
@@ -49,25 +44,48 @@ class EditStore {
                                 id: item.id
                             },
                             endPosition: {
-                                ...this.socketMap[endNode.id]
+                                left: socketPosition.left,
+                                top: socketPosition.top,
+                                id: endNode.id
                             }
                         }
                         res.push(line)
                         return true
                     }
-                    
+
                 })
 
             }
         })
         return res
     }
+    getSocketPositionByNodeID(id: string) {
+        const node = this.nodeMap[id]
+        return this.getSocketPositionByNode(node)
+
+    }
+    getAllNodeSocketPositons() {
+        const res = this.node.map(item => {
+            return this.getSocketPositionByNode(item)
+        })
+        return res
+    }
+    getSocketPositionByNode(node: node) {
+        const positon = {
+            top: 0,
+            left: 0,
+            id: node.id
+        }
+        positon.top = node.position.top + node.size.height / 2
+        positon.left = node.position.left
+        return positon
+    }
     createNode(nodeinfo: { [key: string]: any }) {
         const node: node = {
             id: uuidv4(),
             position: {
-                left: 100,
-                top: 100,
+                left: 90,
+                top: 90,
             },
             size: {
                 width: 100,
@@ -77,16 +95,16 @@ class EditStore {
         }
         this.addNode(node)
     }
-    setNode(node:node){
-        if(node != this.nodeMap[node.id]){
-            Object.assign(this.nodeMap[node.id],node)
+    setNode(node: node) {
+        if (node != this.nodeMap[node.id]) {
+            Object.assign(this.nodeMap[node.id], node)
         }
         this.event.emit("onNodeChange")
     }
     editNode(node: node) {
         this.event.emit('onEditNode', node)
     }
-    editNodeById(id:string){
+    editNodeById(id: string) {
         const node = this.nodeMap[id]
         this.event.emit('onEditNode', node)
     }
@@ -96,25 +114,16 @@ class EditStore {
 
     addNode(node: node): void {
         this.node.push(node)
-        const socket = {
-            left: node.position.left,
-            top: node.position.top + node.size.height / 2,
-            id: node.id
-        }
-        this.socketPositions.push(
-            socket
-        )
-        this.socketMap[node.id] = socket
         this.nodeMap[node.id] = node
         this.event.emit("onNodeChange")
     }
-    copyNode(id:string):void{
+    copyNode(id: string): void {
         const node = this.nodeMap[id]
         const newNode = _.cloneDeep(node)
         delete newNode['links']
         newNode.id = uuidv4()
-        newNode.position.left +=20
-        newNode.position.top +=20
+        newNode.position.left += 20
+        newNode.position.top += 20
         this.addNode(newNode)
     }
     addLine(startId: string, endId: string) {
@@ -131,11 +140,12 @@ class EditStore {
         this.event.emit("onLineChange")
     }
     removeLine(line: line) {
-       const links = this.nodeMap[ line.startPosition.id].links
-       const node = this.nodeMap[ line.startPosition.id]
-       node.links = links?.filter(link=>{
-        return link.id != line.endPosition.id
-       })
+        const node = this.nodeMap[line.startPosition.id]
+        const links = node.links
+
+        node.links = links?.filter(link => {
+            return link.id != line.endPosition.id
+        })
         this.event.emit("onLineChange")
 
     }
@@ -164,44 +174,32 @@ class EditStore {
     removeLineChange(func?: Function) {
         this.event.off('onLineChange', func)
     }
-    deleteNode(id:string){
-        this.node = this.node.filter(node=>{
+    deleteNode(id: string) {
+        this.node = this.node.filter(node => {
+            node.links = node.links?.filter(link => {
+                return link.id != id
+            })
             return node.id != id
         })
-       delete this.nodeMap[id]
-      
-       delete this.socketMap[id]
-       this.event.emit("onNodeChange")
-       this.event.emit("onLineChange")
-
-       
+        delete this.nodeMap[id]
+        this.event.emit("onNodeChange")
+        this.event.emit("onLineChange")
     }
     getNodeById(id: string) {
         return this.nodeMap[id]
     }
-    initSocketPosition(node: node) {
-        this.socketMap[node.id].top = node.position.top + node.size.height / 2
-        this.socketMap[node.id].left = node.position.left
-    }
+    // initSocketPosition(node: node) {
+    //     this.socketMap[node.id].top = node.position.top + node.size.height / 2
+    //     this.socketMap[node.id].left = node.position.left
+    // }
     changeNodePosition(position: position, id: string) {
         const node = this.getNodeById(id)
         if (node) {
             node.position = position
         }
-        this.initSocketPosition(node)
         this.event.emit("onLineChange")
-        // this.changeLineByNode(node)
     }
 
-    getNodeBySocketPosition(position: position): node | null {
-        for (let index = 0, length = this.socketPositions.length; index < length; index++) {
-            const socketPosition = this.socketPositions[index]
-            if (Math.abs((position.left - socketPosition.left)) < 10 && Math.abs((position.top - socketPosition.top)) < 15) {
-                return this.getNodeById(socketPosition.id)
-            }
-        }
-        return null
-    }
     getJson() {
         console.log(JSON.stringify(this.node))
     }

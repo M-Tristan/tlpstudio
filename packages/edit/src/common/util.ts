@@ -1,25 +1,13 @@
 import { position } from "../type";
 
-
+const backWidth = 40
 const getBecurve = (startPosition: position, endPosition: position) => {
     if(endPosition.top < startPosition.top){
         const halfLeft = ( endPosition.left-startPosition.left) / 2;
-        return `M${0} ${startPosition.top - endPosition.top}
-       C${halfLeft}
-       ${startPosition.top - endPosition.top}
-       ${halfLeft}
-        ${0}
-      ${endPosition.left-startPosition.left}
-      ${0}`;
+        return `M${0} ${startPosition.top - endPosition.top} C${halfLeft} ${startPosition.top - endPosition.top} ${halfLeft} ${0} ${endPosition.left-startPosition.left} ${0}`;
     }else{
         const halfLeft = ( endPosition.left-startPosition.left) / 2;
-        return `M${0} ${0}
-       C${halfLeft}
-       ${0}
-       ${halfLeft}
-        ${endPosition.top-startPosition.top}
-      ${endPosition.left-startPosition.left}
-      ${endPosition.top-startPosition.top}`;
+        return `M${0} ${0} C${halfLeft} ${0} ${halfLeft} ${endPosition.top-startPosition.top} ${endPosition.left-startPosition.left} ${endPosition.top-startPosition.top}`;
     }
    
 }
@@ -27,27 +15,27 @@ const getBecurve = (startPosition: position, endPosition: position) => {
 const getBackCurve = (startPosition: position, endPosition: position) => {
     const height = Math.abs(endPosition.top - startPosition.top)
     if(endPosition.top < startPosition.top){
-        return `M${startPosition.left-endPosition.left+40} ${height} 
+        return `M${startPosition.left-endPosition.left+backWidth} ${height} 
         L${startPosition.left-endPosition.left+80} ${height} 
         L${startPosition.left-endPosition.left+80} ${80} 
         L${0} ${80} 
         L${0} ${0} 
-        L${40} ${0} 
+        L${backWidth} ${0} 
         `
     }else{
-        return `M${startPosition.left-endPosition.left+40} ${0} 
+        return `M${startPosition.left-endPosition.left+backWidth} ${0} 
         L${startPosition.left-endPosition.left+80} ${0} 
         L${startPosition.left-endPosition.left+80} ${80} 
         L${0} ${80} 
         L${0} ${height} 
-        L${40} ${height} 
+        L${backWidth} ${height} 
         `
     }
    
 }
 
 const getLine = (startPosition: position, endPosition: position) => {
-    if ((startPosition.left + 40) > endPosition.left) {
+    if ((startPosition.left + backWidth) > endPosition.left ) {
         // return getBecurve(startPosition,endPosition)
         return getBackCurve(startPosition, endPosition)
     } else {
@@ -58,9 +46,9 @@ const getLine = (startPosition: position, endPosition: position) => {
 }
 
 const getSize = (startPosition: position, endPosition: position) => {
-    if ((startPosition.left + 40) > endPosition.left) {
+    if ((startPosition.left + backWidth) > endPosition.left) {
 
-        const width = (startPosition.left + 40) - (endPosition.left - 40)
+        const width = (startPosition.left + backWidth) - (endPosition.left - backWidth)
         let height = Math.abs(endPosition.top - startPosition.top)
         if (height < 80) {
             height = 80
@@ -81,9 +69,9 @@ const getSize = (startPosition: position, endPosition: position) => {
 }
 
 const getPosition = (startPosition: position, endPosition: position) => {
-    if ((startPosition.left + 40) > endPosition.left) {
+    if ((startPosition.left + backWidth) > endPosition.left) {
         return {
-            left: endPosition.left-40,
+            left: endPosition.left-backWidth,
             top: endPosition.top > startPosition.top ? startPosition.top : endPosition.top,
         }
     } else {
