@@ -87,10 +87,8 @@ import EditStore, { line } from 'edit/src/common/EditStore'
       const mouseenter = () => {
         lineColor.value = 'red'
         let point = pathLine.value.getPointAtLength(pathLine.value.getTotalLength()/2)
-        // console.log(pathLine.value.getPointAtLength(pathLine.value.getTotalLength()/2))
         deleteposition.value.left = point.x
         deleteposition.value.top = point.y
-        // console.log(pathLine.value.getTotalLength())
       }
       const mouseout = () => {
         lineColor.value = "rgb(99, 99, 99)"
@@ -115,7 +113,7 @@ import EditStore, { line } from 'edit/src/common/EditStore'
     position: absolute;
     width: 20px;
     height: 15px;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-90%);
   }
   
   .deleteicon {

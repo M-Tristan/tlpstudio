@@ -1079,6 +1079,10 @@
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
 
+"nodeelement@file:/Users/lucas/Desktop/workspace/tlpstudio/packages/nodeElement":
+  "resolved" "file:packages/nodeElement"
+  "version" "1.0.0"
+
 "normalize-wheel-es@^1.2.0":
   "integrity" "sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw=="
   "resolved" "https://registry.npmjs.org/normalize-wheel-es/-/normalize-wheel-es-1.2.0.tgz"

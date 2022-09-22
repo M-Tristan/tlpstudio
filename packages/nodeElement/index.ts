@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import start from './start'
-import end from './end'
+import start from './src/components/start'
+import end from './src/components/end'
 
 import {nodeBox} from "edit";
 import EditStore from "edit/src/common/EditStore";
@@ -20,7 +20,6 @@ const useElement = (app: any) => {
 }
 
 const create = (name:string,store:EditStore) =>{
-    console.log(store)
     nodeCreateMap[name](store)
 }
 

@@ -38,9 +38,8 @@
   
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-// import edit from "../../components/edit.vue";
 import edit from 'edit'
-import { create } from "../../components/element";
+import { create } from "nodeElement";
 import TlpHeader from "../../components/tlpHeader/index.vue";
 import ModeList from "../../components/modeList/index.vue";
 import EditStore from "edit/src/common/EditStore";

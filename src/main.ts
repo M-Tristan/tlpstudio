@@ -4,7 +4,7 @@ import './assets/iconfont/iconfont.css'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 import elementuse from './common/elementuse'
-import { useElement } from './components/element'
+import { useElement } from 'nodeElement'
 
 const app = createApp(App)
 elementuse(app)
