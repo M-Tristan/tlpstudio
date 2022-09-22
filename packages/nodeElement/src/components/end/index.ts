@@ -2,7 +2,7 @@ import index from './index.vue'
 import edit from './edit.vue'
 import config from './config'
 import _ from 'lodash'
-import EditStore from 'edit/src/common/EditStore'
+import EditStore from 'edit/src/common/editStore'
 
 
 

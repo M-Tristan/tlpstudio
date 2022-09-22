@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import EditStore from "edit/src/common/EditStore";
+import EditStore from "edit/src/common/editStore";
 import { node } from "edit/src/type";
 import { defineComponent, inject, ref } from "vue";
 

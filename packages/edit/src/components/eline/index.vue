@@ -2,9 +2,9 @@
   <svg pointer-events="none" class="line" :style="{
     left: position.left + 'px',
     top: position.top + 'px',
-    zIndex:lineColor=='red'?1:0
+    zIndex:hover?1:0
   }" :width="size.width" :height="size.height" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    
+
     <path ref="pathLine" :d="path" style="stroke-width: 2; fill: none;cursor: pointer;" :stroke="lineColor"></path>
 
     <path pointer-events="visibleStroke" @mouseenter="mouseenter" @mouseleave="mouseout" :d="path"
@@ -12,16 +12,16 @@
   </svg>
   <!-- {{ancleRotate}} -->
   <!-- tranform:rotate(ancleRotate) -->
-  <svg t="1662814763800"  class="ancle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+  <svg t="1662814763800" class="ancle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
     width="200" height="200" preserveAspectRatio="none" :style="{
       left: position.left + 'px',
       top: position.top+ 'px',
       offsetPath: `path('${path}')`,
       offsetDistance: `40%`,
       fill:lineColor,
-      zIndex:lineColor=='red'?1:0
+      zIndex:hover?1:0
     }">
-  <!-- offsetPath: `path('${path}')`, -->
+    <!-- offsetPath: `path('${path}')`, -->
     <path d="M325.456896 862.27968" p-id="2455"></path>
     <path d="M882.05824 862.27968" p-id="2456"></path>
     <path d="M236.027904 877.161472" p-id="2457"></path>
@@ -30,16 +30,16 @@
     <path d="M816.575488 509.791232 209.619968 63.070208 209.619968 957.022208Z" p-id="2460"></path>
     <path d="M871.471104 876.16" p-id="2461"></path>
   </svg>
-  <svg t="1662814763800"  class="ancle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+  <svg t="1662814763800" class="ancle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
     width="200" height="200" preserveAspectRatio="none" :style="{
       left: position.left + 'px',
       top: position.top+ 'px',
       offsetPath: `path('${path}')`,
       offsetDistance: `${endArrowPosition}%`,
       fill:lineColor,
-      zIndex:lineColor=='red'?1:0
+      zIndex:hover?1:0
     }">
-  <!-- offsetPath: `path('${path}')`, -->
+    <!-- offsetPath: `path('${path}')`, -->
     <path d="M325.456896 862.27968" p-id="2455"></path>
     <path d="M882.05824 862.27968" p-id="2456"></path>
     <path d="M236.027904 877.161472" p-id="2457"></path>
@@ -48,7 +48,7 @@
     <path d="M816.575488 509.791232 209.619968 63.070208 209.619968 957.022208Z" p-id="2460"></path>
     <path d="M871.471104 876.16" p-id="2461"></path>
   </svg>
-  <div v-if="lineColor=='red'" class="deletecontent" :style="{
+  <div v-if="hover" class="deletecontent" :style="{
    left: deleteposition.left+position.left +'px',
    top: deleteposition.top+position.top +'px',
   }" @mouseenter.stop="mouseenter" @mouseleave="mouseout" @click="removeLine">
@@ -73,7 +73,8 @@
   
 <script lang="ts">
 import { getLine, getPosition, getSize } from "../../common/util";
-import { computed, defineComponent, inject, ref, toRaw, watch,nextTick } from "vue";
+import { computed, defineComponent, inject, ref, toRaw, watch, nextTick } from "vue";
+import config from '../../common/config'
 
 import EditStore, { line } from 'edit/src/common/EditStore'
 
@@ -88,7 +89,9 @@ export default defineComponent({
   },
   setup(props) {
     const store: EditStore = inject<EditStore>("store") as EditStore
-    const lineColor = ref("rgb(99, 99, 99)")
+    const hover = ref(false)
+    let lineConfig = config.line
+    const lineColor = ref(lineConfig.originColor)
     const pathLine = ref(null as unknown as SVGPathElement)
     const deleteposition = ref({ left: 0, top: 0 })
     const endArrowPosition = ref(100)
@@ -107,38 +110,58 @@ export default defineComponent({
     });
     const path = computed(() => {
       let path = getLine(start.value, end.value)
-     
-      return path.replace(/\n/g,' ')
+
+      return path
     });
     watch(path, () => {
       setEndArrowPosition()
-     
-
     })
+
+    const init = () => {
+      setEndArrowPosition()
+      console.log(props.line)
+      if (props.line.active) {
+        lineColor.value = lineConfig.activeColor
+      }
+    }
     const setEndArrowPosition = () => {
       nextTick(() => {
         let totalLength = pathLine.value.getTotalLength()
-      endArrowPosition.value = (totalLength-15)*100/totalLength
-    })
-     
+        endArrowPosition.value = (totalLength - 15) * 100 / totalLength
+      })
+
     }
     const mouseenter = () => {
-      lineColor.value = 'red'
+      lineColor.value = lineConfig.tipColor
       let point = pathLine.value.getPointAtLength(pathLine.value.getTotalLength() / 2)
       deleteposition.value.left = point.x
       deleteposition.value.top = point.y
+      hover.value = true
 
     }
     const mouseout = () => {
-      lineColor.value = "rgb(99, 99, 99)"
+      if (props.line.active) {
+        lineColor.value = lineConfig.activeColor
+      } else {
+        lineColor.value = lineConfig.originColor
+      }
+
+      hover.value = false
     }
     const removeLine = () => {
       store.removeLine(toRaw(props.line) as line)
     }
-    setEndArrowPosition()
-    return { size, position, path, start, end, mouseenter, lineColor, mouseout, removeLine, pathLine, deleteposition,endArrowPosition }
+    init()
+    return {
+      size,
+      position,
+      path,
+      start,
+      end, mouseenter, lineColor, mouseout, removeLine,
+      pathLine, deleteposition, endArrowPosition, hover
+    }
   },
-  });
+});
 </script>
   
 <style scoped>
@@ -153,7 +176,7 @@ export default defineComponent({
   width: 20px;
   height: 15px;
   transform-origin: 0% 50%
-  /* transform: translateY(-50%) translateX(-80%); */
+    /* transform: translateY(-50%) translateX(-80%); */
 }
 
 .deleteicon {

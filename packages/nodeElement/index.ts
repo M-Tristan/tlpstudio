@@ -4,7 +4,7 @@ import start from './src/components/start'
 import end from './src/components/end'
 
 import {nodeBox} from "edit";
-import EditStore from "edit/src/common/EditStore";
+import EditStore from "edit/src/common/editStore";
 
 const nodeCreateMap:{[key:string]:Function} = {
     start:start.create,

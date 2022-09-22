@@ -26,7 +26,7 @@
   import Eline from "./components/eline/index.vue";
   import NodeBox from "./components/nodeBox/index.vue"
   import { node, position } from "./type";
-  import EditStore from  "./common/EditStore";
+  import EditStore from  "./common/editStore";
   import _ from "lodash";
   import AddLine from "./components/addLine/index.vue";
 import Setter from "./components/setter/index.vue";

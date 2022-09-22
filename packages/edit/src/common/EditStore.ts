@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { node, position } from "../type";
 export interface line {
     id: string,
+    active:boolean,
     startPosition: {
         left: number,
         top: number,
@@ -38,6 +39,7 @@ class EditStore {
                         const socketPosition = this.getSocketPositionByNodeID(endNode.id)
                         const line = {
                             id: item.id + endNode.id,
+                            active:link.active,
                             startPosition: {
                                 left: item.position.left + item.size.width,
                                 top: item.position.top + item.size.height / 2,
@@ -133,9 +135,9 @@ class EditStore {
         }
         const endNode = this.getNodeById(endId)
         if (startNode.links) {
-            startNode.links.push({ id: endNode.id, active: false })
+            startNode.links.push({ id: endNode.id, active: true })
         } else {
-            startNode.links = [{ id: endNode.id, active: false }]
+            startNode.links = [{ id: endNode.id, active: true }]
         }
         this.event.emit("onLineChange")
     }
