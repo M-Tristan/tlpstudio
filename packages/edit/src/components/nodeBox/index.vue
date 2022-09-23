@@ -181,8 +181,7 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .nodebox {
     position: absolute;
     background-color: white;
@@ -193,33 +192,30 @@ export default defineComponent({
     justify-content: center;
     user-select: none;
     z-index: 2;
-}
+    .endpointer {
+        position: absolute;
+        /* top: 50%; */
+        right: 0;
+        width: 15px;
+        height: 15px;
+        background-color: gray;
+        border-radius: 50%;
+        overflow: hidden;
+        transform: translateX(50%) translateY(-50%);
+        &:hover {
+            background-color: red;
+        }
+    }
+    .socket {
+        position: absolute;
+        /* top: 50%; */
+        left: 0;
+        width: 5px;
+        height: 15px;
+        background-color: gray;
 
-.endpointer {
-    position: absolute;
-    /* top: 50%; */
-    right: 0;
-    width: 15px;
-    height: 15px;
-    background-color: gray;
-    border-radius: 50%;
-    overflow: hidden;
-    transform: translateX(50%) translateY(-50%);
-}
-
-.endpointer:hover {
-    background-color: red;
-}
-
-.socket {
-    position: absolute;
-    /* top: 50%; */
-    left: 0;
-    width: 5px;
-    height: 15px;
-    background-color: gray;
-
-    overflow: hidden;
-    transform: translateX(-50%) translateY(-50%);
+        overflow: hidden;
+        transform: translateX(-50%) translateY(-50%);
+    }
 }
 </style>

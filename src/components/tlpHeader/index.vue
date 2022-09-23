@@ -26,8 +26,7 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .header {
     width: 100%;
     height: 80px;
@@ -35,32 +34,32 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
 
-.logo {
-    height: 100%;
-    color: white;
-    font-size: 30px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
+    .logo {
+        height: 100%;
+        color: white;
+        font-size: 30px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
 
-.functions {
-    display: flex;
-    align-items: center;
-}
+    .functions {
+        display: flex;
+        align-items: center;
 
-.menu {
-    color: white;
-    font-size: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
+        .menu {
+            color: white;
+            font-size: 30px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 
-.model {
-    color: white;
-    margin-right: 20px;
+        .model {
+            color: white;
+            margin-right: 20px;
+        }
+    }
 }
 </style>

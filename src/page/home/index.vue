@@ -30,8 +30,8 @@
                             <el-menu-item
                                 index="1-2"
                                 @click="createElement('twoSocketTest')"
-                                >twoSocketTest</el-menu-item
-                            >
+                                >twoSocketTest
+                            </el-menu-item>
                             <el-menu-item
                                 index="1-2"
                                 @click="createElement('twoPlugTest')"
@@ -90,36 +90,35 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .page {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-}
 
-.nodelist {
-    float: left;
-    width: 250px;
-    height: 100%;
-    background-color: #545c64;
-}
+    .content {
+        position: absolute;
+        top: 130px;
+        left: 0;
+        bottom: 0;
+        right: 0;
 
-.content {
-    position: absolute;
-    top: 130px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
+        .nodelist {
+            float: left;
+            width: 250px;
+            height: 100%;
+            background-color: #545c64;
+        }
 
-.editarea {
-    position: absolute;
-    left: 250px;
-    right: 0;
-    top: 0;
-    bottom: 0;
+        .editarea {
+            position: absolute;
+            left: 250px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
 }
 </style>

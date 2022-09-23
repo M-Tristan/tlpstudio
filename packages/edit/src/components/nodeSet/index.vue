@@ -29,8 +29,7 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .nodeset {
     position: absolute;
     bottom: 100%;
@@ -39,9 +38,9 @@ export default defineComponent({
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-.icon {
-    color: white;
-    cursor: pointer;
+    .icon {
+        color: white;
+        cursor: pointer;
+    }
 }
 </style>

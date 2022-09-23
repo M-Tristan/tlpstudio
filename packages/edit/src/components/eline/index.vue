@@ -236,8 +236,7 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .line {
     position: absolute;
     /* border: 1px solid ;
@@ -252,12 +251,6 @@ export default defineComponent({
     /* transform: translateY(-50%) translateX(-80%); */
 }
 
-.deleteicon {
-    width: 20px;
-    height: 20px;
-    fill: red;
-}
-
 .deletecontent {
     cursor: pointer;
     z-index: 99;
@@ -268,5 +261,10 @@ export default defineComponent({
     padding: 5px;
     border: 1px solid red;
     border-radius: 5px;
+    .deleteicon {
+        width: 20px;
+        height: 20px;
+        fill: red;
+    }
 }
 </style>

@@ -167,8 +167,7 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .addline {
     position: absolute;
     z-index: 10;

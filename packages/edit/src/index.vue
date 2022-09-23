@@ -102,8 +102,7 @@ export default defineComponent({
     components: { NodeBox, Eline, AddLine, Setter },
 });
 </script>
-
-<style scoped>
+<style lang="less" scoped>
 .edit {
     position: relative;
     overflow: hidden;
