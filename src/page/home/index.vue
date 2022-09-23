@@ -53,7 +53,7 @@
                     @getCtx="getCtx"
                     width="100%"
                     height="100%"
-                    backgroundColor="lightgrey"
+                    backgroundColor="#a9a9a9"
                 ></edit>
             </div>
         </div>

@@ -13,13 +13,13 @@
         <path
             :d="path"
             style="stroke-width: 2; fill: none; cursor: pointer"
-            stroke="rgb(99, 99, 99)"
+            :stroke="lineColor"
         ></path>
 
         <path
             :d="path"
             style="stroke-width: 20; fill: none; cursor: pointer; opacity: 0"
-            stroke="rgb(99, 99, 99)"
+            :stroke="lineColor"
         ></path>
     </svg>
     <svg
@@ -35,7 +35,7 @@
             left: position.left + 'px',
             top: position.top + 'px',
             offsetPath: `path('${path}')`,
-
+            fill: lineColor,
             offsetDistance: `99%`,
         }"
     >
@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
-
+import config from "../../common/config";
 export default defineComponent({
     props: {
         line: {
@@ -65,6 +65,8 @@ export default defineComponent({
         },
     },
     setup(props) {
+      let lineConfig = config.line;
+      const lineColor = ref(lineConfig.originColor);
         const start = computed(() => {
             return props.line.startPosition;
         });
@@ -163,7 +165,7 @@ export default defineComponent({
             return `M${startPosition.value.left} ${startPosition.value.top} C${halfLeft} ${startPosition.value.top} ${halfLeft} ${endPosition.value.top} ${endPosition.value.left} ${endPosition.value.top}`;
         });
 
-        return { size, position, startPosition, endPosition, path, start, end };
+        return { size, position, startPosition, endPosition, path, start, end ,lineColor};
     },
 });
 </script>
