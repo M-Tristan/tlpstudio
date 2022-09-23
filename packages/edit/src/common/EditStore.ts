@@ -135,9 +135,9 @@ class EditStore {
         }
         const endNode = this.getNodeById(endId)
         if (startNode.links) {
-            startNode.links.push({ id: endNode.id, active: true })
+            startNode.links.push({ id: endNode.id, active: false })
         } else {
-            startNode.links = [{ id: endNode.id, active: true }]
+            startNode.links = [{ id: endNode.id, active: false }]
         }
         this.event.emit("onLineChange")
     }

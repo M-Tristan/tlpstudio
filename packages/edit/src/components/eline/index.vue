@@ -75,8 +75,9 @@
 import { getLine, getPosition, getSize } from "../../common/util";
 import { computed, defineComponent, inject, ref, toRaw, watch, nextTick } from "vue";
 import config from '../../common/config'
+import EditStore, { line } from "../../common/editStore";
 
-import EditStore, { line } from 'edit/src/common/EditStore'
+
 
 export default defineComponent({
   props: {

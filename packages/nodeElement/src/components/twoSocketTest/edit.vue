@@ -5,16 +5,19 @@
     v-model="draw"
     @closed="closed"
   >
-    <span>Hi there! end</span>
+    <span>Hi there! twoSocketTest</span>
+    <input v-model="node.param.name" @change="changeNode"/>
   </el-drawer>
 </template>
 
 <script lang="ts">
 import EditStore from "edit/src/common/editStore";
+import { node } from "edit/src/type";
 import { defineComponent, inject, ref } from "vue";
 
+
 export default defineComponent({
-  name: "endEdit",
+  name: "twoSocketTestEdit",
   props: {
     node: {
       type: Object,
@@ -23,13 +26,16 @@ export default defineComponent({
       },
     },
   },
-  setup() {
-    const store:EditStore = inject<EditStore>("store") as EditStore
+  setup(props) {
     const draw = ref(true);
+    const store:EditStore = inject<EditStore>("store") as EditStore
     const closed = () => {
       store.quitEditNode();
     };
-    return { draw, closed };
+    const changeNode = () => {
+      store.setNode(props.node as node)
+    }
+    return { draw, closed, changeNode};
   },
 });
 </script>

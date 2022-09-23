@@ -13,6 +13,7 @@
     >
       <node-set :nodeId="node?.id"  v-show="showNodeSet"></node-set>
       <div class="endpointer" @mousedown.stop="addLine"></div>
+      {{node}}
       <div class="socket"></div>
       <slot></slot>
     </div>
