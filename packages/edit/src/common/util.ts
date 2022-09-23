@@ -1,6 +1,7 @@
 import { position } from "../type";
 
 const backWidth = 40
+const minBackHeight = 100
 const getBecurve = (startPosition: position, endPosition: position) => {
     if(endPosition.top < startPosition.top){
         const halfLeft = ( endPosition.left-startPosition.left) / 2;
@@ -23,16 +24,16 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
     if(endPosition.top < startPosition.top){
         return `M${startPosition.left-endPosition.left+backWidth} ${height} 
         L${startPosition.left-endPosition.left+80} ${height} 
-        L${startPosition.left-endPosition.left+80} ${80} 
-        L${0} ${80} 
+        L${startPosition.left-endPosition.left+80} ${minBackHeight} 
+        L${0} ${minBackHeight} 
         L${0} ${0} 
         L${backWidth} ${0} 
         `
     }else{
         return `M${startPosition.left-endPosition.left+backWidth} ${0} 
         L${startPosition.left-endPosition.left+80} ${0} 
-        L${startPosition.left-endPosition.left+80} ${80} 
-        L${0} ${80} 
+        L${startPosition.left-endPosition.left+80} ${minBackHeight} 
+        L${0} ${minBackHeight} 
         L${0} ${height} 
         L${backWidth} ${height} 
         `
@@ -42,7 +43,6 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
 
 const getLine = (startPosition: position, endPosition: position) => {
     if ((startPosition.left + backWidth) > endPosition.left ) {
-        // return getBecurve(startPosition,endPosition)
         return getBackCurve(startPosition, endPosition).replace(/\n/g,' ')
     } else {
         return getBecurve(startPosition, endPosition).replace(/\n/g,' ')
@@ -56,8 +56,8 @@ const getSize = (startPosition: position, endPosition: position) => {
 
         const width = (startPosition.left + backWidth) - (endPosition.left - backWidth)
         let height = Math.abs(endPosition.top - startPosition.top)
-        if (height < 80) {
-            height = 80
+        if (height < minBackHeight) {
+            height = minBackHeight
         }
         return {
             width,
