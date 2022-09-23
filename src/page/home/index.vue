@@ -13,6 +13,10 @@
                         <el-menu-item-group title="Group One">
                             <el-menu-item index="1-1" @click="createElement('start')">start</el-menu-item>
                             <el-menu-item index="1-2" @click="createElement('end')">end</el-menu-item>
+                            <el-menu-item index="1-2" @click="createElement('twoSocketTest')">twoSocketTest</el-menu-item>
+                            <el-menu-item index="1-2" @click="createElement('twoPlugTest')">twoPlugTest</el-menu-item>
+
+                            
                         </el-menu-item-group>
                         <el-menu-item-group title="Group Two">
                             <el-menu-item index="1-3">item three</el-menu-item>

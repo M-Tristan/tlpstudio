@@ -1,6 +1,6 @@
 <template>
   <node-box :node="node">
-    <div @dblclick="editNode" class="twoSocketTest">twoSocketTest</div>
+    <div @dblclick="editNode" class="twoPlugTest">twoPlugTest</div>
   </node-box>
 </template>
 
@@ -13,7 +13,7 @@ import { node } from "edit/src/type";
 
 
 export default defineComponent({
-  name: "twoSocketTest",
+  name: "twoPlugTest",
   components: {
     nodeBox,
   },
@@ -36,7 +36,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.twoSocketTest{
+.twoPlugTest{
   font-size: 12px;
 }
 

@@ -1,7 +1,7 @@
 <template>
   
     <svg
-      class="line"
+      class="addline"
       :style="{
         left: position.left + 'px',
         top: position.top + 'px',
@@ -28,7 +28,7 @@
     </svg>
     <svg
       t="1662814763800"
-      class="ancle"
+      class="addancle"
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -168,13 +168,15 @@
   </script>
   
   <style scoped>
-  .line {
+  .addline {
     position: absolute;
+    z-index: 10;
   }
-  .ancle {
+  .addancle {
     position: absolute;
     width: 20px;
     height: 15px;
+    z-index: 10;
     /* transform: translateY(-50%) translateX(-50%); */
   }
  

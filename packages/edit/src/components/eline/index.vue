@@ -120,7 +120,6 @@ export default defineComponent({
 
     const init = () => {
       setEndArrowPosition()
-      console.log(props.line)
       if (props.line.active) {
         lineColor.value = lineConfig.activeColor
       }

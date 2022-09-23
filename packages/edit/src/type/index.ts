@@ -9,12 +9,16 @@ export interface size {
 
 interface linkinfo{
     id:string,
-    active:boolean
+    active:boolean,
+    socketIndex?:number,
+    plugIndex?:number
 }
 export interface node {
     id: string
     position: position,
     size: size,
+    socketNum?: number,
+    plugNum?:number,
     [key: string]: any,
     links?:Array<linkinfo>
 }

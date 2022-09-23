@@ -3,6 +3,7 @@ const config = {
     name: 'twoSocketTest',
     editName: 'twoSocketTestEdit',
     socketNum:2,
+    plugNum:1,
     param: {
         name: 123
     }
