@@ -1,12 +1,12 @@
 const config = {
-    type: 'end',
-    name: 'end',
-    editName: 'endEdit',
+    type: "end",
+    name: "end",
+    editName: "endEdit",
     param: {
-        name: 123
-    }
-}
+        name: 123,
+    },
+};
 
-export { config }
+export { config };
 
-export default config 
+export default config;

@@ -7,18 +7,18 @@ export interface size {
     height: number;
 }
 
-interface linkinfo{
-    id:string,
-    active:boolean,
-    socketIndex?:number,
-    plugIndex?:number
+interface linkinfo {
+    id: string;
+    active: boolean;
+    socketIndex?: number;
+    plugIndex?: number;
 }
 export interface node {
-    id: string
-    position: position,
-    size: size,
-    socketNum?: number,
-    plugNum?:number,
-    [key: string]: any,
-    links?:Array<linkinfo>
+    id: string;
+    position: position;
+    size: size;
+    socketNum?: number;
+    plugNum?: number;
+    [key: string]: any;
+    links?: Array<linkinfo>;
 }

@@ -1,19 +1,17 @@
 <template>
-  <home></home>
+    <home></home>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Home from './page/home/index.vue';
+import { defineComponent } from "vue";
+import Home from "./page/home/index.vue";
 
 export default defineComponent({
     setup() {
         return {};
     },
-    components: { Home }
-})
+    components: { Home },
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

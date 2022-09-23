@@ -4,19 +4,39 @@
         <ModeList></ModeList>
         <div class="content">
             <div class="nodelist">
-                <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo"
-                    default-active="1" text-color="#fff" style="border:0px">
+                <el-menu
+                    active-text-color="#ffd04b"
+                    background-color="#545c64"
+                    class="el-menu-vertical-demo"
+                    default-active="1"
+                    text-color="#fff"
+                    style="border: 0px"
+                >
                     <el-sub-menu index="1">
                         <template #title>
                             <span>IOT</span>
                         </template>
                         <el-menu-item-group title="Group One">
-                            <el-menu-item index="1-1" @click="createElement('start')">start</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('end')">end</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('twoSocketTest')">twoSocketTest</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('twoPlugTest')">twoPlugTest</el-menu-item>
-
-                            
+                            <el-menu-item
+                                index="1-1"
+                                @click="createElement('start')"
+                                >start</el-menu-item
+                            >
+                            <el-menu-item
+                                index="1-2"
+                                @click="createElement('end')"
+                                >end</el-menu-item
+                            >
+                            <el-menu-item
+                                index="1-2"
+                                @click="createElement('twoSocketTest')"
+                                >twoSocketTest</el-menu-item
+                            >
+                            <el-menu-item
+                                index="1-2"
+                                @click="createElement('twoPlugTest')"
+                                >twoPlugTest</el-menu-item
+                            >
                         </el-menu-item-group>
                         <el-menu-item-group title="Group Two">
                             <el-menu-item index="1-3">item three</el-menu-item>
@@ -26,23 +46,25 @@
                             <el-menu-item index="1-4-1">item one</el-menu-item>
                         </el-sub-menu>
                     </el-sub-menu>
-                   
                 </el-menu>
             </div>
             <div class="editarea">
-                <edit @getCtx = "getCtx" width="100%" height="100%" backgroundColor="lightgrey"></edit>
+                <edit
+                    @getCtx="getCtx"
+                    width="100%"
+                    height="100%"
+                    backgroundColor="lightgrey"
+                ></edit>
             </div>
         </div>
         <!-- <button @click="addNode">添加box</button>
       <button @click="createStart">添加start</button> -->
-
-
     </div>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, provide, ref } from "vue";
-import edit from 'edit'
+import edit from "edit";
 import { create } from "nodeElement";
 import TlpHeader from "../../components/tlpHeader/index.vue";
 import ModeList from "../../components/modeList/index.vue";
@@ -50,26 +72,25 @@ import EditStore from "edit/src/common/EditStore";
 export default defineComponent({
     components: { edit, TlpHeader, ModeList },
     setup() {
-
-        let store:EditStore
+        let store: EditStore;
         let storeUtil = {
-            getJson(){
-                store.getJson()
-            }
-        }
-      
-        const getCtx = (editstore:EditStore) => {
-            store = editstore
-        }
-        const createElement = (name:string) => {
-            create(name,store)
-        }
-        provide("storeUtil",storeUtil)
-        return {   createElement ,getCtx};
+            getJson() {
+                store.getJson();
+            },
+        };
+
+        const getCtx = (editstore: EditStore) => {
+            store = editstore;
+        };
+        const createElement = (name: string) => {
+            create(name, store);
+        };
+        provide("storeUtil", storeUtil);
+        return { createElement, getCtx };
     },
 });
 </script>
-  
+
 <style scoped>
 .page {
     position: absolute;
@@ -84,7 +105,6 @@ export default defineComponent({
     width: 250px;
     height: 100%;
     background-color: #545c64;
-
 }
 
 .content {
@@ -93,7 +113,6 @@ export default defineComponent({
     left: 0;
     bottom: 0;
     right: 0;
-
 }
 
 .editarea {
@@ -104,4 +123,3 @@ export default defineComponent({
     bottom: 0;
 }
 </style>
-  
