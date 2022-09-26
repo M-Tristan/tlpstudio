@@ -87,12 +87,11 @@ class EditStore {
     }
     constructor() {
         this.event = new EventBus();
-        this.pushHistory()
+        this.pushHistory();
     }
     pushHistory() {
         this.historys.push(JSON.stringify(this.nodes));
         this.nexts = [];
-      
     }
     clearHistory() {
         const history = this.historys.pop()!;
@@ -102,7 +101,7 @@ class EditStore {
     back() {
         const history = this.historys.pop()!;
         this.nexts.push(history);
-        const nodes = JSON.parse(this.historys[this.historys.length-1]);
+        const nodes = JSON.parse(this.historys[this.historys.length - 1]);
         this.reSetNodes(nodes);
     }
     redo() {
@@ -278,7 +277,6 @@ class EditStore {
         this.render();
     }
 
-
     onQuitEitNode(func: Function) {
         this.event.on("onQuitEitNode", func);
     }
@@ -340,7 +338,7 @@ class EditStore {
     addNode(node: node): void {
         this.nodes.push(node);
         this.render();
-        this.event.emit("onAddNode")
+        this.event.emit("onAddNode");
     }
     copyNode(id: string): void {
         const node = this.nodeMap[id];

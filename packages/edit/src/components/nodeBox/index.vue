@@ -36,11 +36,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, ref,watch } from "vue";
+import { computed, defineComponent, inject, ref, watch } from "vue";
 import EditStore from "../../common/editStore";
 import { node } from "../../type";
 import nodeSet from "../nodeSet/index.vue";
-import config from "../../common/config"
+import config from "../../common/config";
 export default defineComponent({
     components: { nodeSet },
     name: "nodebox",
@@ -61,13 +61,15 @@ export default defineComponent({
         },
     },
     setup(props) {
-        watch(()=>{
-            return props.node
-        },()=>{
-            position.value.top = props.node!.position.top
-            position.value.left = props.node!.position.left
-
-        })
+        watch(
+            () => {
+                return props.node;
+            },
+            () => {
+                position.value.top = props.node!.position.top;
+                position.value.left = props.node!.position.left;
+            }
+        );
         const store: EditStore = inject<EditStore>("store") as EditStore;
         const size = ref({
             width: props.width,
@@ -119,9 +121,12 @@ export default defineComponent({
             };
             window.onmouseup = () => {
                 window.onmousemove = null;
-                window.onmouseup = null
-                if(oriLeft!=position.value.left||oriTop!=position.value.top){
-                    store.emitNodeMoveEnd()
+                window.onmouseup = null;
+                if (
+                    oriLeft != position.value.left ||
+                    oriTop != position.value.top
+                ) {
+                    store.emitNodeMoveEnd();
                 }
             };
         };

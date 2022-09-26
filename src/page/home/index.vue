@@ -69,63 +69,60 @@ import { create } from "nodeElement";
 import TlpHeader from "../../components/tlpHeader/index.vue";
 import ModeList from "../../components/modeList/index.vue";
 import EditStore from "edit/src/common/editStore";
-import EventBus from "eventBus"; 
+import EventBus from "eventBus";
 import registerPushBack from "@common/registerPushBack";
 export default defineComponent({
     components: { edit, TlpHeader, ModeList },
     setup() {
         let store: EditStore;
         let storeUtil = {
-            get store(){
-                return store
+            get store() {
+                return store;
             },
-            event:new EventBus(),
+            event: new EventBus(),
             getJson() {
                 store.getJson();
             },
-            get canRedo(){
-                if(store){
-                    return store.canRedo
-                }else{
-                    return false
-                }
-               
-            },
-            get canBack(){
-                if(store){
-                    return store.canBack
-                }else{
-                    return false
+            get canRedo() {
+                if (store) {
+                    return store.canRedo;
+                } else {
+                    return false;
                 }
             },
-            pushHistory(){
-                store.pushHistory()
-                // console.log(store)
-                this.event.emit("onPushHistory")
+            get canBack() {
+                if (store) {
+                    return store.canBack;
+                } else {
+                    return false;
+                }
             },
-            back(){
-                store.back()
+            pushHistory() {
+                store.pushHistory();
+                this.event.emit("onPushHistory");
             },
-            redo(){
-                store.redo()
-            }
+            back() {
+                store.back();
+            },
+            redo() {
+                store.redo();
+            },
         };
-        let cancelPushBack:Function|undefined
+        let cancelPushBack: Function | undefined;
         const getCtx = (editstore: EditStore) => {
             store = editstore;
-            cancelPushBack =  registerPushBack(storeUtil)
+            cancelPushBack = registerPushBack(storeUtil);
         };
         const createElement = (name: string) => {
             create(name, store);
         };
-       
+
         provide("storeUtil", storeUtil);
-        onBeforeUnmount(()=>{
-            if(cancelPushBack){
-                cancelPushBack()
+        onBeforeUnmount(() => {
+            if (cancelPushBack) {
+                cancelPushBack();
             }
-            
-        })
+        });
         return { createElement, getCtx };
     },
 });
@@ -158,6 +155,7 @@ export default defineComponent({
             right: 0;
             top: 0;
             bottom: 0;
+            overflow: hidden;
         }
     }
 }
