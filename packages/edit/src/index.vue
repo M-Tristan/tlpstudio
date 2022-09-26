@@ -69,7 +69,7 @@ export default defineComponent({
         const showEditLine = ref(false);
         provide("store", store);
         store.onNodeChange(() => {
-            nodes.value = [...store.node];
+            nodes.value = [...store.nodes];
         });
         store.event.on("editline", function (start: position, end: position) {
             showEditLine.value = true;

@@ -22,19 +22,24 @@ export interface line {
     };
 }
 class EditStore {
-    node = [] as Array<node>;
-    nodeMap = {} as { [key: string]: node };
+    historys = [] as Array<string>;
+    nexts = [] as Array<string>;
+    nodes = [] as Array<node>;
     event: EventBus;
-
-    constructor() {
-        this.event = new EventBus();
+    get nodeMap() {
+        const nodeMap = {} as { [key: string]: node };
+        this.nodes.forEach(node => {
+            nodeMap[node.id] = node;
+        });
+        return nodeMap;
     }
     get lines() {
         const res: any[] = [];
-        this.node.forEach(item => {
+        this.nodes.forEach(item => {
             if (item.links && item.links.length > 0) {
+                const nodeMap = this.nodeMap;
                 item.links = item.links.filter(link => {
-                    const endNode = this.nodeMap[link.id];
+                    const endNode = nodeMap[link.id];
                     if (endNode === undefined) {
                         return false;
                     } else {
@@ -74,13 +79,49 @@ class EditStore {
         });
         return res;
     }
+    get canBack() {
+        return this.historys.length > 1;
+    }
+    get canRedo() {
+        return this.nexts.length > 0;
+    }
+    constructor() {
+        this.event = new EventBus();
+    }
+    pushHistory() {
+        this.historys.push(JSON.stringify(this.nodes));
+        this.nexts = [];
+    }
+    clearHistory() {
+        const history = this.historys.pop()!;
+        this.historys = [history];
+        this.nexts = [];
+    }
+    back() {
+        const history = this.historys.pop()!;
+        this.nexts.push(history);
+        const nodes = JSON.parse(history);
+        this.reSetNodes(nodes);
+    }
+    redo() {
+        const history = this.nexts.pop()!;
+        this.historys.push(history);
+        const nodes = JSON.parse(history);
+        this.reSetNodes(nodes);
+    }
+
+    reSetNodes(nodes: Array<node>) {
+        this.nodes = nodes;
+        this.render();
+    }
+
     getSocketPositionsByNodeID(id: string) {
         const node = this.nodeMap[id];
         return this.getSocketPositionsByNode(node);
     }
     getAllNodeSocketPositions() {
         let res: any[] = [];
-        this.node.forEach(item => {
+        this.nodes.forEach(item => {
             const positions = this.getSocketPositionsByNode(item);
             res = [...res, ...positions];
         });
@@ -109,6 +150,10 @@ class EditStore {
         node.plugNum = node.plugNum === undefined ? 1 : node.plugNum;
         node.socketNum = node.socketNum === undefined ? 1 : node.socketNum;
     }
+    render() {
+        this.event.emit("onNodeChange");
+        this.event.emit("onLineChange");
+    }
     getPosition(left: number, top: number) {
         const positionQueue: Array<{ left: number; top: number }> = [];
         positionQueue.push({ left, top });
@@ -116,7 +161,7 @@ class EditStore {
         const testedPositions: { [key: string]: boolean } = {};
         const gridSize = config.grid.size;
         let result = { left: 0, top: 0 };
-        this.node.forEach(item => {
+        this.nodes.forEach(item => {
             nodePositions[`${item.position.left}-${item.position.top}`] = true;
         });
         while (positionQueue.length != 0) {
@@ -228,13 +273,12 @@ class EditStore {
         this.event.emit("onEditNode", node);
     }
     quitEditNode() {
-        this.event.emit("onQuitEitNode");
+        this.render();
     }
 
     addNode(node: node): void {
-        this.node.push(node);
-        this.nodeMap[node.id] = node;
-        this.event.emit("onNodeChange");
+        this.nodes.push(node);
+        this.render();
     }
     copyNode(id: string): void {
         const node = this.nodeMap[id];
@@ -276,7 +320,7 @@ class EditStore {
                 },
             ];
         }
-        this.event.emit("onLineChange");
+        this.render();
     }
     removeLine(line: line) {
         const node = this.nodeMap[line.startPosition.id];
@@ -289,7 +333,7 @@ class EditStore {
                 link.plugIndex != line.startPosition.plugIndex
             );
         });
-        this.event.emit("onLineChange");
+        this.render();
     }
 
     onQuitEitNode(func: Function) {
@@ -317,15 +361,13 @@ class EditStore {
         this.event.off("onLineChange", func);
     }
     deleteNode(id: string) {
-        this.node = this.node.filter(node => {
+        this.nodes = this.nodes.filter(node => {
             node.links = node.links?.filter(link => {
                 return link.id != id;
             });
             return node.id != id;
         });
-        delete this.nodeMap[id];
-        this.event.emit("onNodeChange");
-        this.event.emit("onLineChange");
+        this.render();
     }
     getNodeById(id: string) {
         return this.nodeMap[id];
@@ -335,11 +377,11 @@ class EditStore {
         if (node) {
             node.position = position;
         }
-        this.event.emit("onLineChange");
+        this.render();
     }
 
     getJson() {
-        console.log(JSON.stringify(this.node));
+        console.log(JSON.stringify(this.nodes));
     }
 }
 

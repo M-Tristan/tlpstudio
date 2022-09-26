@@ -65,8 +65,8 @@ export default defineComponent({
         },
     },
     setup(props) {
-      let lineConfig = config.line;
-      const lineColor = ref(lineConfig.originColor);
+        let lineConfig = config.line;
+        const lineColor = ref(lineConfig.originColor);
         const start = computed(() => {
             return props.line.startPosition;
         });
@@ -165,7 +165,16 @@ export default defineComponent({
             return `M${startPosition.value.left} ${startPosition.value.top} C${halfLeft} ${startPosition.value.top} ${halfLeft} ${endPosition.value.top} ${endPosition.value.left} ${endPosition.value.top}`;
         });
 
-        return { size, position, startPosition, endPosition, path, start, end ,lineColor};
+        return {
+            size,
+            position,
+            startPosition,
+            endPosition,
+            path,
+            start,
+            end,
+            lineColor,
+        };
     },
 });
 </script>
