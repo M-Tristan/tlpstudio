@@ -2,8 +2,8 @@
     <div class="header">
         <div class="logo">TLP Studio</div>
         <div class="functions">
-            <i class="icon iconfont icon-7chexiao menu"></i>
-            <i class="icon iconfont icon-fanchexiao menu"></i>
+            <i class="icon iconfont icon-7chexiao menu" @click="back" :style="{color:historyInfo.canBack?'white':'grey',cursor:historyInfo.canBack?'pointer':'default'}"  ></i>
+            <i class="icon iconfont icon-fanchexiao menu" @click="redo" :style="{color:historyInfo.canRedo?'white':'grey',cursor:historyInfo.canRedo?'pointer':'default'}"  ></i>
             <div class="model">模版</div>
             <el-button type="primary">部署 </el-button>
             <el-button type="primary" @click="getinfo">数据导出 </el-button>
@@ -13,16 +13,41 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from "vue";
+import { defineComponent, inject, onBeforeUnmount, reactive } from "vue";
 
 export default defineComponent({
     setup() {
         const storeUtil = inject<any>("storeUtil");
+        const historyInfo = reactive({
+            canBack:false,
+            canRedo:false
+        })
+        const resetHistoryInfo = () => {
+            historyInfo.canBack = storeUtil.canBack
+            historyInfo.canRedo = storeUtil.canRedo
+        }
+        storeUtil.event.on("onPushHistory",resetHistoryInfo)
         const getinfo = () => {
             storeUtil.getJson();
         };
-
-        return { getinfo };
+        const back = () => {
+            if(historyInfo.canBack){
+                storeUtil.back()
+            resetHistoryInfo()
+            }
+           
+        }
+        const redo = () => {
+            if(historyInfo.canRedo){
+                storeUtil.redo()
+            resetHistoryInfo()
+            }
+           
+        }
+        onBeforeUnmount(()=>{
+                 storeUtil.event.off("onPushHistory",resetHistoryInfo)
+            })
+        return { getinfo,historyInfo,back,redo };
     },
 });
 </script>
@@ -54,6 +79,7 @@ export default defineComponent({
             font-size: 30px;
             margin-left: 20px;
             margin-right: 20px;
+           
         }
 
         .model {

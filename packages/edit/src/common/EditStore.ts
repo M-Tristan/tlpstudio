@@ -87,10 +87,12 @@ class EditStore {
     }
     constructor() {
         this.event = new EventBus();
+        this.pushHistory()
     }
     pushHistory() {
         this.historys.push(JSON.stringify(this.nodes));
         this.nexts = [];
+      
     }
     clearHistory() {
         const history = this.historys.pop()!;
@@ -100,7 +102,7 @@ class EditStore {
     back() {
         const history = this.historys.pop()!;
         this.nexts.push(history);
-        const nodes = JSON.parse(history);
+        const nodes = JSON.parse(this.historys[this.historys.length-1]);
         this.reSetNodes(nodes);
     }
     redo() {
@@ -276,9 +278,69 @@ class EditStore {
         this.render();
     }
 
+
+    onQuitEitNode(func: Function) {
+        this.event.on("onQuitEitNode", func);
+    }
+    removeQuitEitNode(func: Function) {
+        this.event.off("onQuitEitNode", func);
+    }
+    onEditNode(func: Function) {
+        this.event.on("onEditNode", func);
+    }
+    removeEditNode(func: Function) {
+        this.event.off("onEditNode", func);
+    }
+    onNodeChange(func: Function) {
+        this.event.on("onNodeChange", func);
+    }
+    removeNodeChange(func?: Function) {
+        this.event.off("onNodeChange", func);
+    }
+    onLineChange(func: Function) {
+        this.event.on("onLineChange", func);
+    }
+    removeLineChange(func?: Function) {
+        this.event.off("onLineChange", func);
+    }
+    onAddNode(func: Function) {
+        this.event.on("onAddNode", func);
+    }
+    removeAddNode(func?: Function) {
+        this.event.off("onAddNode", func);
+    }
+    onNodeMoveEnd(func: Function) {
+        this.event.on("onNodeMoveEnd", func);
+    }
+    removeNodeMoveEnd(func?: Function) {
+        this.event.off("onNodeMoveEnd", func);
+    }
+    emitNodeMoveEnd() {
+        this.event.emit("onNodeMoveEnd");
+    }
+    onDeleteNode(func: Function) {
+        this.event.on("onDeleteNode", func);
+    }
+    removeDeleteNode(func?: Function) {
+        this.event.off("onDeleteNode", func);
+    }
+    onAddLine(func: Function) {
+        this.event.on("onAddLine", func);
+    }
+    removeAddLine(func?: Function) {
+        this.event.off("onAddLine", func);
+    }
+    onRemoveLine(func: Function) {
+        this.event.on("onRemoveLine", func);
+    }
+    removeRemoveLine(func?: Function) {
+        this.event.off("onRemoveLine", func);
+    }
+
     addNode(node: node): void {
         this.nodes.push(node);
         this.render();
+        this.event.emit("onAddNode")
     }
     copyNode(id: string): void {
         const node = this.nodeMap[id];
@@ -321,6 +383,7 @@ class EditStore {
             ];
         }
         this.render();
+        this.event.emit("onAddLine");
     }
     removeLine(line: line) {
         const node = this.nodeMap[line.startPosition.id];
@@ -334,32 +397,9 @@ class EditStore {
             );
         });
         this.render();
+        this.event.emit("onRemoveLine");
     }
 
-    onQuitEitNode(func: Function) {
-        this.event.on("onQuitEitNode", func);
-    }
-    removeQuitEitNode(func: Function) {
-        this.event.off("onQuitEitNode", func);
-    }
-    onEditNode(func: Function) {
-        this.event.on("onEditNode", func);
-    }
-    removeEditNode(func: Function) {
-        this.event.off("onEditNode", func);
-    }
-    onNodeChange(func: Function) {
-        this.event.on("onNodeChange", func);
-    }
-    removeNodeChange(func?: Function) {
-        this.event.off("onNodeChange", func);
-    }
-    onLineChange(func: Function) {
-        this.event.on("onLineChange", func);
-    }
-    removeLineChange(func?: Function) {
-        this.event.off("onLineChange", func);
-    }
     deleteNode(id: string) {
         this.nodes = this.nodes.filter(node => {
             node.links = node.links?.filter(link => {
@@ -368,6 +408,7 @@ class EditStore {
             return node.id != id;
         });
         this.render();
+        this.event.emit("onDeleteNode");
     }
     getNodeById(id: string) {
         return this.nodeMap[id];
