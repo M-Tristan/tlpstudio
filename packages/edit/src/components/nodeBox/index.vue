@@ -41,6 +41,8 @@ import EditStore from "../../common/editStore";
 import { node } from "../../type";
 import nodeSet from "../nodeSet/index.vue";
 import config from "../../common/config";
+import ViewContainer from "../../common/viewContainer";
+
 export default defineComponent({
     components: { nodeSet },
     name: "nodebox",
@@ -61,15 +63,9 @@ export default defineComponent({
         },
     },
     setup(props) {
-        watch(
-            () => {
-                return props.node;
-            },
-            () => {
-                position.value.top = props.node!.position.top;
-                position.value.left = props.node!.position.left;
-            }
-        );
+        const container: ViewContainer = inject<ViewContainer>(
+            "container"
+        ) as ViewContainer;
         const store: EditStore = inject<EditStore>("store") as EditStore;
         const size = ref({
             width: props.width,
@@ -96,21 +92,32 @@ export default defineComponent({
                 return 1;
             }
         });
-
+        watch(
+            () => {
+                return props.node;
+            },
+            () => {
+                position.value.top = props.node!.position.top;
+                position.value.left = props.node!.position.left;
+            }
+        );
         const mousedown = (event: MouseEvent) => {
             let oriClientX = event.clientX;
             let oriClientY = event.clientY;
             let oriLeft = position.value.left;
             let oriTop = position.value.top;
             let gridSize = config.grid.size;
+            let scale = container.edit.scale;
             window.onmousemove = (event: MouseEvent) => {
                 position.value.left =
                     Math.floor(
-                        (event.clientX - oriClientX + oriLeft) / gridSize
+                        ((event.clientX - oriClientX) / scale + oriLeft) /
+                            gridSize
                     ) * gridSize;
                 position.value.top =
                     Math.floor(
-                        (event.clientY - oriClientY + oriTop) / gridSize
+                        ((event.clientY - oriClientY) / scale + oriTop) /
+                            gridSize
                     ) * gridSize;
                 store.changeNodePosition(
                     {
@@ -127,6 +134,7 @@ export default defineComponent({
                     oriTop != position.value.top
                 ) {
                     store.emitNodeMoveEnd();
+                    container.render();
                 }
             };
         };
@@ -145,10 +153,11 @@ export default defineComponent({
                 id: props.node!.id,
                 plugIndex: index,
             };
+            let scale = container.edit.scale;
             window.onmousemove = (event: MouseEvent) => {
                 linkSocket = null;
-                let endleft = event.clientX - oriClientX + oriLeft;
-                let endtop = event.clientY - oriClientY + oriTop;
+                let endleft = (event.clientX - oriClientX) / scale + oriLeft;
+                let endtop = (event.clientY - oriClientY) / scale + oriTop;
                 for (let index = 0; index < socketPositions.length; index++) {
                     let socket = socketPositions[index];
                     if (
@@ -183,7 +192,10 @@ export default defineComponent({
         const mouseleave = () => {
             showNodeSet.value = false;
         };
-
+        const init = () => {
+            container.render();
+        };
+        init();
         return {
             size,
             mousedown,

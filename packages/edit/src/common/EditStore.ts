@@ -33,6 +33,7 @@ class EditStore {
         });
         return nodeMap;
     }
+
     get lines() {
         const res: any[] = [];
         this.nodes.forEach(item => {
