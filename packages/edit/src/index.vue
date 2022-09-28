@@ -1,33 +1,53 @@
 <template>
-    <div class="edit-container" :style="{
-        width: width,
-        height: height,
-    }">
+    <div
+        class="edit-container"
+        :style="{
+            width: width,
+            height: height,
+        }"
+    >
         <div class="edit-main" ref="editContainer" @scroll="containerScroll">
-            <div ref="editCanvas"  class="edit-border" :style="{
-                width: `${5000 * scale}px`,
-                height: `${5000 * scale}px`,
-                ...editBorderPosition,
-            }">
-                <div class="edit" :style="{
-                    transform: `scale(${scale},${scale})`,
-                    width: '5000px',
-                    height: '5000px',
-                    backgroundColor: backgroundColor,
-                    backgroundSize:
-                        backImageInfo.backgroundSize +
-                        'px ' +
-                        backImageInfo.backgroundSize +
-                        'px',
-                    backgroundPositionX:
-                        backImageInfo.backgroundPosition.left + 'px',
-                    backgroundPositionY:
-                        backImageInfo.backgroundPosition.top + 'px',
-                    backgroundImage: backImageInfo.backgroundImage,
-                }">
-                    <eline v-for="line in lines" :key="line.id" :line="line"></eline>
-                    <component :is="node.name ? node.name : 'nodebox'" v-for="node in nodes" :key="node.id" :node="node"
-                        :width="node.size.width" :height="node.size.height"></component>
+            <div
+                ref="editCanvas"
+                class="edit-border"
+                :style="{
+                    width: `${5000 * scale}px`,
+                    height: `${5000 * scale}px`,
+                    ...editBorderPosition,
+                }"
+            >
+                <div
+                    class="edit"
+                    :style="{
+                        transform: `scale(${scale},${scale})`,
+                        width: '5000px',
+                        height: '5000px',
+                        backgroundColor: backgroundColor,
+                        backgroundSize:
+                            backImageInfo.backgroundSize +
+                            'px ' +
+                            backImageInfo.backgroundSize +
+                            'px',
+                        backgroundPositionX:
+                            backImageInfo.backgroundPosition.left + 'px',
+                        backgroundPositionY:
+                            backImageInfo.backgroundPosition.top + 'px',
+                        backgroundImage: backImageInfo.backgroundImage,
+                    }"
+                >
+                    <eline
+                        v-for="line in lines"
+                        :key="line.id"
+                        :line="line"
+                    ></eline>
+                    <component
+                        :is="node.name ? node.name : 'nodebox'"
+                        v-for="node in nodes"
+                        :key="node.id"
+                        :node="node"
+                        :width="node.size.width"
+                        :height="node.size.height"
+                    ></component>
                     <add-line v-if="showEditLine" :line="newLine"></add-line>
                 </div>
             </div>
@@ -74,8 +94,7 @@ export default defineComponent({
         const editContainer = ref(null as unknown as HTMLDivElement);
         const editCanvas = ref(null as unknown as HTMLDivElement);
 
-        
-        let hotkeys: Hotkeys
+        let hotkeys: Hotkeys;
 
         emit("getCtx", store);
         const backImageInfo = ref({
@@ -118,7 +137,7 @@ export default defineComponent({
             if (5000 * scale.value < editContainer.value.clientHeight) {
                 editBorderPosition.value.top =
                     (editContainer.value.clientHeight - 5000 * scale.value) /
-                    2 +
+                        2 +
                     "px";
             }
         };
@@ -150,19 +169,31 @@ export default defineComponent({
                 resizeObserver.observe(editContainer.value);
                 hotkeys = new Hotkeys(editCanvas.value);
                 hotkeys.addKeyEvent((event: KeyboardEvent) => {
-                    if (event.ctrlKey && event.key == '-') {
-                        container.narrow()
+                    if (event.ctrlKey && event.key == "-") {
+                        container.narrow();
                     }
-                    if (event.metaKey && event.key == '-') {
-                        container.narrow()
+                    if (event.metaKey && event.key == "-") {
+                        container.narrow();
                     }
-                    if (event.ctrlKey && (event.key == '+' || event.key == '=')) {
-                        container.enlarge()
+                    if (
+                        event.ctrlKey &&
+                        (event.key == "+" || event.key == "=")
+                    ) {
+                        container.enlarge();
                     }
-                    if (event.metaKey && (event.key == '+' || event.key == '=')) {
-                        container.enlarge()
+                    if (
+                        event.metaKey &&
+                        (event.key == "+" || event.key == "=")
+                    ) {
+                        container.enlarge();
                     }
-                    
+                    if (
+                        event.key == "Backspace" ||
+                        event.key == "Delete" ||
+                        event.key == "delete"
+                    ) {
+                        store.removeLine();
+                    }
                 });
             });
             container.setScroll(setScroll);
@@ -190,7 +221,7 @@ export default defineComponent({
             resizeObserver.unobserve(editContainer.value);
             container.offScaleChange(setScale);
             if (hotkeys) {
-                hotkeys.destroyed()
+                hotkeys.destroyed();
             }
         });
 
@@ -203,7 +234,8 @@ export default defineComponent({
             editContainer,
             containerScroll,
             scale,
-            editBorderPosition,editCanvas
+            editBorderPosition,
+            editCanvas,
         };
     },
     components: { NodeBox, Eline, AddLine, Setter, Navigation },

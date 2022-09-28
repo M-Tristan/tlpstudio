@@ -28,8 +28,6 @@
             :stroke="lineColor"
         ></path>
     </svg>
-    <!-- {{ancleRotate}} -->
-    <!-- tranform:rotate(ancleRotate) -->
     <svg
         t="1662814763800"
         class="ancle"
@@ -204,6 +202,7 @@ export default defineComponent({
             deleteposition.value.left = point.x;
             deleteposition.value.top = point.y;
             hover.value = true;
+            store.setSelectedLine(toRaw(props.line) as line);
         };
         const mouseout = () => {
             if (props.line.active) {
@@ -211,11 +210,14 @@ export default defineComponent({
             } else {
                 lineColor.value = lineConfig.originColor;
             }
+            if (toRaw(props.line) == store.selectedLine) {
+                store.setSelectedLine(null);
+            }
 
             hover.value = false;
         };
         const removeLine = () => {
-            store.removeLine(toRaw(props.line) as line);
+            store.removeLine();
         };
         init();
         return {

@@ -26,6 +26,7 @@ class EditStore {
     nexts = [] as Array<string>;
     nodes = [] as Array<node>;
     event: EventBus;
+    selectedLine: null | line = null;
     get nodeMap() {
         const nodeMap = {} as { [key: string]: node };
         this.nodes.forEach(node => {
@@ -112,6 +113,11 @@ class EditStore {
         this.reSetNodes(nodes);
     }
 
+    setSelectedLine(line: line | null) {
+        if (this.selectedLine != line) {
+            this.selectedLine = line;
+        }
+    }
     reSetNodes(nodes: Array<node>) {
         this.nodes = nodes;
         this.render();
@@ -384,19 +390,24 @@ class EditStore {
         this.render();
         this.event.emit("onAddLine");
     }
-    removeLine(line: line) {
-        const node = this.nodeMap[line.startPosition.id];
-        const links = node.links;
+    removeLine() {
+        const line = this.selectedLine;
+        if (line === null) {
+            return;
+        } else {
+            const node = this.nodeMap[line.startPosition.id];
+            const links = node.links;
 
-        node.links = links?.filter(link => {
-            return (
-                link.id != line.endPosition.id ||
-                link.socketIndex != line.endPosition.socketIndex ||
-                link.plugIndex != line.startPosition.plugIndex
-            );
-        });
-        this.render();
-        this.event.emit("onRemoveLine");
+            node.links = links?.filter(link => {
+                return (
+                    link.id != line!.endPosition.id ||
+                    link.socketIndex != line!.endPosition.socketIndex ||
+                    link.plugIndex != line!.startPosition.plugIndex
+                );
+            });
+            this.render();
+            this.event.emit("onRemoveLine");
+        }
     }
 
     deleteNode(id: string) {
