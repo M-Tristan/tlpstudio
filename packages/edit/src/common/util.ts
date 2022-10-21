@@ -136,7 +136,7 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
         );
 
         const l = SVGPath.L(
-            startPosition.left - endPosition.left + 80 + borderWidth-radius,
+            startPosition.left - endPosition.left + 80 + borderWidth - radius,
             0 + borderWidth
         );
         const a = SVGPath.A(
@@ -146,11 +146,11 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
             0,
             1,
             startPosition.left - endPosition.left + 80 + borderWidth,
-            0 + borderWidth+radius
+            0 + borderWidth + radius
         );
         const l2 = SVGPath.L(
             startPosition.left - endPosition.left + 80 + borderWidth,
-            minBackHeight + borderWidth-radius
+            minBackHeight + borderWidth - radius
         );
         const a2 = SVGPath.A(
             radius,
@@ -158,10 +158,13 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
             0,
             0,
             1,
-            startPosition.left - endPosition.left + 80 + borderWidth-radius,
+            startPosition.left - endPosition.left + 80 + borderWidth - radius,
             minBackHeight + borderWidth
         );
-        const l3 = SVGPath.L(0 + borderWidth+radius, minBackHeight + borderWidth);
+        const l3 = SVGPath.L(
+            0 + borderWidth + radius,
+            minBackHeight + borderWidth
+        );
         const a3 = SVGPath.A(
             radius,
             radius,
@@ -169,26 +172,26 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
             0,
             0,
             0 + borderWidth,
-            minBackHeight + borderWidth+radius
+            minBackHeight + borderWidth + radius
         );
-        if(minBackHeight>height){
-            a3.setSweepFlag(1)
-            a3.setY( minBackHeight + borderWidth-radius)
+        if (minBackHeight > height) {
+            a3.setSweepFlag(1);
+            a3.setY(minBackHeight + borderWidth - radius);
         }
-        const l4 = SVGPath.L(0 + borderWidth, height + borderWidth-radius);
+        const l4 = SVGPath.L(0 + borderWidth, height + borderWidth - radius);
         const a4 = SVGPath.A(
             radius,
             radius,
             0,
             0,
             0,
-            0 + borderWidth+radius,
+            0 + borderWidth + radius,
             height + borderWidth
         );
-        if(minBackHeight>height){
-            l4.setY(height + borderWidth+radius)
-            a4.setSweepFlag(1)
-            a4.setX(   borderWidth+radius)
+        if (minBackHeight > height) {
+            l4.setY(height + borderWidth + radius);
+            a4.setSweepFlag(1);
+            a4.setX(borderWidth + radius);
         }
         const l5 = SVGPath.L(backWidth + borderWidth, height + borderWidth);
         path.addPath(m);
@@ -197,17 +200,17 @@ const getBackCurve = (startPosition: position, endPosition: position) => {
         path.addPath(l2);
         path.addPath(a2);
         path.addPath(l3);
-        if(minBackHeight !==height){
+        if (minBackHeight !== height) {
             path.addPath(a3);
         }
-      
+
         path.addPath(l4);
-        if(minBackHeight !==height){
+        if (minBackHeight !== height) {
             path.addPath(a4);
-        }else{
-            l4.setY(height + borderWidth)
+        } else {
+            l4.setY(height + borderWidth);
         }
-      
+
         path.addPath(l5);
 
         return path.toPath();

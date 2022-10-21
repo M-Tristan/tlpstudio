@@ -1,3 +1,5 @@
+import { CSSProperties } from "vue";
+
 export interface position {
     left: number;
     top: number;
@@ -21,4 +23,5 @@ export interface node {
     plugNum?: number;
     [key: string]: any;
     links?: Array<linkinfo>;
+    style?:CSSProperties
 }
