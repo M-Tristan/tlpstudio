@@ -1,29 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import start from "./src/components/start";
-import end from "./src/components/end";
-import twoSocketTest from "./src/components/twoSocketTest";
-import twoPlugTest from "./src/components/twoPlugTest";
-
+import registerNode from './register'
 import { nodeBox } from "edit";
 import EditStore from "edit/src/common/editStore";
 
 const nodeCreateMap: { [key: string]: Function } = {
-    start: start.create,
-    end: end.create,
-    twoSocketTest: twoSocketTest.create,
-    twoPlugTest: twoPlugTest.create,
 };
-
+for(const key in registerNode){
+    const node = (registerNode as any )[key]
+    nodeCreateMap[key]  =node.create
+}
 const useElement = (app: any) => {
-    app.component(start.index.name, start.index);
-    app.component(start.edit.name, start.edit);
-    app.component(end.index.name, end.index);
-    app.component(end.edit.name, end.edit);
-    app.component(twoSocketTest.index.name, twoSocketTest.index);
-    app.component(twoSocketTest.edit.name, twoSocketTest.edit);
-    app.component(twoPlugTest.index.name, twoPlugTest.index);
-    app.component(twoPlugTest.edit.name, twoPlugTest.edit);
+    for(const key in registerNode){
+        
+        const node = (registerNode as any )[key]
+        app.component(node.index.name, node.index);
+        app.component(node.edit.name, node.edit);
+    }
     app.component(nodeBox.name, nodeBox);
 };
 

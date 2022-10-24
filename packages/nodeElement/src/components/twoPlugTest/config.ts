@@ -2,8 +2,8 @@ const config = {
     type: "twoPlugTest",
     name: "twoPlugTest",
     editName: "twoPlugTestEdit",
-    socketNum: 1,
-    plugNum: 4,
+    socketNum: 0,
+    plugNum: 2,
     param: {
         name: 123,
     },

@@ -5,8 +5,8 @@
         v-model="draw"
         @closed="closed"
     >
-        <span>Hi there!</span>
-        <input  v-model="node.param.name" @change="changeNode" />
+        <span>Hi there!code</span>
+        <input v-model="node.param.name" @change="changeNode" />
     </el-drawer>
 </template>
 
@@ -16,7 +16,7 @@ import { node } from "edit/src/type";
 import { defineComponent, inject, ref } from "vue";
 
 export default defineComponent({
-    name: "startEdit",
+    name: "codeEdit",
     props: {
         node: {
             type: Object,

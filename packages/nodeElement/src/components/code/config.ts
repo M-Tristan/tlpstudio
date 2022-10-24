@@ -1,11 +1,11 @@
 const config = {
-    type: "{{:name}}",
-    name: "{{:name}}",
-    editName: "{{:name}}Edit",
+    type: "code",
+    name: "code",
+    editName: "codeEdit",
     socketNum: 1,
     plugNum: 1,
     param: {
-        name: {{:name}},
+        name: 123,
     },
     style: {
 

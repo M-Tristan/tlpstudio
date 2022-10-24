@@ -29,6 +29,17 @@
                             >
                             <el-menu-item
                                 index="1-2"
+                                @click="createElement('code')"
+                                >code</el-menu-item
+                            >
+                            <el-menu-item
+                                index="1-2"
+                                @click="createElement('ifnode')"
+                                >ifnode</el-menu-item
+                            >
+                            
+                            <el-menu-item
+                                index="1-2"
                                 @click="createElement('twoSocketTest')"
                                 >twoSocketTest
                             </el-menu-item>

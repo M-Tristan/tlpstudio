@@ -15,7 +15,7 @@ const createNode = () => {
     inquirer.prompt({
         name: 'componentname',
         type: 'input',
-        message: '输入组建名?',
+        message: '输入需要创建的组建名?',
         default: "testNode"+Date.now(),
       }).then((res: any)=>{
         const config = require(path.resolve(process.cwd(),'./cilconfig.json'))
@@ -28,7 +28,7 @@ const createNode = () => {
         createFile(config.componentPath,'edit.vue',componentname)
         createFile(config.componentPath,'index.ts',componentname)
         createFile(config.componentPath,'index.vue',componentname)
-       
+       console.log('创建成功')
        
       })
 }

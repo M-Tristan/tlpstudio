@@ -1,11 +1,11 @@
 const config = {
-    type: "{{:name}}",
-    name: "{{:name}}",
-    editName: "{{:name}}Edit",
+    type: "switchNode",
+    name: "switchNode",
+    editName: "switchNodeEdit",
     socketNum: 1,
     plugNum: 1,
     param: {
-        name: {{:name}},
+        name: switchNode,
     },
     style: {
 

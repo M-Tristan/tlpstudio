@@ -83,7 +83,7 @@ export default defineComponent({
             if (num) {
                 return num;
             } else {
-                return 1;
+                return 0;
             }
         });
         const plugNum = computed(() => {
