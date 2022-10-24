@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
-    "target": "ESNext",
+   
+    "outDir": "./bin",
     "strict": true,
     "downlevelIteration": true,
     "declaration": true,
@@ -10,5 +10,9 @@
     "jsx": "preserve",
     "lib": ["esnext", "dom"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "moduleResolution": "node"
+   },
+   
 }

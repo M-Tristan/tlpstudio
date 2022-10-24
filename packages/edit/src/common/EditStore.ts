@@ -34,7 +34,9 @@ class EditStore {
         });
         return nodeMap;
     }
-
+    /**
+     * 得到所有连线
+     */
     get lines() {
         const res: any[] = [];
         this.nodes.forEach(item => {
@@ -135,6 +137,11 @@ class EditStore {
         });
         return res;
     }
+    /**
+     * 获得节点插槽的位置
+     * @param node 
+     * @returns 
+     */
     getSocketPositionsByNode(node: node) {
         const num = node.socketNum !== undefined ? node.socketNum : 1;
         const positions: any[] = [];
@@ -358,6 +365,11 @@ class EditStore {
         );
         this.addNode(newNode);
     }
+    /**
+     * 连线
+     * @param plug 
+     * @param socket 
+     */
     addLine(plug: any, socket: any) {
         const startNode = this.getNodeById(plug.id);
         const links = startNode.links;
@@ -390,6 +402,10 @@ class EditStore {
         this.render();
         this.event.emit("onAddLine");
     }
+    /**
+     * 移除线
+     * @returns 
+     */
     removeLine() {
         const line = this.selectedLine;
         if (line === null) {
