@@ -8,7 +8,7 @@
             height: size.height + 'px',
             left: position.left + 'px',
             top: position.top + 'px',
-            ...node.style
+            ...node.style,
         }"
         @mousedown="mousedown"
     >
@@ -64,7 +64,7 @@ export default defineComponent({
         },
     },
     setup(props) {
-       const nodeStyle=ref()
+        const nodeStyle = ref();
         const container: ViewContainer = inject<ViewContainer>(
             "container"
         ) as ViewContainer;

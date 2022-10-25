@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, inject } from "vue";
-import EditStore from "../../common/editStore";
+import EditStore from "../../common/EditStore";
 import { node } from "../../type/index";
 
 export default defineComponent({

@@ -50,7 +50,7 @@ import {
     reactive,
     onBeforeUnmount,
 } from "vue";
-import EditStore from "../../common/editStore";
+import EditStore from "../../common/EditStore";
 import ViewContainer from "../../common/viewContainer";
 import navigateNode from "./navigateNode.vue";
 export default defineComponent({
@@ -130,7 +130,8 @@ export default defineComponent({
             containerPosition.left = display.left;
             containerPosition.top = display.top;
             scale.value = container.edit.scale;
-            nodes.value = store.nodes.map(node => {
+            if(store.nodes){
+                nodes.value = store.nodes.map(node => {
                 return {
                     id: node.id,
                     width: node.size.width * rate * 2,
@@ -139,6 +140,8 @@ export default defineComponent({
                     top: node.position.top * rate,
                 };
             });
+            }
+            
         };
         const init = () => {
             nextTick(() => {

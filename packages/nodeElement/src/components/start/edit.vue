@@ -6,7 +6,7 @@
         @closed="closed"
     >
         <span>Hi there!</span>
-        <input  v-model="node.param.name" @change="changeNode" />
+        <input v-model="node.param.name" @change="changeNode" />
     </el-drawer>
 </template>
 

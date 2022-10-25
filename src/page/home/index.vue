@@ -37,7 +37,7 @@
                                 @click="createElement('ifnode')"
                                 >ifnode</el-menu-item
                             >
-                            
+
                             <el-menu-item
                                 index="1-2"
                                 @click="createElement('twoSocketTest')"
@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, provide, ref } from "vue";
+import { defineComponent, onBeforeUnmount, provide } from "vue";
 import edit from "edit";
 import { create } from "nodeElement";
 import TlpHeader from "../../components/tlpHeader/index.vue";
@@ -122,6 +122,8 @@ export default defineComponent({
         let cancelPushBack: Function | undefined;
         const getCtx = (editstore: EditStore) => {
             store = editstore;
+            let scene = editstore.createScene()
+            editstore.addScene(scene)
             cancelPushBack = registerPushBack(storeUtil);
         };
         const createElement = (name: string) => {

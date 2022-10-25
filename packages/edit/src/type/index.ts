@@ -23,5 +23,5 @@ export interface node {
     plugNum?: number;
     [key: string]: any;
     links?: Array<linkinfo>;
-    style?:CSSProperties
+    style?: CSSProperties;
 }

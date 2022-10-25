@@ -6,11 +6,11 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "tlp":"tlp create:node"
+        "tlp": "tlp create:node"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "tlpcli":"workspace:*"
+        "tlpcli": "workspace:*"
     }
 }

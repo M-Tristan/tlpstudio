@@ -3,17 +3,18 @@
 开箱即用的 `Vue3组件库` 快速成型工具，提供了一系列命令和工具去解决组件库开发上的问题
 
 ### 特性
-- 📦 &nbsp;开箱即用的组件库开发环境
-- 📦 &nbsp;开箱即用的组件库编译工具，支持导出 `esm`, `cjs`, `umd` 三种模块代码
-- 🛠️ &nbsp;基于配置文件的组件库文档站点，支持百度统计和主题定制
-- 🛠️ &nbsp;支持 `sfc` 和 `tsx` 两种风格的组件库编写风格
-- 📦 &nbsp;开箱即用的代码检查工具
-- 📦 &nbsp;开箱即用的单元测试工具
-- 📦 &nbsp;开箱即用的代码发布工具,同时发布到 `npm` 和 `github`, 并自动生成更新日志
-- 💪 &nbsp;支持 `Typescript`
-- 💪 &nbsp;支持 `暗黑模式`
-- 🌍 &nbsp;支持 `国际化`
-- 🚀 &nbsp;基于 `pnpm`
+
+-   📦 &nbsp;开箱即用的组件库开发环境
+-   📦 &nbsp;开箱即用的组件库编译工具，支持导出 `esm`, `cjs`, `umd` 三种模块代码
+-   🛠️ &nbsp;基于配置文件的组件库文档站点，支持百度统计和主题定制
+-   🛠️ &nbsp;支持 `sfc` 和 `tsx` 两种风格的组件库编写风格
+-   📦 &nbsp;开箱即用的代码检查工具
+-   📦 &nbsp;开箱即用的单元测试工具
+-   📦 &nbsp;开箱即用的代码发布工具,同时发布到 `npm` 和 `github`, 并自动生成更新日志
+-   💪 &nbsp;支持 `Typescript`
+-   💪 &nbsp;支持 `暗黑模式`
+-   🌍 &nbsp;支持 `国际化`
+-   🚀 &nbsp;基于 `pnpm`
 
 ### 快速开始
 
@@ -36,23 +37,23 @@ varlet-cli gen
 默认配置可查阅 [varlet.default.config.js](https://github.com/varletjs/varlet/blob/dev/packages/varlet-cli/varlet.default.config.js)。
 也可以参考 `@varlet/ui` 的 [varlet.config.js](https://github.com/varletjs/varlet/blob/dev/packages/varlet-ui/varlet.config.js)
 
-| 参数 | 说明 | 类型 | 默认值 |
-| ----- | -------------- | -------- | ---------- |
-| `name` | 组件库全名，会作为包名 | _string_ | `Varlet` |
-| `namespace` | 组件库命名空间, 会作为组件前缀 | _string_ | `var` |
-| `host` | 开发服务器主机 | _string_ | `localhost` |
-| `port` | 开发服务器端口 | _number_ | `8080` |
-| `title` | 文档中组件库的标题 | _string_ | `VARLET` |
-| `logo` | 文档中组件库的logo | _string_ | `-` |
-| `defaultLanguage` | 文档默认语言 | _string_ | `zh-CN` |
-| `useMobile` | 是否显示右侧手机预览 | _boolean_ | `false` |
-| `lightTheme` | 亮色模式文档主题 | _Record<string, any>_ | `-` |
-| `darkTheme` | 暗黑模式文档主题 | _Record<string, any>_ | `-` |
-| `highlight` | 文档代码片段样式相关 | _{ style: string }_ | `-` |
-| `analysis` | 文档统计相关 | _{ baidu: string }_ | `-` |
-| `pc` | pc端文档结构配置 | _Record<string, any>_ | `-` |
-| `mobile` | mobile端文档结构配置 | _Record<string, any>_ | `-` |
-| `moduleCompatible` | 模块兼容配置 | _Record<string, string>_ | `-` |
+| 参数               | 说明                           | 类型                     | 默认值      |
+| ------------------ | ------------------------------ | ------------------------ | ----------- |
+| `name`             | 组件库全名，会作为包名         | _string_                 | `Varlet`    |
+| `namespace`        | 组件库命名空间, 会作为组件前缀 | _string_                 | `var`       |
+| `host`             | 开发服务器主机                 | _string_                 | `localhost` |
+| `port`             | 开发服务器端口                 | _number_                 | `8080`      |
+| `title`            | 文档中组件库的标题             | _string_                 | `VARLET`    |
+| `logo`             | 文档中组件库的 logo            | _string_                 | `-`         |
+| `defaultLanguage`  | 文档默认语言                   | _string_                 | `zh-CN`     |
+| `useMobile`        | 是否显示右侧手机预览           | _boolean_                | `false`     |
+| `lightTheme`       | 亮色模式文档主题               | _Record<string, any>_    | `-`         |
+| `darkTheme`        | 暗黑模式文档主题               | _Record<string, any>_    | `-`         |
+| `highlight`        | 文档代码片段样式相关           | _{ style: string }_      | `-`         |
+| `analysis`         | 文档统计相关                   | _{ baidu: string }_      | `-`         |
+| `pc`               | pc 端文档结构配置              | _Record<string, any>_    | `-`         |
+| `mobile`           | mobile 端文档结构配置          | _Record<string, any>_    | `-`         |
+| `moduleCompatible` | 模块兼容配置                   | _Record<string, string>_ | `-`         |
 
 ### 自定义页面
 
@@ -75,7 +76,7 @@ varlet-cli gen
         |-- zh-CN.ts
         |-- en-US.ts
       |-- index.vue
-      
+
 ```
 
 生成的路由如下：
@@ -201,13 +202,13 @@ varlet-cli create
 一些外部依赖可能需要进行模块语法的适配，以达到可以正确编译到 `commonjs` 和 `esmodule` 的目的，例如 `dayjs` 的 `esmodule` 写法是
 
 ```js
-import dayjs from 'dayjs/esm'
+import dayjs from "dayjs/esm";
 ```
 
 而为了构建 `commonjs` 时的写法是
 
 ```js
-import * as dayjs from 'dayjs'
+import * as dayjs from "dayjs";
 ```
 
 在项目中我们拥抱 `esmodule` 模块使用第一种写法，并做如下配置进行适配
@@ -215,8 +216,8 @@ import * as dayjs from 'dayjs'
 ```js
 // varlet.config.js
 module.exports = {
-  moduleCompatible: {
-    "import dayjs from 'dayjs/esm'\n": "import * as dayjs from 'dayjs'\n"
-  }
-}
+    moduleCompatible: {
+        "import dayjs from 'dayjs/esm'\n": "import * as dayjs from 'dayjs'\n",
+    },
+};
 ```

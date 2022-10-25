@@ -4,17 +4,17 @@ The out-of-the-box `Vue3 component library` rapid prototyping tool provides a se
 
 ### Feature
 
-- 📦 &nbsp;Out-of-the-box component library development environment
-- 📦 &nbsp;An out-of-the-box component library compilation tool that supports exporting `esm`, `cjs`, `umd` module codes
-- 🛠️ &nbsp;Configuration file-based component library documentation site, support Baidu statistics and theme customization
-- 🛠️ &nbsp;Supports both `sfc` and `tsx` styles for writing component libraries
-- 📦 &nbsp;Out-of-the-box code inspection tool
-- 📦 &nbsp;Out-of-the-box unit testing tools
-- 📦 &nbsp;Out-of-the-box code publishing tool, publishes to both `npm` and `github`, and automatically generates changelogs
-- 💪 &nbsp;Support for `Typescript`
-- 💪 &nbsp;Support `Dark Mode`
-- 🌍 &nbsp;Support `Internationalization`
-- 🚀 &nbsp;Based on `pnpm`
+-   📦 &nbsp;Out-of-the-box component library development environment
+-   📦 &nbsp;An out-of-the-box component library compilation tool that supports exporting `esm`, `cjs`, `umd` module codes
+-   🛠️ &nbsp;Configuration file-based component library documentation site, support Baidu statistics and theme customization
+-   🛠️ &nbsp;Supports both `sfc` and `tsx` styles for writing component libraries
+-   📦 &nbsp;Out-of-the-box code inspection tool
+-   📦 &nbsp;Out-of-the-box unit testing tools
+-   📦 &nbsp;Out-of-the-box code publishing tool, publishes to both `npm` and `github`, and automatically generates changelogs
+-   💪 &nbsp;Support for `Typescript`
+-   💪 &nbsp;Support `Dark Mode`
+-   🌍 &nbsp;Support `Internationalization`
+-   🚀 &nbsp;Based on `pnpm`
 
 ### Quickstart
 
@@ -38,23 +38,23 @@ The `varlet.config.js` in the project root directory is used to manage the speci
 The default configuration can be viewed [varlet.default.config.js](https://github.com/varletjs/varlet/blob/dev/packages/varlet-cli/varlet.default.config.js)。
 Also refer to `@varlet/ui` [varlet.config.js](https://github.com/varletjs/varlet/blob/dev/packages/varlet-ui/varlet.config.js)
 
-| Parameter | Description | Type | Default |
-| -- | -------------- | -------- | ---------- |
-| `name` | The full name of the component library, which will be used as the package name | _string_ | `Varlet` |
-| `namespace` | Component library namespace, which will be used as a component prefix | _string_ | `var` |
-| `host` | Development server host | _string_ | `localhost` |
-| `port` | Development server port | _number_ | `8080` |
-| `title` | The title of the component library in the documentation | _string_ | `VARLET` |
-| `logo` | The logo of the component library in the documentation | _string_ | `-` |
-| `defaultLanguage` | Documentation default language | _string_ | `zh-CN` |
-| `useMobile` | Whether to show the preview of the right mobile phone | _boolean_ | `false` |
-| `lightTheme` | Light Mode Documentation Theme | _Record<string, any>_ | `-` |
-| `darkTheme` | Dark Mode Documentation Theme | _Record<string, any>_ | `-` |
-| `highlight` | Documentation snippet style related | _{ style: string }_ | `-` |
-| `analysis` | Document statistics related | _{ baidu: string }_ | `-` |
-| `pc` | PC-side document structure configuration | _Record<string, any>_ | `-` |
-| `mobile` | Mobile side document structure configuration | _Record<string, any>_ | `-` |
-| `moduleCompatible` | Module Compatible Configurations | _Record<string, string>_ | `-` |
+| Parameter          | Description                                                                    | Type                     | Default     |
+| ------------------ | ------------------------------------------------------------------------------ | ------------------------ | ----------- |
+| `name`             | The full name of the component library, which will be used as the package name | _string_                 | `Varlet`    |
+| `namespace`        | Component library namespace, which will be used as a component prefix          | _string_                 | `var`       |
+| `host`             | Development server host                                                        | _string_                 | `localhost` |
+| `port`             | Development server port                                                        | _number_                 | `8080`      |
+| `title`            | The title of the component library in the documentation                        | _string_                 | `VARLET`    |
+| `logo`             | The logo of the component library in the documentation                         | _string_                 | `-`         |
+| `defaultLanguage`  | Documentation default language                                                 | _string_                 | `zh-CN`     |
+| `useMobile`        | Whether to show the preview of the right mobile phone                          | _boolean_                | `false`     |
+| `lightTheme`       | Light Mode Documentation Theme                                                 | _Record<string, any>_    | `-`         |
+| `darkTheme`        | Dark Mode Documentation Theme                                                  | _Record<string, any>_    | `-`         |
+| `highlight`        | Documentation snippet style related                                            | _{ style: string }_      | `-`         |
+| `analysis`         | Document statistics related                                                    | _{ baidu: string }_      | `-`         |
+| `pc`               | PC-side document structure configuration                                       | _Record<string, any>_    | `-`         |
+| `mobile`           | Mobile side document structure configuration                                   | _Record<string, any>_    | `-`         |
+| `moduleCompatible` | Module Compatible Configurations                                               | _Record<string, string>_ | `-`         |
 
 ### Custom pages
 
@@ -77,7 +77,7 @@ The directory structure is as follows:
         |-- zh-CN.ts
         |-- en-US.ts
       |-- index.vue
-      
+
 ```
 
 The resulting route is as follows:
@@ -195,21 +195,21 @@ varlet-cli create
 
 ### Note before release
 
-- 1.`npm` repository registry must set to `npm` official mirror
-- 2.Execute `npm login` to log in
+-   1.`npm` repository registry must set to `npm` official mirror
+-   2.Execute `npm login` to log in
 
 ### Module Compatible
 
 Some external dependencies may need to be compatible with module syntax to achieve the purpose of compiling correctly to `commonjs` and `esmodule`. For example, the wording of `esmodule` of `dayjs` is
 
 ```js
-import dayjs from 'dayjs/esm'
+import dayjs from "dayjs/esm";
 ```
 
 In order to build `commonjs`, the writing method is
 
 ```js
-import * as dayjs from 'dayjs'
+import * as dayjs from "dayjs";
 ```
 
 In the project, we embrace the first way of writing the `esmodule` module, and make the following configuration for adaptation
@@ -217,8 +217,8 @@ In the project, we embrace the first way of writing the `esmodule` module, and m
 ```js
 // varlet.config.js
 module.exports = {
-  moduleCompatible: {
-    "import dayjs from 'dayjs/esm'\n": "import * as dayjs from 'dayjs'\n"
-  }
-}
+    moduleCompatible: {
+        "import dayjs from 'dayjs/esm'\n": "import * as dayjs from 'dayjs'\n",
+    },
+};
 ```

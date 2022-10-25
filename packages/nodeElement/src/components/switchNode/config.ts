@@ -1,15 +1,15 @@
-const config = {
+import { nodeConfig } from "../../types/nodeType";
+
+const config: nodeConfig = {
     type: "switchNode",
     name: "switchNode",
     editName: "switchNodeEdit",
     socketNum: 1,
     plugNum: 1,
     param: {
-        name: switchNode,
+        name: "switchNode",
     },
-    style: {
-
-    }
+    style: {},
 };
 
 export { config };

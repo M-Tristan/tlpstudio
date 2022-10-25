@@ -7,9 +7,7 @@ const config = {
     param: {
         name: 123,
     },
-    style: {
-
-    }
+    style: {},
 };
 
 export { config };

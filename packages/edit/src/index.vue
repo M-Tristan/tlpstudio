@@ -1,33 +1,53 @@
 <template>
-    <div class="edit-container" :style="{
-        width: width,
-        height: height,
-    }">
+    <div
+        class="edit-container"
+        :style="{
+            width: width,
+            height: height,
+        }"
+    >
         <div class="edit-main" ref="editContainer" @scroll="containerScroll">
-            <div ref="editCanvas" class="edit-border" :style="{
-                width: `${5000 * scale}px`,
-                height: `${5000 * scale}px`,
-                ...editBorderPosition,
-            }">
-                <div class="edit" :style="{
-                    transform: `scale(${scale},${scale})`,
-                    width: '5000px',
-                    height: '5000px',
-                    backgroundColor: backgroundColor,
-                    backgroundSize:
-                        backImageInfo.backgroundSize +
-                        'px ' +
-                        backImageInfo.backgroundSize +
-                        'px',
-                    backgroundPositionX:
-                        backImageInfo.backgroundPosition.left + 'px',
-                    backgroundPositionY:
-                        backImageInfo.backgroundPosition.top + 'px',
-                    backgroundImage: backImageInfo.backgroundImage,
-                }">
-                    <eline v-for="line in lines" :key="line.id" :line="line"></eline>
-                    <component :is="node.name ? node.name : 'nodebox'" v-for="node in nodes" :key="node.id" :node="node"
-                        :width="node.size.width" :height="node.size.height"></component>
+            <div
+                ref="editCanvas"
+                class="edit-border"
+                :style="{
+                    width: `${5000 * scale}px`,
+                    height: `${5000 * scale}px`,
+                    ...editBorderPosition,
+                }"
+            >
+                <div
+                    class="edit"
+                    :style="{
+                        transform: `scale(${scale},${scale})`,
+                        width: '5000px',
+                        height: '5000px',
+                        backgroundColor: backgroundColor,
+                        backgroundSize:
+                            backImageInfo.backgroundSize +
+                            'px ' +
+                            backImageInfo.backgroundSize +
+                            'px',
+                        backgroundPositionX:
+                            backImageInfo.backgroundPosition.left + 'px',
+                        backgroundPositionY:
+                            backImageInfo.backgroundPosition.top + 'px',
+                        backgroundImage: backImageInfo.backgroundImage,
+                    }"
+                >
+                    <eline
+                        v-for="line in lines"
+                        :key="line.id"
+                        :line="line"
+                    ></eline>
+                    <component
+                        :is="node.name ? node.name : 'nodebox'"
+                        v-for="node in nodes"
+                        :key="node.id"
+                        :node="node"
+                        :width="node.size.width"
+                        :height="node.size.height"
+                    ></component>
                     <add-line v-if="showEditLine" :line="newLine"></add-line>
                 </div>
             </div>
@@ -67,10 +87,12 @@ export default defineComponent({
             default: "white",
         },
     },
+    components: { NodeBox, Eline, AddLine, Setter, Navigation },
+
     setup(props, { emit }) {
         const store = new EditStore();
         const container = new ViewContainer();
-        const nodes = ref([] as Array<node>);
+        const nodes = ref([] as Array<any>);
         const editContainer = ref(null as unknown as HTMLDivElement);
         const editCanvas = ref(null as unknown as HTMLDivElement);
 
@@ -117,13 +139,17 @@ export default defineComponent({
             if (5000 * scale.value < editContainer.value.clientHeight) {
                 editBorderPosition.value.top =
                     (editContainer.value.clientHeight - 5000 * scale.value) /
-                    2 +
+                        2 +
                     "px";
             }
         };
         const init = () => {
+            
             store.onNodeChange(() => {
-                nodes.value = [...store.nodes];
+                if(store.nodes){
+                    nodes.value = [...store.nodes];
+                   
+                }
             });
             store.event.on(
                 "editline",
@@ -218,7 +244,6 @@ export default defineComponent({
             editCanvas,
         };
     },
-    components: { NodeBox, Eline, AddLine, Setter, Navigation },
 });
 </script>
 <style lang="less" scoped>

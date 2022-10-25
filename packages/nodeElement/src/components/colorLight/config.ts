@@ -5,11 +5,9 @@ const config = {
     socketNum: 1,
     plugNum: 1,
     param: {
-        name: colorLight,
+        name: "colorLight",
     },
-    style: {
-
-    }
+    style: {},
 };
 
 export { config };

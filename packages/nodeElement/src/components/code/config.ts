@@ -1,4 +1,6 @@
-const config = {
+import { nodeConfig } from "../../types/nodeType";
+
+const config: nodeConfig = {
     type: "code",
     name: "code",
     editName: "codeEdit",
@@ -7,9 +9,7 @@ const config = {
     param: {
         name: 123,
     },
-    style: {
-
-    }
+    style: {},
 };
 
 export { config };

@@ -1,18 +1,16 @@
 {
-  "compilerOptions": {
-   
-    "outDir": "./bin",
-    "strict": true,
-    "downlevelIteration": true,
-    "declaration": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "jsx": "preserve",
-    "lib": ["esnext", "dom"]
-  },
-  "include": ["src/**/*"],
-  "compilerOptions": {
-    "moduleResolution": "node"
-   },
-   
+    "compilerOptions": {
+        "outDir": "./bin",
+        "strict": true,
+        "downlevelIteration": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "jsx": "preserve",
+        "lib": ["esnext", "dom"]
+    },
+    "include": ["src/**/*"],
+    "compilerOptions": {
+        "moduleResolution": "node"
+    }
 }
