@@ -50,7 +50,7 @@ import {
     reactive,
     onBeforeUnmount,
 } from "vue";
-import EditStore from "../../common/EditStore";
+import EditStore from "../../common/editStore";
 import ViewContainer from "../../common/viewContainer";
 import navigateNode from "./navigateNode.vue";
 export default defineComponent({

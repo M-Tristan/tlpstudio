@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, inject } from "vue";
-import EditStore from "../../common/EditStore";
+import EditStore from "../../common/editStore";
 export default defineComponent({
     props: {
         nodeId: {
