@@ -144,11 +144,11 @@ export default defineComponent({
             }
         };
         const init = () => {
-            
             store.onNodeChange(() => {
-                if(store.nodes){
+                if (store.nodes) {
                     nodes.value = [...store.nodes];
-                   
+                } else {
+                    nodes.value = [];
                 }
             });
             store.event.on(

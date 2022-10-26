@@ -37,7 +37,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, ref, watch } from "vue";
+import {
+    computed,
+    defineComponent,
+    inject,
+    onBeforeMount,
+    onBeforeUnmount,
+    ref,
+    watch,
+} from "vue";
 import EditStore from "../../common/editStore";
 import { node } from "../../type";
 import nodeSet from "../nodeSet/index.vue";
@@ -198,6 +206,9 @@ export default defineComponent({
             container.render();
         };
         init();
+        onBeforeUnmount(() => {
+            container.render();
+        });
         return {
             size,
             mousedown,

@@ -130,18 +130,19 @@ export default defineComponent({
             containerPosition.left = display.left;
             containerPosition.top = display.top;
             scale.value = container.edit.scale;
-            if(store.nodes){
+            if (store.nodes) {
                 nodes.value = store.nodes.map(node => {
-                return {
-                    id: node.id,
-                    width: node.size.width * rate * 2,
-                    height: node.size.height * rate * 2,
-                    left: node.position.left * rate,
-                    top: node.position.top * rate,
-                };
-            });
+                    return {
+                        id: node.id,
+                        width: node.size.width * rate * 2,
+                        height: node.size.height * rate * 2,
+                        left: node.position.left * rate,
+                        top: node.position.top * rate,
+                    };
+                });
+            } else {
+                nodes.value = [];
             }
-            
         };
         const init = () => {
             nextTick(() => {

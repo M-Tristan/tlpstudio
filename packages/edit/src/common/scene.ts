@@ -20,10 +20,17 @@ export interface line {
         socketIndex?: number;
     };
 }
+interface sceneBaseInfo {
+    name?: string;
+    descript?: string;
+}
 class Scene {
     historys = [] as Array<string>;
     nexts = [] as Array<string>;
     nodes = [] as Array<node>;
+    name = "";
+    descript = "";
+    id = "";
     selectedLine: null | line = null;
     get nodeMap() {
         const nodeMap = {} as { [key: string]: node };
@@ -87,7 +94,12 @@ class Scene {
     get canRedo() {
         return this.nexts.length > 0;
     }
-    constructor() {
+    constructor(info: sceneBaseInfo) {
+        this.id = "scene-" + uuidv4();
+        this.name = info.name ? info.name : '新建流程';
+        if (info.descript) {
+            this.descript = info.descript;
+        }
         this.pushHistory();
     }
     pushHistory() {

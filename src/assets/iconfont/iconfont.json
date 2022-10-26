@@ -6,6 +6,13 @@
     "description": "",
     "glyphs": [
         {
+            "icon_id": "21585919",
+            "name": "降序",
+            "font_class": "jiangxu",
+            "unicode": "e6e6",
+            "unicode_decimal": 59110
+        },
+        {
             "icon_id": "31738703",
             "name": "chakan",
             "font_class": "chakan",

@@ -5,6 +5,11 @@ import {
     ElMenuItem,
     ElSubMenu,
     ElTooltip,
+    ElDialog,
+    ElRow,
+    ElCol,
+    ElInput,
+    ElPopover,
 } from "element-plus";
 function elementuse(app: any) {
     app.component(ElDrawer.name, ElDrawer);
@@ -13,6 +18,11 @@ function elementuse(app: any) {
     app.component(ElMenuItem.name, ElMenuItem);
     app.component(ElSubMenu.name, ElSubMenu);
     app.component(ElTooltip.name, ElTooltip);
+    app.component(ElDialog.name, ElDialog);
+    app.component(ElRow.name, ElRow);
+    app.component(ElCol.name, ElCol);
+    app.component(ElPopover.name, ElPopover);
+    app.component(ElInput.name, ElInput);
 }
 
 export default elementuse;

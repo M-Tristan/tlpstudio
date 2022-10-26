@@ -25,10 +25,10 @@ class EditStore {
     scene = null as Scene | null;
     event: EventBus;
 
-    get selectedLine(){
-        return this.scene?.selectedLine
+    get selectedLine() {
+        return this.scene?.selectedLine;
     }
-    
+
     get nodeMap() {
         return this.scene?.nodeMap;
     }
@@ -51,14 +51,37 @@ class EditStore {
         this.event = new EventBus();
         // this.pushHistory();
     }
-    createScene(){
-        return new Scene()
-    } 
-    addScene(scene:Scene){
-        
-        this.scenes.push(scene)
-        this.scene=scene
-        this.render()
+    renderScene(param: string | Scene) {
+        let id: string;
+        if (param instanceof Scene) {
+            id = param.id;
+        } else {
+            id = param;
+        }
+        const scene = this.scenes.find(item => {
+            return item.id == id;
+        });
+        if (scene) {
+            this.scene = scene;
+        }
+        this.render();
+    }
+    createScene(info: object) {
+        return new Scene(info);
+    }
+    addScene(scene: Scene) {
+        this.scenes.push(scene);
+        this.scene = scene;
+        this.render();
+    }
+    removeScene(scene: Scene) {
+        this.scenes = this.scenes.filter((item: Scene) => {
+            return scene.id != item.id;
+        });
+        if (this.scene == scene) {
+            this.scene = null;
+            this.render();
+        }
     }
     pushHistory() {
         this.scene?.pushHistory();
@@ -102,9 +125,9 @@ class EditStore {
         return this.scene?.getPosition(left, top);
     }
     createNode(nodeinfo: { [key: string]: any }) {
-       
         this.scene?.createNode(nodeinfo);
-        this.render()
+        this.render();
+        this.pushHistory();
     }
     setNode(node: node) {
         this.scene?.setNode(node);

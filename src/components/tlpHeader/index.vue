@@ -20,8 +20,7 @@
             ></i>
             <div class="model">模版</div>
             <el-button type="primary">部署 </el-button>
-
-            <el-button type="primary" @click="getinfo">数据导出 </el-button>
+            <i class="icon iconfont icon-jia menu" @click="addScene"></i>
             <i class="icon iconfont icon-caidan menu"></i>
         </div>
     </div>
@@ -31,7 +30,7 @@
 import { defineComponent, inject, onBeforeUnmount, reactive } from "vue";
 
 export default defineComponent({
-    setup() {
+    setup(props, { emit }) {
         const storeUtil = inject<any>("storeUtil");
         const historyInfo = reactive({
             canBack: false,
@@ -41,9 +40,12 @@ export default defineComponent({
             historyInfo.canBack = storeUtil.canBack;
             historyInfo.canRedo = storeUtil.canRedo;
         };
-        storeUtil.event.on("onPushHistory", resetHistoryInfo);
+        storeUtil.event.on("resetHistoryInfo", resetHistoryInfo);
         const getinfo = () => {
             storeUtil.getJson();
+        };
+        const addScene = () => {
+            emit("addScene");
         };
         const back = () => {
             if (historyInfo.canBack) {
@@ -58,9 +60,9 @@ export default defineComponent({
             }
         };
         onBeforeUnmount(() => {
-            storeUtil.event.off("onPushHistory", resetHistoryInfo);
+            storeUtil.event.off("resetHistoryInfo", resetHistoryInfo);
         });
-        return { getinfo, historyInfo, back, redo };
+        return { getinfo, historyInfo, back, redo, addScene };
     },
 });
 </script>
@@ -92,6 +94,7 @@ export default defineComponent({
             font-size: 30px;
             margin-left: 20px;
             margin-right: 20px;
+            cursor: pointer;
         }
 
         .model {
