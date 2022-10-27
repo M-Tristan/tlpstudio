@@ -1,43 +1,66 @@
 <template>
     <div class="modelist">
         <div class="modetag">
-            <div :class="['modeitem', { active: item.id == selectID }]" v-for="(item, index) in scenes" :key="index"
-                @click="selectScene(item)">
+            <div
+                :class="['modeitem', { active: item.id == selectID }]"
+                v-for="(item, index) in scenes"
+                :key="index"
+                @click="selectScene(item)"
+            >
                 {{ item.name }}
-                <i v-if="item.id == selectID" class="icon iconfont icon-guanbi close"
-                    @click.stop="removeScene(item)"></i>
+                <i
+                    v-if="item.id == selectID"
+                    class="icon iconfont icon-guanbi close"
+                    @click.stop="removeScene(item)"
+                ></i>
             </div>
         </div>
         <div class="functions">
-            <el-popover placement="bottom" :width="250" trigger="click" @before-enter="showPopover"
-                @before-leave="showModetaglist = false">
+            <el-popover
+                placement="bottom"
+                :width="250"
+                trigger="click"
+                @before-enter="showPopover"
+                @before-leave="showModetaglist = false"
+            >
                 <template #reference>
-                    <i :class="[
-                        'icon',
-                        'iconfont',
-                        'icon-jiangxu',
-                        { menu: !showModetaglist },
-                        { activemenu: showModetaglist },
-                    ]"></i>
+                    <i
+                        :class="[
+                            'icon',
+                            'iconfont',
+                            'icon-jiangxu',
+                            { menu: !showModetaglist },
+                            { activemenu: showModetaglist },
+                        ]"
+                    ></i>
                 </template>
                 <div class="modetaglist">
                     <div>
-                        <input v-model="searchContent" placeholder="搜索流程" class='search-input'/>
+                        <input
+                            v-model="searchContent"
+                            placeholder="搜索流程"
+                            class="search-input"
+                        />
                     </div>
                     <div class="tips">打开的流程</div>
-                    <div  v-for="(item, index) in scenes" :key="index">
-                    <el-row v-if="item.name.includes(searchContent)">
-                       
-                        <el-col :span="22">
-                            <div class="modename" @click="selectScene(item)">
-                                {{ item.name }}
-                            </div>
-                        </el-col>
-                        <el-col :span="2">
-                            <i class="icon iconfont icon-guanbi close" @click="removeScene(item)"></i>
-                        </el-col>
-                    </el-row>
-                </div>
+                    <div v-for="(item, index) in scenes" :key="index">
+                        <el-row v-if="item.name.includes(searchContent)">
+                            <el-col :span="22">
+                                <div
+                                    class="modename"
+                                    @click="selectScene(item)"
+                                >
+                                    {{ item.name }}
+                                </div>
+                            </el-col>
+                            <el-col :span="2">
+                                <i
+                                    class="icon iconfont icon-guanbi close"
+                                    @click="removeScene(item)"
+                                ></i>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </div>
             </el-popover>
         </div>
@@ -61,7 +84,7 @@ export default defineComponent({
     setup(props, { emit }) {
         let modelList = ref([]);
         const showModetaglist = ref(false);
-        const searchContent = ref("")
+        const searchContent = ref("");
         const selectScene = (item: any) => {
             emit("selectScene", item);
         };
@@ -69,12 +92,18 @@ export default defineComponent({
             emit("removeScene", item);
         };
         const showPopover = () => {
-            showModetaglist.value = true
-            searchContent.value = ''
-        }
-       
+            showModetaglist.value = true;
+            searchContent.value = "";
+        };
 
-        return { modelList, selectScene, showModetaglist, removeScene,searchContent,showPopover };
+        return {
+            modelList,
+            selectScene,
+            showModetaglist,
+            removeScene,
+            searchContent,
+            showPopover,
+        };
     },
 });
 </script>
@@ -190,13 +219,13 @@ export default defineComponent({
     width: 100%;
     background-color: white;
     z-index: 9999;
-.search-input{
-    width: 100%;
-    border: none;
-    height: 30px;
-    outline:0;
-    margin-bottom: 10px;
-}
+    .search-input {
+        width: 100%;
+        border: none;
+        height: 30px;
+        outline: 0;
+        margin-bottom: 10px;
+    }
     .tips {
         font-weight: 900;
     }

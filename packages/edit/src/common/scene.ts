@@ -96,7 +96,7 @@ class Scene {
     }
     constructor(info: sceneBaseInfo) {
         this.id = "scene-" + uuidv4();
-        this.name = info.name ? info.name : '新建流程';
+        this.name = info.name ? info.name : "新建流程";
         if (info.descript) {
             this.descript = info.descript;
         }

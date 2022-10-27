@@ -1,38 +1,27 @@
 <template>
     <div class="page">
-        <tlp-header @addScene="showScene"></tlp-header>
-        <ModeList v-show="scenes.length != 0" :scenes="scenes" @selectScene="selectScene" @removeScene="removeScene"
-            :selectID="sceneID"></ModeList>
+        <tlp-header
+            @addScene="showScene"
+            :showDeploy="scenes.length != 0"
+            :showHistoryControl="scenes.length != 0"
+        >
+        </tlp-header>
+        <ModeList
+            v-show="scenes.length != 0"
+            :scenes="scenes"
+            @selectScene="selectScene"
+            @removeScene="removeScene"
+            :selectID="sceneID"
+        ></ModeList>
         <div v-show="scenes.length != 0" class="content">
-            <div class="nodelist">
-                <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo"
-                    default-active="1" text-color="#fff" style="border: 0px">
-                    <el-sub-menu index="1">
-                        <template #title>
-                            <span>IOT</span>
-                        </template>
-                        <el-menu-item-group title="Group One">
-                            <el-menu-item index="1-1" @click="createElement('start')">start</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('end')">end</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('code')">code</el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('ifnode')">ifnode</el-menu-item>
-
-                            <el-menu-item index="1-2" @click="createElement('twoSocketTest')">twoSocketTest
-                            </el-menu-item>
-                            <el-menu-item index="1-2" @click="createElement('twoPlugTest')">twoPlugTest</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="Group Two">
-                            <el-menu-item index="1-3">item three</el-menu-item>
-                        </el-menu-item-group>
-                        <el-sub-menu index="1-4">
-                            <template #title>item four</template>
-                            <el-menu-item index="1-4-1">item one</el-menu-item>
-                        </el-sub-menu>
-                    </el-sub-menu>
-                </el-menu>
-            </div>
+            <node-list :createElement="createElement"></node-list>
             <div class="editarea">
-                <edit @getCtx="getCtx" width="100%" height="100%" backgroundColor="#a9a9a9"></edit>
+                <edit
+                    @getCtx="getCtx"
+                    width="100%"
+                    height="100%"
+                    backgroundColor="#a9a9a9"
+                ></edit>
             </div>
         </div>
         <div class="emptyContent" v-show="scenes.length == 0">
@@ -42,39 +31,7 @@
                 <div class="button">导入</div>
             </div>
         </div>
-        <el-dialog v-model="addSceneVisible" title="创建流程" width="50%">
-            <div>
-                <el-row>
-                    <el-col :span="3">流程名称：</el-col>
-                    <el-col :span="16">
-                        <el-input v-model="sceneBaseInfo.name"></el-input>
-                    </el-col>
-
-                    <el-col :span="4">
-                        <div class="grid-content ep-bg-purple-light" />
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="3">流程描述：
-                        <div class="grid-content ep-bg-purple" />
-                    </el-col>
-                    <el-col :span="16">
-                        <el-input type="textarea" :rows="3" resize="none" v-model="sceneBaseInfo.descript"></el-input>
-                    </el-col>
-
-                    <el-col :span="4">
-                        <div class="grid-content ep-bg-purple-light" />
-                    </el-col>
-                </el-row>
-            </div>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button type="primary" @click="createScene">
-                        完成
-                    </el-button>
-                </span>
-            </template>
-        </el-dialog>
+        <edit-process v-model="addSceneVisible" :createScene="createScene" :sceneBaseInfo="sceneBaseInfo"></edit-process>
     </div>
 </template>
 
@@ -88,8 +45,10 @@ import EditStore from "edit/src/common/editStore";
 import EventBus from "eventBus";
 import registerPushBack from "@common/registerPushBack";
 import Scene from "edit/src/common/scene";
+import nodeList from '@components/nodeList/index.vue'
+import editProcess from '@components/editProcess/index.vue'
 export default defineComponent({
-    components: { edit, TlpHeader, ModeList },
+    components: { edit, TlpHeader, ModeList ,nodeList,editProcess},
     setup() {
         let sceneBaseInfo = ref({
             name: "",
@@ -138,12 +97,15 @@ export default defineComponent({
             store = editstore;
             cancelPushBack = registerPushBack(storeUtil);
         };
-        const createElement = (name: string) => {
-            create(name, store);
+        const createElement = (node:any) => {
+            if (node.value == "") {
+                return;
+            }
+            create(node.value, store);
             storeUtil.event.emit("resetHistoryInfo");
         };
-        const createScene = () => {
-            let scene = store.createScene(sceneBaseInfo.value);
+        const createScene = (baseInfo:{[key:string]:any}) => {
+            let scene = store.createScene(baseInfo);
             sceneID.value = scene.id;
             store.addScene(scene);
             scenes.value = store.scenes;
@@ -187,6 +149,9 @@ export default defineComponent({
         };
 
         provide("storeUtil", storeUtil);
+   
+
+      
         onBeforeUnmount(() => {
             if (cancelPushBack) {
                 cancelPushBack();
@@ -208,81 +173,5 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-
-    .el-row {
-        margin-bottom: 10px;
-    }
-
-    .emptyContent {
-        position: absolute;
-        top: 80px;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: #545c64;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-       
-        .tips {
-            font-size: 80px;
-            font-weight: 900;
-            color: white;
-            height: 80px;
-        }
-
-        .button-list {
-            display: flex;
-
-            .button {
-                cursor: pointer;
-                width: 100px;
-                height: 50px;
-                color: white;
-                border:1px solid white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 5px;
-                font-weight: 700;
-                margin: 10px;
-                &:hover{
-                    background-color: rgba(255, 255, 255, 0.139);
-                }
-            }
-        }
-
-    }
-
-    .content {
-        position: absolute;
-        top: 130px;
-        left: 0;
-        bottom: 0;
-        right: 0;
-
-        .nodelist {
-            float: left;
-            width: 250px;
-            height: 100%;
-            background-color: #545c64;
-        }
-
-        .editarea {
-            position: absolute;
-            left: 250px;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            overflow: hidden;
-        }
-    }
-}
+@import "./index.less";
 </style>

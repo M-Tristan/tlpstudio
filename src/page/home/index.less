@@ -1,0 +1,70 @@
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  
+
+   
+
+    .emptyContent {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: #545c64;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .tips {
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            height: 80px;
+        }
+
+        .button-list {
+            display: flex;
+
+            .button {
+                cursor: pointer;
+                width: 100px;
+                height: 50px;
+                color: white;
+                border: 1px solid white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 5px;
+                font-weight: 700;
+                margin: 10px;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.139);
+                }
+            }
+        }
+    }
+
+    .content {
+        position: absolute;
+        top: 130px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+      
+        .editarea {
+            position: absolute;
+            left: 250px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+    }
+}
