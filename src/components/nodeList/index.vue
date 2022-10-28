@@ -1,31 +1,31 @@
 <template>
-     <div class="nodelist">
-                <el-tree
-                    :data="nodes"
-                    @node-click="createElement"
-                    icon="ArrowRightBold"
-                >
-                    <template #default="{ node }">
-                        <div class="tree-node">
-                            <span>{{ node.label }}</span>
-                        </div>
-                    </template>
-                </el-tree>
-            </div>
+    <div class="nodelist">
+        <el-tree
+            :data="nodes"
+            @node-click="createElement"
+            icon="ArrowRightBold"
+        >
+            <template #default="{ node }">
+                <div class="tree-node">
+                    <span>{{ node.label }}</span>
+                </div>
+            </template>
+        </el-tree>
+    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 interface Tree {
     value: string;
     label: string;
     children?: Tree[];
 }
 export default defineComponent({
-    props:{
-        createElement:Function
+    props: {
+        createElement: Function,
     },
-    setup () {
+    setup() {
         const nodes = [
             {
                 value: "",
@@ -64,29 +64,27 @@ export default defineComponent({
             },
         ];
 
-        return {nodes}
-    }
-})
+        return { nodes };
+    },
+});
 </script>
 
 <style lang="less" scoped>
-
-
-  .nodelist {
-            float: left;
-            width: 250px;
-            height: 100%;
-            background-color: #545c64;
-            overflow-y: scroll;
-        }
-        .el-tree {
-        background: rgba(0, 0, 0, 0);
-        color: white;
-        * {
-            background: rgba(0, 0, 0, 0) !important ;
-        }
-        /deep/.el-tree-node__content {
-            height: 50px;
-        }
+.nodelist {
+    float: left;
+    width: 250px;
+    height: 100%;
+    background-color: #545c64;
+    overflow-y: scroll;
+}
+.el-tree {
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    * {
+        background: rgba(0, 0, 0, 0) !important ;
     }
+    :deep(.el-tree-node__content) {
+        height: 50px;
+    }
+}
 </style>

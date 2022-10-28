@@ -4,6 +4,7 @@
             @addScene="showScene"
             :showDeploy="scenes.length != 0"
             :showHistoryControl="scenes.length != 0"
+            :scenes="scenes"
         >
         </tlp-header>
         <ModeList
@@ -31,7 +32,11 @@
                 <div class="button">导入</div>
             </div>
         </div>
-        <edit-process v-model="addSceneVisible" :createScene="createScene" :sceneBaseInfo="sceneBaseInfo"></edit-process>
+        <edit-process
+            v-model="addSceneVisible"
+            :createScene="createScene"
+            :sceneBaseInfo="sceneBaseInfo"
+        ></edit-process>
     </div>
 </template>
 
@@ -45,10 +50,10 @@ import EditStore from "edit/src/common/editStore";
 import EventBus from "eventBus";
 import registerPushBack from "@common/registerPushBack";
 import Scene from "edit/src/common/scene";
-import nodeList from '@components/nodeList/index.vue'
-import editProcess from '@components/editProcess/index.vue'
+import nodeList from "@components/nodeList/index.vue";
+import editProcess from "@components/editProcess/index.vue";
 export default defineComponent({
-    components: { edit, TlpHeader, ModeList ,nodeList,editProcess},
+    components: { edit, TlpHeader, ModeList, nodeList, editProcess },
     setup() {
         let sceneBaseInfo = ref({
             name: "",
@@ -89,6 +94,9 @@ export default defineComponent({
             redo() {
                 store.redo();
             },
+            removeScene(scene:Scene){
+                removeScene(scene)
+            }
         };
         let scenes = ref([] as Array<any>);
         // eslint-disable-next-line @typescript-eslint/ban-types
@@ -97,14 +105,14 @@ export default defineComponent({
             store = editstore;
             cancelPushBack = registerPushBack(storeUtil);
         };
-        const createElement = (node:any) => {
+        const createElement = (node: any) => {
             if (node.value == "") {
                 return;
             }
             create(node.value, store);
             storeUtil.event.emit("resetHistoryInfo");
         };
-        const createScene = (baseInfo:{[key:string]:any}) => {
+        const createScene = (baseInfo: { [key: string]: any }) => {
             let scene = store.createScene(baseInfo);
             sceneID.value = scene.id;
             store.addScene(scene);
@@ -133,7 +141,8 @@ export default defineComponent({
             let deleteIndex = store.scenes.findIndex(item => {
                 return item.id == scene.id;
             });
-
+            console.log(deleteIndex)
+            console.log(scene)
             if (deleteIndex != -1) {
                 store.removeScene(scene);
                 scenes.value = store.scenes;
@@ -149,9 +158,7 @@ export default defineComponent({
         };
 
         provide("storeUtil", storeUtil);
-   
 
-      
         onBeforeUnmount(() => {
             if (cancelPushBack) {
                 cancelPushBack();

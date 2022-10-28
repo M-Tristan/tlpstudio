@@ -18,7 +18,12 @@
         "element-plus": "^2.2.16",
         "lodash": "^4.17.21",
         "uuid": "^9.0.0",
-        "vue": "^3.2.37"
+        "vue": "^3.2.37",
+        "@tlp/hooks": "workspace:*",
+        "eventbus": "workspace:*",
+        "nodeelement": "workspace:*",
+        "edit": "workspace:*",
+        "tlpcli": "workspace:*"
     },
     "devDependencies": {
         "@types/lodash": "^4.14.185",
@@ -27,16 +32,12 @@
         "@typescript-eslint/eslint-plugin": "^5.37.0",
         "@typescript-eslint/parser": "^5.37.0",
         "@vitejs/plugin-vue": "^3.1.0",
-        "edit": "workspace:*",
         "eslint": "^8.23.1",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-vue": "^9.4.0",
-        "eventbus": "workspace:*",
         "less": "^4.1.3",
-        "nodeelement": "workspace:*",
         "prettier": "^2.7.1",
-        "tlpcli": "workspace:*",
         "typescript": "^4.6.4",
         "vite": "^3.1.0",
         "vue-tsc": "^0.40.4"

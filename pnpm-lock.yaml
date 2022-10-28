@@ -4,6 +4,7 @@ importers:
     .:
         specifiers:
             "@element-plus/icons-vue": ^2.0.10
+            "@tlp/hooks": workspace:*
             "@types/lodash": ^4.14.185
             "@types/node": ^18.7.18
             "@types/uuid": ^8.3.4
@@ -29,8 +30,13 @@ importers:
             vue-tsc: ^0.40.4
         dependencies:
             "@element-plus/icons-vue": 2.0.10_vue@3.2.41
+            "@tlp/hooks": link:packages/hooks
+            edit: link:packages/edit
             element-plus: 2.2.18_vue@3.2.41
+            eventbus: link:packages/eventBus
             lodash: 4.17.21
+            nodeelement: link:packages/nodeElement
+            tlpcli: link:packages/cli
             uuid: 9.0.0
             vue: 3.2.41
         devDependencies:
@@ -40,16 +46,12 @@ importers:
             "@typescript-eslint/eslint-plugin": 5.40.1_ukgdydjtebaxmxfqp5v5ulh64y
             "@typescript-eslint/parser": 5.40.1_z4bbprzjrhnsfa24uvmcbu7f5q
             "@vitejs/plugin-vue": 3.1.2_vite@3.1.8+vue@3.2.41
-            edit: link:packages/edit
             eslint: 8.25.0
             eslint-config-prettier: 8.5.0_eslint@8.25.0
             eslint-plugin-prettier: 4.2.1_hvbqyfstm4urdpm6ffpwfka4e4
             eslint-plugin-vue: 9.6.0_eslint@8.25.0
-            eventbus: link:packages/eventBus
             less: 4.1.3
-            nodeelement: link:packages/nodeElement
             prettier: 2.7.1
-            tlpcli: link:packages/cli
             typescript: 4.8.4
             vite: 3.1.8_less@4.1.3
             vue-tsc: 0.40.13_typescript@4.8.4
@@ -78,6 +80,12 @@ importers:
 
     packages/eventBus:
         specifiers: {}
+
+    packages/hooks:
+        specifiers:
+            "@vueuse/core": ^9.4.0
+        dependencies:
+            "@vueuse/core": 9.4.0_vue@3.2.41
 
     packages/nodeElement:
         specifiers:
@@ -697,6 +705,21 @@ packages:
             - vue
         dev: false
 
+    /@vueuse/core/9.4.0_vue@3.2.41:
+        resolution:
+            {
+                integrity: sha512-JzgenGj1ZF2BHOen5rsFiAyyI9sXAv7aKhNLlm9b7SwYQeKTcxTWdhudonURCSP3Egl9NQaRBzes2lv/1JUt/Q==,
+            }
+        dependencies:
+            "@types/web-bluetooth": 0.0.16
+            "@vueuse/metadata": 9.4.0
+            "@vueuse/shared": 9.4.0_vue@3.2.41
+            vue-demi: 0.13.11_vue@3.2.41
+        transitivePeerDependencies:
+            - "@vue/composition-api"
+            - vue
+        dev: false
+
     /@vueuse/metadata/9.3.1:
         resolution:
             {
@@ -704,10 +727,29 @@ packages:
             }
         dev: false
 
+    /@vueuse/metadata/9.4.0:
+        resolution:
+            {
+                integrity: sha512-7GKMdGAsJyQJl35MYOz/RDpP0FxuiZBRDSN79QIPbdqYx4Sd0sVTnIC68KJ6Oln0t0SouvSUMvRHuno216Ud2Q==,
+            }
+        dev: false
+
     /@vueuse/shared/9.3.1_vue@3.2.41:
         resolution:
             {
                 integrity: sha512-YFu3qcnVeu0S2L4XdQJtBpDcjz6xwqHZtTv/XRhu66/yge1XVhxskUcc7VZbX52xF9A34V6KCfwncP9YDqYFiw==,
+            }
+        dependencies:
+            vue-demi: 0.13.11_vue@3.2.41
+        transitivePeerDependencies:
+            - "@vue/composition-api"
+            - vue
+        dev: false
+
+    /@vueuse/shared/9.4.0_vue@3.2.41:
+        resolution:
+            {
+                integrity: sha512-fTuem51KwMCnqUKkI8B57qAIMcFovtGgsCtAeqxIzH3i6nE9VYge+gVfneNHAAy7lj8twbkNfqQSygOPJTm4tQ==,
             }
         dependencies:
             vue-demi: 0.13.11_vue@3.2.41

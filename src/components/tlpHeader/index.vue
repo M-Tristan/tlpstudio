@@ -2,14 +2,24 @@
     <div class="header">
         <div class="logo">TLP Studio</div>
         <div class="functions">
-            <i class="icon iconfont icon-7chexiao menu" v-if="showHistoryControl" @click="back" :style="{
-                color: historyInfo.canBack ? 'white' : 'grey',
-                cursor: historyInfo.canBack ? 'pointer' : 'default',
-            }"></i>
-            <i class="icon iconfont icon-fanchexiao menu" v-if="showHistoryControl" @click="redo" :style="{
-                color: historyInfo.canRedo ? 'white' : 'grey',
-                cursor: historyInfo.canRedo ? 'pointer' : 'default',
-            }"></i>
+            <i
+                class="icon iconfont icon-7chexiao menu"
+                v-if="showHistoryControl"
+                @click="back"
+                :style="{
+                    color: historyInfo.canBack ? 'white' : 'grey',
+                    cursor: historyInfo.canBack ? 'pointer' : 'default',
+                }"
+            ></i>
+            <i
+                class="icon iconfont icon-fanchexiao menu"
+                v-if="showHistoryControl"
+                @click="redo"
+                :style="{
+                    color: historyInfo.canRedo ? 'white' : 'grey',
+                    cursor: historyInfo.canRedo ? 'pointer' : 'default',
+                }"
+            ></i>
             <div class="model">模版</div>
             <el-button type="primary" v-if="showDeploy">部署 </el-button>
             <i class="icon iconfont icon-jia menu" @click="addScene"></i>
@@ -20,19 +30,27 @@
                 <div>
                     <div class="menu-item">导入</div>
                     <div class="menu-item">导出</div>
-                    <div class="menu-item">流程管理</div>
+                    <div class="menu-item" @click="showProcessManagement">
+                        流程管理
+                    </div>
                     <div class="menu-item">全局变量管理</div>
                     <div class="menu-item">设置</div>
                 </div>
             </el-popover>
-
         </div>
+        <el-dialog
+            v-model="dialogVisible"
+            title="流程管理"
+            width="50%"
+        >
+        <process-management :scenes="scenes"></process-management>
+        </el-dialog>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, onBeforeUnmount, reactive } from "vue";
-
+import { defineComponent, inject, onBeforeUnmount, reactive, ref } from "vue";
+import processManagement from '../processManagement/index.vue'
 export default defineComponent({
     props: {
         showDeploy: {
@@ -42,14 +60,26 @@ export default defineComponent({
         showHistoryControl: {
             type: Boolean,
             default: false,
+        }, 
+        scenes: {
+            type: Array,
+            default: () => [],
         },
+    },
+    components:{
+        processManagement
     },
     setup(props, { emit }) {
         const storeUtil = inject<any>("storeUtil");
+        
         const historyInfo = reactive({
             canBack: false,
             canRedo: false,
         });
+        const dialogVisible = ref(false);
+        const showProcessManagement = () => {
+            dialogVisible.value = true;
+        };
         const resetHistoryInfo = () => {
             historyInfo.canBack = storeUtil.canBack;
             historyInfo.canRedo = storeUtil.canRedo;
@@ -76,7 +106,15 @@ export default defineComponent({
         onBeforeUnmount(() => {
             storeUtil.event.off("resetHistoryInfo", resetHistoryInfo);
         });
-        return { getinfo, historyInfo, back, redo, addScene };
+        return {
+            getinfo,
+            historyInfo,
+            back,
+            redo,
+            addScene,
+            showProcessManagement,
+            dialogVisible,
+        };
     },
 });
 </script>
@@ -116,13 +154,14 @@ export default defineComponent({
             margin-right: 20px;
         }
     }
-    
 }
-.menu-item{
+
+.menu-item {
     line-height: 30px;
     cursor: pointer;
     font-weight: 800;
-    &:hover{
+
+    &:hover {
         background-color: rgba(221, 221, 221, 0.416);
         color: black;
     }
