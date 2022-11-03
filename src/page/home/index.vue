@@ -94,9 +94,9 @@ export default defineComponent({
             redo() {
                 store.redo();
             },
-            removeScene(scene:Scene){
-                removeScene(scene)
-            }
+            removeScene(scene: Scene) {
+                removeScene(scene);
+            },
         };
         let scenes = ref([] as Array<any>);
         // eslint-disable-next-line @typescript-eslint/ban-types
@@ -141,8 +141,8 @@ export default defineComponent({
             let deleteIndex = store.scenes.findIndex(item => {
                 return item.id == scene.id;
             });
-            console.log(deleteIndex)
-            console.log(scene)
+            console.log(deleteIndex);
+            console.log(scene);
             if (deleteIndex != -1) {
                 store.removeScene(scene);
                 scenes.value = store.scenes;

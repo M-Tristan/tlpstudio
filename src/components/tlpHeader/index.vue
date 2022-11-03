@@ -38,19 +38,15 @@
                 </div>
             </el-popover>
         </div>
-        <el-dialog
-            v-model="dialogVisible"
-            title="流程管理"
-            width="50%"
-        >
-        <process-management :scenes="scenes"></process-management>
+        <el-dialog v-model="dialogVisible" title="流程管理" width="50%">
+            <process-management :scenes="scenes"></process-management>
         </el-dialog>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, inject, onBeforeUnmount, reactive, ref } from "vue";
-import processManagement from '../processManagement/index.vue'
+import processManagement from "../processManagement/index.vue";
 export default defineComponent({
     props: {
         showDeploy: {
@@ -60,18 +56,18 @@ export default defineComponent({
         showHistoryControl: {
             type: Boolean,
             default: false,
-        }, 
+        },
         scenes: {
             type: Array,
             default: () => [],
         },
     },
-    components:{
-        processManagement
+    components: {
+        processManagement,
     },
     setup(props, { emit }) {
         const storeUtil = inject<any>("storeUtil");
-        
+
         const historyInfo = reactive({
             canBack: false,
             canRedo: false,

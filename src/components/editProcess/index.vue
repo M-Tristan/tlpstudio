@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        :title="edit?'编辑流程':'创建流程'"
+        :title="edit ? '编辑流程' : '创建流程'"
         width="50%"
         @open="open"
     >
@@ -60,11 +60,11 @@ export default defineComponent({
         },
         createScene: Function,
         editScene: Function,
-        
-        edit:{
+
+        edit: {
             type: Boolean,
             default: false,
-        }
+        },
     },
     setup(props, { emit }) {
         const dialogVisible = ref(false);
@@ -88,12 +88,11 @@ export default defineComponent({
             }
         );
         const editScene = () => {
-            if(props.edit){
+            if (props.edit) {
                 props.editScene!(baseInfo.value);
-            }else{
+            } else {
                 props.createScene!(baseInfo.value);
             }
-           
         };
         const open = () => {
             baseInfo.value.name = props.sceneBaseInfo?.name;

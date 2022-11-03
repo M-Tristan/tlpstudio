@@ -12,9 +12,9 @@ import {
     ElPopover,
     ElTreeV2,
     ElTree,
-    ElIcon
+    ElIcon,
 } from "element-plus";
-import { ArrowRightBold,EditPen,DeleteFilled } from "@element-plus/icons-vue";
+import { ArrowRightBold, EditPen, DeleteFilled } from "@element-plus/icons-vue";
 
 function elementuse(app: any) {
     app.component(ElDrawer.name, ElDrawer);
@@ -34,7 +34,6 @@ function elementuse(app: any) {
     app.component(ArrowRightBold.name, ArrowRightBold);
     app.component(EditPen.name, EditPen);
     app.component(DeleteFilled.name, DeleteFilled);
-    
 }
 
 export default elementuse;
