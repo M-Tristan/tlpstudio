@@ -23,7 +23,8 @@
         "eventbus": "workspace:*",
         "nodeelement": "workspace:*",
         "edit": "workspace:*",
-        "tlpcli": "workspace:*"
+        "tlpcli": "workspace:*",
+        "@tlp/comelement": "workspace:*"
     },
     "devDependencies": {
         "@types/lodash": "^4.14.185",

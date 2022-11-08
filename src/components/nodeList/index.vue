@@ -1,5 +1,5 @@
 <template>
-    <div class="nodelist">
+    <div class="nodelist tlpdark">
         <el-tree
             :data="nodes"
             @node-click="createElement"

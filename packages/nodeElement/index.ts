@@ -3,7 +3,6 @@
 import registerNode from "./register";
 import { nodeBox } from "edit";
 import EditStore from "edit/src/common/editStore";
-
 const nodeCreateMap: { [key: string]: Function } = {};
 for (const key in registerNode) {
     const node = (registerNode as any)[key];
