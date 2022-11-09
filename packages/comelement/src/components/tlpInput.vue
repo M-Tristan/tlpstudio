@@ -1,20 +1,29 @@
 <template>
-    <el-input></el-input>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import "../style/base.css";
-import "../style/el-input.css";
-import { ElInput } from "element-plus";
-export default defineComponent({
-    components: {
-        ElInput,
-    },
-    setup() {
-        return {};
-    },
-});
-</script>
-
-<style scoped></style>
+    <div class="demo-color-block">
+      <span class="demonstration">With default value</span>
+      <el-color-picker v-model="color1" />
+    </div>
+    <div class="demo-color-block">
+      <span class="demonstration">With no default value</span>
+      <el-color-picker v-model="color2" />
+    </div>
+  </template>
+  
+  <script lang="ts" setup>
+  import { ref } from 'vue'
+  import {ElColorPicker} from '@element-plus/components'
+  const color1 = ref('#409EFF')
+  const color2 = ref()
+  </script>
+  
+  <style>
+  .demo-color-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .demo-color-block .demonstration {
+    margin-right: 16px;
+  }
+  </style>
+  

@@ -12,6 +12,7 @@
         "esModuleInterop": true,
         "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
+        "types": ["unplugin-vue-define-options"],
         "paths": {
             "@common/*": ["./src/common/*"],
             "@components/*": ["./src/components/*"]
