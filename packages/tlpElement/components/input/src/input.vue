@@ -214,7 +214,7 @@ import { UPDATE_MODEL_EVENT } from "@element-plus/constants";
 import { calcTextareaHeight } from "./utils";
 import { inputEmits, inputProps } from "./input";
 import type { StyleValue } from "vue";
-import ElIcon from '@element-plus/components/icon'
+import ElIcon from "@element-plus/components/icon";
 import "@element-plus/theme-chalk/dist/el-input.css";
 import "@element-plus/theme-chalk/dist/base.css";
 type TargetElement = HTMLInputElement | HTMLTextAreaElement;

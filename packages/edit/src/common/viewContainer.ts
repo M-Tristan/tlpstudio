@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { EventBus } from "eventBus";
+import { RENDER_EVENT, SCALE_CHANGE_EVENT, SCROLL_EVENT } from "./constants";
 
 class ViewContainer {
     event: EventBus;
@@ -48,8 +49,8 @@ class ViewContainer {
         if (this.constainer.scrollTop > maxScroll.scrollTop) {
             this.constainer.scrollTop = maxScroll.scrollTop;
         }
-        this.event.emit("scaleChange");
-        this.event.emit("render");
+        this.event.emit(SCALE_CHANGE_EVENT);
+        this.event.emit(RENDER_EVENT);
         this.renderScroll();
     }
     narrow() {
@@ -78,28 +79,28 @@ class ViewContainer {
         this.render();
     }
     onScaleChange(func: Function) {
-        this.event.on("scaleChange", func);
+        this.event.on(SCALE_CHANGE_EVENT, func);
     }
     offScaleChange(func: Function) {
-        this.event.off("scaleChange", func);
+        this.event.off(SCALE_CHANGE_EVENT, func);
     }
     setRender(func: Function) {
-        this.event.on("render", func);
+        this.event.on(RENDER_EVENT, func);
     }
     offRender(func: Function) {
-        this.event.off("render", func);
+        this.event.off(RENDER_EVENT, func);
     }
     setScroll(func: Function) {
-        this.event.on("scroll", func);
+        this.event.on(SCROLL_EVENT, func);
     }
     offScroll(func: Function) {
-        this.event.off("scroll", func);
+        this.event.off(SCROLL_EVENT, func);
     }
     renderScroll() {
-        this.event.emit("scroll");
+        this.event.emit(SCROLL_EVENT);
     }
     render() {
-        this.event.emit("render");
+        this.event.emit(RENDER_EVENT);
     }
 }
 export default ViewContainer;

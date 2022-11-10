@@ -1,29 +1,20 @@
 <template>
-    <div class="demo-color-block">
-      <span class="demonstration">With default value</span>
-      <el-color-picker v-model="color1" />
+    <div>
+        <tlp-over-lay></tlp-over-lay>
     </div>
-    <div class="demo-color-block">
-      <span class="demonstration">With no default value</span>
-      <el-color-picker v-model="color2" />
-    </div>
-  </template>
-  
-  <script lang="ts" setup>
-  import { ref } from 'vue'
-  import {ElColorPicker} from '@element-plus/components'
-  const color1 = ref('#409EFF')
-  const color2 = ref()
-  </script>
-  
-  <style>
-  .demo-color-block {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  .demo-color-block .demonstration {
-    margin-right: 16px;
-  }
-  </style>
-  
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import TlpOverLay from "../../components/overlay";
+export default defineComponent({
+    components: {
+        TlpOverLay,
+    },
+    setup() {
+        return {};
+    },
+});
+</script>
+
+<style scoped></style>

@@ -3,6 +3,17 @@
 import EventBus from "eventBus";
 import _ from "lodash";
 import { node, position } from "../type";
+import {
+    ADD_LINE_EVENT,
+    ADD_NODE_EVENT,
+    DELETE_NODE_EVENT,
+    EDIT_NODE_EVENT,
+    LINE_CHANGE_EVENT,
+    NODE_CHANGE_EVENT,
+    NODE_MOVE_END_EVENT,
+    QUIT_EDIT_NODE_EVENT,
+    REMOVE_LINE_EVENT,
+} from "./constants";
 import Scene from "./scene";
 export interface line {
     id: string;
@@ -106,7 +117,7 @@ class EditStore {
         return this.scene?.getSocketPositionsByNodeID(id);
     }
     getAllNodeSocketPositions() {
-        return this.scene!.getAllNodeSocketPositions();
+        return this.scene?.getAllNodeSocketPositions();
     }
     /**
      * 获得节点插槽的位置
@@ -118,8 +129,8 @@ class EditStore {
     }
 
     render() {
-        this.event.emit("onNodeChange");
-        this.event.emit("onLineChange");
+        this.event.emit(NODE_CHANGE_EVENT);
+        this.event.emit(LINE_CHANGE_EVENT);
     }
     getPosition(left: number, top: number) {
         return this.scene?.getPosition(left, top);
@@ -131,81 +142,82 @@ class EditStore {
     }
     setNode(node: node) {
         this.scene?.setNode(node);
-        this.event.emit("onNodeChange");
+        this.event.emit(NODE_CHANGE_EVENT);
     }
     editNode(node: node) {
-        this.event.emit("onEditNode", node);
+        this.event.emit(EDIT_NODE_EVENT, node);
     }
     editNodeById(id: string) {
         const node = this.scene?.editNodeById(id);
-        this.event.emit("onEditNode", node);
+        this.event.emit(EDIT_NODE_EVENT, node);
     }
     quitEditNode() {
+        this.event.emit(QUIT_EDIT_NODE_EVENT);
         this.render();
     }
 
     onQuitEitNode(func: Function) {
-        this.event.on("onQuitEitNode", func);
+        this.event.on(QUIT_EDIT_NODE_EVENT, func);
     }
     removeQuitEitNode(func: Function) {
-        this.event.off("onQuitEitNode", func);
+        this.event.off(QUIT_EDIT_NODE_EVENT, func);
     }
     onEditNode(func: Function) {
-        this.event.on("onEditNode", func);
+        this.event.on(EDIT_NODE_EVENT, func);
     }
     removeEditNode(func: Function) {
-        this.event.off("onEditNode", func);
+        this.event.off(EDIT_NODE_EVENT, func);
     }
     onNodeChange(func: Function) {
-        this.event.on("onNodeChange", func);
+        this.event.on(NODE_CHANGE_EVENT, func);
     }
     removeNodeChange(func?: Function) {
-        this.event.off("onNodeChange", func);
+        this.event.off(NODE_CHANGE_EVENT, func);
     }
     onLineChange(func: Function) {
-        this.event.on("onLineChange", func);
+        this.event.on(LINE_CHANGE_EVENT, func);
     }
     removeLineChange(func?: Function) {
-        this.event.off("onLineChange", func);
+        this.event.off(LINE_CHANGE_EVENT, func);
     }
     onAddNode(func: Function) {
-        this.event.on("onAddNode", func);
+        this.event.on(ADD_NODE_EVENT, func);
     }
     removeAddNode(func?: Function) {
-        this.event.off("onAddNode", func);
+        this.event.off(ADD_NODE_EVENT, func);
     }
     onNodeMoveEnd(func: Function) {
-        this.event.on("onNodeMoveEnd", func);
+        this.event.on(NODE_MOVE_END_EVENT, func);
     }
     removeNodeMoveEnd(func?: Function) {
-        this.event.off("onNodeMoveEnd", func);
+        this.event.off(NODE_MOVE_END_EVENT, func);
     }
     emitNodeMoveEnd() {
-        this.event.emit("onNodeMoveEnd");
+        this.event.emit(NODE_MOVE_END_EVENT);
     }
     onDeleteNode(func: Function) {
-        this.event.on("onDeleteNode", func);
+        this.event.on(DELETE_NODE_EVENT, func);
     }
     removeDeleteNode(func?: Function) {
-        this.event.off("onDeleteNode", func);
+        this.event.off(DELETE_NODE_EVENT, func);
     }
     onAddLine(func: Function) {
-        this.event.on("onAddLine", func);
+        this.event.on(ADD_LINE_EVENT, func);
     }
     removeAddLine(func?: Function) {
-        this.event.off("onAddLine", func);
+        this.event.off(ADD_LINE_EVENT, func);
     }
     onRemoveLine(func: Function) {
-        this.event.on("onRemoveLine", func);
+        this.event.on(REMOVE_LINE_EVENT, func);
     }
     removeRemoveLine(func?: Function) {
-        this.event.off("onRemoveLine", func);
+        this.event.off(REMOVE_LINE_EVENT, func);
     }
 
     addNode(node: node): void {
         this.scene?.addNode(node);
         this.render();
-        this.event.emit("onAddNode");
+        this.event.emit(ADD_NODE_EVENT);
     }
     copyNode(id: string): void {
         this.scene?.copyNode(id);
@@ -219,7 +231,7 @@ class EditStore {
     addLine(plug: any, socket: any) {
         this.scene?.addLine(plug, socket);
         this.render();
-        this.event.emit("onAddLine");
+        this.event.emit(ADD_LINE_EVENT);
     }
     /**
      * 移除线
@@ -228,14 +240,14 @@ class EditStore {
     removeLine() {
         if (this.scene?.removeLine()) {
             this.render();
-            this.event.emit("onRemoveLine");
+            this.event.emit(REMOVE_LINE_EVENT);
         }
     }
 
     deleteNode(id: string) {
         this.scene?.deleteNode(id);
         this.render();
-        this.event.emit("onDeleteNode");
+        this.event.emit(DELETE_NODE_EVENT);
     }
     getNodeById(id: string) {
         return this.scene?.getNodeById(id);
