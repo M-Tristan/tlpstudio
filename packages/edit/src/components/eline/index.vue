@@ -94,6 +94,8 @@
         :style="{
             left: deleteposition.left + position.left + 'px',
             top: deleteposition.top + position.top + 'px',
+            fill: lineColor,
+            borderColor:lineColor
         }"
         @mouseenter.stop="mouseenter"
         @mouseleave="mouseout"
@@ -261,12 +263,11 @@ export default defineComponent({
     height: 20px;
     transform: translateX(-50%) translateY(-50%);
     padding: 5px;
-    border: 1px solid red;
+    border: 1px solid ;
     border-radius: 5px;
     .deleteicon {
         width: 20px;
         height: 20px;
-        fill: red;
     }
 }
 </style>

@@ -84,3 +84,10 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+
+*::-webkit-scrollbar { 
+    height: 0;
+    width: 0 !important;
+    background-color: rgb(119, 119, 119);
+}
+

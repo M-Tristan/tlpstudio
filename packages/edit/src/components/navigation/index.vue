@@ -181,16 +181,20 @@ export default defineComponent({
     .navigator {
         width: 200px;
         height: 200px;
-        background-color: rgba(255, 255, 255, 0.703);
+        background-color: rgba(103, 107 ,112, 0.9);
         position: relative;
         overflow: hidden;
-        filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 2px white);
+        filter: drop-shadow(0px 0px 1px black) drop-shadow(0px 0px 2px rgb(159, 160, 162));
         .close-icon {
             position: absolute;
             right: 20px;
             top: 10px;
             cursor: pointer;
             z-index: 2;
+            color:#82868c;
+            &:hover{
+                color: white;
+            }
         }
 
         .display-area {
@@ -208,9 +212,13 @@ export default defineComponent({
             display: flex;
             justify-content: space-between;
             width: 100px;
+            color:#82868c;
             .icon {
                 font-size: 24px;
                 cursor: pointer;
+                &:hover{
+                color: white;
+            }
             }
         }
     }

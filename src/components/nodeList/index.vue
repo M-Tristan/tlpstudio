@@ -60,7 +60,32 @@ export default defineComponent({
             {
                 value: "",
                 label: "core nodes",
-                children: [],
+                children: [
+                    {
+                        value: "start",
+                        label: "start",
+                    },
+                    {
+                        value: "end",
+                        label: "end",
+                    },
+                    {
+                        value: "twoSocketTest",
+                        label: "twoSocketTest",
+                    },
+                    {
+                        value: "twoPlugTest",
+                        label: "twoPlugTest",
+                    },
+                    {
+                        value: "code",
+                        label: "code",
+                    },
+                    {
+                        value: "ifnode",
+                        label: "ifnode",
+                    },
+                ],
             },
         ];
 
@@ -71,11 +96,15 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .nodelist {
-    float: left;
+    position: absolute;
+    left: 0;
     width: 250px;
     height: 100%;
-    background-color: #545c64;
+    background-color:#4a4d52;
     overflow-y: scroll;
+   box-shadow:0px 0px 16px #333537;
+   z-index: 1;
+
 }
 .el-tree {
     background: rgba(0, 0, 0, 0);

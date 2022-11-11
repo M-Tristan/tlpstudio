@@ -28,12 +28,12 @@
 
 <script lang="ts">
 import Scene from "edit/src/common/scene";
-import { defineComponent, inject, ref } from "vue";
+import { defineComponent, inject, PropType, ref } from "vue";
 import editProcess from "../editProcess/index.vue";
 export default defineComponent({
     props: {
         scenes: {
-            type: Array,
+            type: Array as PropType<Array<Scene>>,
             default: () => [],
         },
     },

@@ -21,15 +21,15 @@
                     @getCtx="getCtx"
                     width="100%"
                     height="100%"
-                    backgroundColor="#a9a9a9"
+                    backgroundColor="rgb(59 62 66)"
                 ></edit>
             </div>
         </div>
         <div class="emptyContent" v-show="scenes.length == 0">
             <div class="tips">TLP Studio</div>
             <div class="button-list">
-                <div class="button" @click="showScene">新建流程</div>
-                <div class="button">导入</div>
+                <div class="button" @click="showScene">New Project</div>
+                <div class="button">Import</div>
             </div>
         </div>
         <edit-process

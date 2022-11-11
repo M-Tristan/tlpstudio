@@ -38,11 +38,11 @@
                     <div>
                         <input
                             v-model="searchContent"
-                            placeholder="搜索流程"
+                            placeholder="search project"
                             class="search-input"
                         />
                     </div>
-                    <div class="tips">打开的流程</div>
+                    <div class="tips">projects</div>
                     <div v-for="(item, index) in scenes" :key="index">
                         <el-row v-if="item.name.includes(searchContent)">
                             <el-col :span="22">
@@ -68,12 +68,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import Scene from "edit/src/common/scene";
+import { defineComponent, PropType, ref } from "vue";
 
 export default defineComponent({
     props: {
         scenes: {
-            type: Array,
+            type: Array as PropType<Array<Scene>>,
             default: () => [],
         },
         selectID: {
@@ -111,11 +112,11 @@ export default defineComponent({
 .modelist {
     height: 50px;
     padding-top: 5px;
-    background-color: rgb(65, 65, 65);
+    background-color: #333333;
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
-
+    z-index: 99;
     .modetag {
         display: flex;
         float: left;
@@ -132,42 +133,45 @@ export default defineComponent({
             text-overflow: ellipsis; //溢出用省略号显示
             white-space: nowrap; // 默认不换行；
             cursor: pointer;
-            color: white;
+            color: rgba(255, 255, 255, 0.5);
             width: 200px;
             height: 100%;
             line-height: 50px;
             margin-right: 10px;
             cursor: pointer;
             float: left;
-            background-color: rgb(93, 93, 93);
+            background-color: #42454a;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
             position: relative;
             padding-right: 20px;
             box-sizing: border-box;
-
+            
             .close {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
                 position: absolute;
-                right: 2px;
+                right: 6px;
                 top: 50%;
                 transform: translateY(-50%);
-                width: 20px;
-                height: 20px;
+                width: 25px;
+                height: 25px;
                 border-radius: 50%;
-
+                font-size: 14px;
+                color:#999da5;
                 &:hover {
-                    background-color: rgb(212, 212, 212);
+                    background-color: rgb(71, 77, 80);
+                    color:white
                 }
             }
         }
 
         .active {
-            background-color: rgb(145, 145, 145);
-            font-weight: 900;
+            background-color: #585b61;
+            font-weight:500;
+            color:white
         }
     }
 
@@ -191,10 +195,10 @@ export default defineComponent({
             cursor: pointer;
             display: flex;
             align-items: center;
-            border-radius: 50%;
+            border-radius: 2px;
 
             &:hover {
-                background-color: rgb(101, 101, 101);
+                background-color: #4a4d52
             }
         }
 

@@ -1,13 +1,13 @@
 <template>
     <el-dialog
         v-model="dialogVisible"
-        :title="edit ? '编辑流程' : '创建流程'"
+        :title="edit ? 'edit project' : 'create project'"
         width="50%"
         @open="open"
     >
         <div>
             <el-row>
-                <el-col :span="3">流程名称：</el-col>
+                <el-col :span="3">name：</el-col>
                 <el-col :span="16">
                     <el-input v-model="baseInfo.name"></el-input>
                 </el-col>
@@ -18,7 +18,7 @@
             </el-row>
             <el-row>
                 <el-col :span="3"
-                    >流程描述：
+                    >description:
                     <div class="grid-content ep-bg-purple" />
                 </el-col>
                 <el-col :span="16">
@@ -37,7 +37,7 @@
         </div>
         <template #footer>
             <span class="dialog-footer">
-                <el-button type="primary" @click="editScene"> 完成 </el-button>
+                <el-button type="primary" @click="editScene"> ok </el-button>
             </span>
         </template>
     </el-dialog>

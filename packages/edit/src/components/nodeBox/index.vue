@@ -8,31 +8,32 @@
             height: size.height + 'px',
             left: position.left + 'px',
             top: position.top + 'px',
-            ...node.style,
         }"
         @mousedown="mousedown"
     >
-        <node-set :nodeId="node?.id" v-show="showNodeSet"></node-set>
+        <div class="node-container" :style="node.style">
+            <node-set :nodeId="node?.id" v-show="showNodeSet"></node-set>
 
-        <div
-            class="endpointer"
-            v-for="(item, index) in plugNum"
-            :key="index"
-            :style="{
-                top: (100 / (plugNum + 1)) * (index + 1) + '%',
-            }"
-            @mousedown.stop="addLine(index + 1)"
-        ></div>
-        <!-- {{node}} -->
-        <div
-            class="socket"
-            v-for="(item, index) in socketNum"
-            :key="index"
-            :style="{
-                top: (100 / (socketNum + 1)) * (index + 1) + '%',
-            }"
-        ></div>
-        <slot></slot>
+            <div
+                class="endpointer"
+                v-for="(item, index) in plugNum"
+                :key="index"
+                :style="{
+                    top: (100 / (plugNum + 1)) * (index + 1) + '%',
+                }"
+                @mousedown.stop="addLine(index + 1)"
+            ></div>
+            <!-- {{node}} -->
+            <div
+                class="socket"
+                v-for="(item, index) in socketNum"
+                :key="index"
+                :style="{
+                    top: (100 / (socketNum + 1)) * (index + 1) + '%',
+                }"
+            ></div>
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -226,12 +227,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .nodebox {
     position: absolute;
-    background-color: white;
-    border-radius: 20px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     user-select: none;
     z-index: 2;
     .endpointer {
@@ -245,8 +241,17 @@ export default defineComponent({
         overflow: hidden;
         transform: translateX(50%) translateY(-50%);
         &:hover {
-            background-color: red;
+            background-color: #409eff
         }
+    }
+    .node-container {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .socket {
         position: absolute;

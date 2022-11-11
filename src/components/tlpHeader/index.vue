@@ -20,25 +20,25 @@
                     cursor: historyInfo.canRedo ? 'pointer' : 'default',
                 }"
             ></i>
-            <div class="model">模版</div>
-            <el-button type="primary" v-if="showDeploy">部署 </el-button>
-            <i class="icon iconfont icon-jia menu" @click="addScene"></i>
+            <div class="model">Template</div>
+            <el-button type="primary" v-if="showDeploy">Publish </el-button>
+            <i class="icon iconfont icon-jia menu iconadd" @click="addScene"></i>
             <el-popover placement="bottom" :width="200" trigger="click">
                 <template #reference>
                     <i class="icon iconfont icon-caidan menu"></i>
                 </template>
                 <div>
-                    <div class="menu-item">导入</div>
-                    <div class="menu-item">导出</div>
+                    <div class="menu-item">Import</div>
+                    <div class="menu-item">Export</div>
                     <div class="menu-item" @click="showProcessManagement">
-                        流程管理
+                        Manage projects
                     </div>
-                    <div class="menu-item">全局变量管理</div>
-                    <div class="menu-item">设置</div>
+                    <div class="menu-item">Manage Global Variables</div>
+                    <div class="menu-item">Settings</div>
                 </div>
             </el-popover>
         </div>
-        <el-dialog v-model="dialogVisible" title="流程管理" width="50%">
+        <el-dialog v-model="dialogVisible" title="Manage projects" width="50%">
             <process-management :scenes="scenes"></process-management>
         </el-dialog>
     </div>
@@ -139,10 +139,24 @@ export default defineComponent({
 
         .menu {
             color: white;
-            font-size: 30px;
+            font-size: 24px;
             margin-left: 20px;
             margin-right: 20px;
+            // width: 20px;
+            // height: 20px;
+
             cursor: pointer;
+            &:hover{
+                background-color: #4a4d52;
+                border-radius: 2px;
+            }
+        }
+        .iconadd{
+            width: 34px;
+            height: 34px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .model {

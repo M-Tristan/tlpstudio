@@ -1,7 +1,7 @@
 export default {
     line: {
-        originColor: "black",
-        tipColor: "red",
+        originColor: "#a8a8a8",
+        tipColor: "#409eff",
         activeColor: "#58bd27",
     },
     grid: {

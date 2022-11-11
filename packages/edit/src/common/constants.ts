@@ -11,10 +11,9 @@ export const DELETE_NODE_EVENT = "onDeleteNode";
 export const ADD_LINE_EVENT = "onAddLine";
 export const REMOVE_LINE_EVENT = "onRemoveLine";
 
-
 /**
  * view container
  */
- export const SCALE_CHANGE_EVENT = "onScaleChange";
- export const RENDER_EVENT = "onRender";
- export const SCROLL_EVENT = "onScroll";
+export const SCALE_CHANGE_EVENT = "onScaleChange";
+export const RENDER_EVENT = "onRender";
+export const SCROLL_EVENT = "onScroll";

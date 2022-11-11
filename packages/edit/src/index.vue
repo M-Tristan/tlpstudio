@@ -103,7 +103,7 @@ export default defineComponent({
             backgroundSize: config.grid.size,
             backgroundPosition: { left: 0, top: 0 },
             backgroundImage:
-                "radial-gradient(circle at 0.5px 0.5px, rgb(218, 224, 228) 1px, transparent 0px)",
+                "radial-gradient(circle at 0.5px 0.5px, rgb(101 105 110) 1px, transparent 0px)",
         });
         const lines = ref([] as any);
         const newLine = ref({} as any);

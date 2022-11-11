@@ -9,10 +9,13 @@
     ],
     "scripts": {
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build",
+        "build": "vite build",
+        "tsc": "vue-tsc --noEmit",
         "preview": "vite preview",
         "prettier": "npx prettier --write .",
-        "prettier-check": "npx prettier --check ."
+        "prettier-check": "npx prettier --check .",
+        "lint": "eslint --ext .ts packages/*/**.ts",
+        "lint:fix": "eslint --ext .ts packages/*/**.ts --fix"
     },
     "dependencies": {
         "@ctrl/tinycolor": "^3.4.1",
